@@ -4,11 +4,13 @@ import Tienda from "./public/assets/scenes/Tienda.js";
 import Final from "./public/assets/scenes/Final.js";
 import Preload from "./public/assets/scenes/Preload.js";
 
+
 // Create a new Phaser config object
 const config = {
   type: Phaser.AUTO,
   width: 800,
   height: 600,
+  
   scale: {
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH,
@@ -28,11 +30,14 @@ const config = {
       debug: true,
     },
   },
+  
   // List of scenes to load
   // Only the first scene will be shown
   // Remember to import the scene before adding it to the list
-  scene: [Nivel_1, Menu, Tienda, Final, Preload],
+  scene: [Menu, Nivel_1, Tienda, Final, Preload],
 };
+
+
 
 // Create a new Phaser game instance
 window.game = new Phaser.Game(config);

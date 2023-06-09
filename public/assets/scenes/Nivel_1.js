@@ -12,6 +12,8 @@ export default class Nivel_1 extends Phaser.Scene {
     
     create() {
     
+
+
     }
     
     update() {
