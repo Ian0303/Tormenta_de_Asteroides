@@ -13,7 +13,7 @@ init() {
 }
 
 create() {
-this.fondo = this.add.image(400, 300, "background");
+this.add.image(400, 300, "background");
 
 console.log("si")
 

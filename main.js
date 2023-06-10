@@ -34,7 +34,7 @@ const config = {
   // List of scenes to load
   // Only the first scene will be shown
   // Remember to import the scene before adding it to the list
-  scene: [Menu, Nivel_1, Tienda, Final, Preload],
+  scene: [Preload, Menu, Nivel_1, Tienda, Final],
 };
 
 

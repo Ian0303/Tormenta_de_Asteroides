@@ -18,14 +18,18 @@ export default class Preload extends Phaser.Scene {
         this.load.image("title", "./public/assets/images/Title.png");
         this.load.image("background2", "./public/assets/images/Background2.png");
         this.load.image("boton_inicio", "./public/assets/images/boton_inicio.png");
+        this.load.image("space","./public/assets/images/space.jpg")
 
     }
     
     //setInteractive()
 
-    create() {
-    
-    }
+    create(){
+      this.add.image(400, 300, "space")
+      this.add.image(400, 300, "background")
+      this.add.image(400, 300, "background2")
+      //this.scene.start("Menu");
+  }
     
     update() {
     
