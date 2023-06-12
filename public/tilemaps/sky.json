@@ -1,0 +1,15 @@
+{ "columns":25,
+ "image":"..\/assets\/images\/sky.png",
+ "imageheight":602,
+ "imagewidth":802,
+ "margin":0,
+ "name":"sky",
+ "spacing":0,
+ "tilecount":450,
+ "tiledversion":"1.7.2",
+ "tileheight":32,
+ "tilewidth":32,
+ "transparentcolor":"#ff00ff",
+ "type":"tileset",
+ "version":"1.6"
+}

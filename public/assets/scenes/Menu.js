@@ -1,28 +1,31 @@
 export default class Menu extends Phaser.Scene {
     constructor() {
-      // key of the scene
-      // the key will be used to start the scene by other scenes
       super("Menu");
     }
 
 
 
-
-init() {
-
-}
-
-create() {
-this.add.image(400, 300, "background");
-
-console.log("si")
-
-}
-
-update() {
-
+create(){
+    this.add.image(400, 300, "background");
+    this.add.image(400, 300, "background2");
+    this.add.image(400, 300, "title");
+    this.add.image(400, 300, "botonI").setInteractive()
+    .on('pointerdown', () => this.scene.start('Level1')); ;
 }
 
 
-}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
