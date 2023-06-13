@@ -21,22 +21,22 @@ export default class Level1 extends Phaser.Scene {
   
   create() {
     //  Our player animations, turning, walking left and walking right.
-    /* this.anims.create({
+   /*  this.anims.create({
       key: "left",
-      frames: this.anims.generateFrameNumbers("dude", { start: 0, end: 3 }),
+      frames: this.anims.generateFrameNumbers("scope", { start: 0, end: 3 }),
       frameRate: 10,
       repeat: -1,
     });
 
     this.anims.create({
       key: "turn",
-      frames: [{ key: "dude", frame: 4 }],
+      frames: [{ key: "scope", frame: 4 }],
       frameRate: 20,
     });
 
     this.anims.create({
       key: "right",
-      frames: this.anims.generateFrameNumbers("dude", { start: 5, end: 8 }),
+      frames: this.anims.generateFrameNumbers("scope", { start: 5, end: 8 }),
       frameRate: 10,
       repeat: -1,
     }); */
@@ -44,8 +44,10 @@ export default class Level1 extends Phaser.Scene {
 
     this.add.image(400, 300, "background");
     this.add.image(400, 300, "interfaz").setScale(1);
+    this.add.image(400, 452, "canon").setScale(0.5);
 
-
+    this.player = this.physics.add.sprite(400, 300, "scope").setScale(0.5);
+    this.player.setCollideWorldBounds(true);
 
 
     //const map = this.make.tilemap({ key: "map" });
@@ -79,9 +81,11 @@ export default class Level1 extends Phaser.Scene {
     this.jugador.setBounce(0.1);
     this.jugador.setCollideWorldBounds(true);
 
-    //  Input Events
+    // Input Events*/
+
     this.cursors = this.input.keyboard.createCursorKeys();
 
+    /*
     // Create empty group of starts
     this.estrellas = this.physics.add.group();
     spawnPoint = map.findObject("objetos", (obj) => obj.name === "salida");
@@ -90,7 +94,7 @@ export default class Level1 extends Phaser.Scene {
       .sprite(spawnPoint.x, spawnPoint.y, "exit")
       .setScale(0.05);
     this.salida.visible = false;
-
+    
 
 
     // find object layer
@@ -148,7 +152,7 @@ export default class Level1 extends Phaser.Scene {
       callback: this.onSecond,
       callbackScope: this,
       loop: true,
-    });
+    });*/
   }
 
   update() {
@@ -156,29 +160,41 @@ export default class Level1 extends Phaser.Scene {
     // check input
     //move left
     if (this.cursors.left.isDown) {
-      this.jugador.setVelocityX(-160);
-      this.jugador.anims.play("left", true);
+      this.player.setVelocityX(-160);
+      this.player.anims.play("left", true);
     }
     //move right
     else if (this.cursors.right.isDown) {
-      this.jugador.setVelocityX(160);
-      this.jugador.anims.play("right", true);
+      this.player.setVelocityX(160);
+      this.player.anims.play("right", true);
     }
     //stop
     else {
-      this.jugador.setVelocityX(0);
-      this.jugador.anims.play("turn");
+      this.player.setVelocityX(0);
+      this.player.anims.play("turn");
     }
 
     //jump
-    if (this.cursors.up.isDown && this.jugador.body.blocked.down) {
-      this.jugador.setVelocityY(-330);
+    if (this.cursors.up.isDown && this.player.body.blocked.down) {
+      this.player.setVelocityY(-330);
     }
 
     if (this.gameOver) {
       this.scene.start("GameOver");
     }
   }
+
+
+  /* spawnAsteroid(randomNumber) {
+    let asteroid = this.add.image(randomNumber, 50, "");
+    this.physics.add.existing(asteroid);
+    asteroid.body.setCircle(25, 7, 7);
+    this.shapesGroup.add(asteroid);
+
+    
+  } */
+
+  /*
   recolectarEstrella(jugador,estrella) {
     estrella.disableBody(true, true);
     //this.score = this.score + 10;
@@ -203,6 +219,6 @@ export default class Level1 extends Phaser.Scene {
     this.timerText.setText(this.timer);
     if (this.timer <= 0) {
       this.gameOver = true;
-    }*/
-  } 
+    }
+  } */
 }
