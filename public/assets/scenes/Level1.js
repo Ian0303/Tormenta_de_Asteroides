@@ -71,10 +71,7 @@ export default class Level1 extends Phaser.Scene {
 
     
 
-    /* // crear el jugador
-    let spawnPoint = map.findObject("objetos", (obj) => obj.name === "jugador");
-    console.log(spawnPoint);
-    // The player and its settings
+    /* 
     this.jugador = this.physics.add.sprite(spawnPoint.x, spawnPoint.y, "dude");
 
     //  Player physics properties. Give the little guy a slight bounce.
@@ -158,26 +155,28 @@ export default class Level1 extends Phaser.Scene {
   update() {
     // update game objects
     // check input
-    //move left
+    //moverse izquierda
     if (this.cursors.left.isDown) {
       this.player.setVelocityX(-160);
-      this.player.anims.play("left", true);
+      
     }
-    //move right
+    //moveese derecha
     else if (this.cursors.right.isDown) {
       this.player.setVelocityX(160);
-      this.player.anims.play("right", true);
+      
     }
-    //stop
-    else {
-      this.player.setVelocityX(0);
-      this.player.anims.play("turn");
+    //moverse abajo
+    else if (this.cursors.down.isDown){
+      this.player.setVelocityY(160);
+      
+    }
+    //moverse arriba
+    else if (this.cursors.up.isDown) {
+      this.player.setVelocityY(-160);
+
     }
 
-    //jump
-    if (this.cursors.up.isDown && this.player.body.blocked.down) {
-      this.player.setVelocityY(-330);
-    }
+    
 
     if (this.gameOver) {
       this.scene.start("GameOver");
@@ -185,14 +184,15 @@ export default class Level1 extends Phaser.Scene {
   }
 
 
-  /* spawnAsteroid(randomNumber) {
+   spawnAsteroid(randomNumber) {
     let asteroid = this.add.image(randomNumber, 50, "");
     this.physics.add.existing(asteroid);
     asteroid.body.setCircle(25, 7, 7);
-    this.shapesGroup.add(asteroid);
+    this.add(asteroid);
+    asteroid.setTexture("asteroid")
 
     
-  } */
+  } 
 
   /*
   recolectarEstrella(jugador,estrella) {
