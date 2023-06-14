@@ -223,8 +223,8 @@ export default class Level1 extends Phaser.Scene {
     //add shape to screen
     this.asteroidGroup
       .create(randomX, 0, "asteroid")
-      .setScale(0.15)
-      .setCircle(200, 3, 80)
+      .setScale(0.8)
+      .setCircle(45, 0, 0)
       .setDepth(1);
   }
 
