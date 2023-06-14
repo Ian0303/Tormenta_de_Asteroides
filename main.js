@@ -6,8 +6,6 @@ import Win from "./public/assets/scenes/Win.js";
 import Menu from "./public/assets/scenes/Menu.js";
 import Preload from "./public/assets/scenes/Preload.js";
 
-
-
 // Create a new Phaser config object
 const config = {
   type: Phaser.AUTO,

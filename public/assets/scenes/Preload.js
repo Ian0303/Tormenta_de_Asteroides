@@ -15,6 +15,7 @@ preload(){
  this.load.image("canon", "./public/assets/images/canon.png");
  this.load.image("scope", "./public/assets/images/scope.png");
  this.load.image("asteroid", "./public/assets/images/asteroid.png");
+ this.load.image("platform", "./public/assets/images/platform.png");
 
 
 

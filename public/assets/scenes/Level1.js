@@ -1,6 +1,5 @@
 // URL to explain PHASER scene: https://rexrainbow.github.io/phaser3-rex-notes/docs/site/scene/
 
-
 export default class Level1 extends Phaser.Scene {
   score;
   constructor() {
@@ -18,10 +17,9 @@ export default class Level1 extends Phaser.Scene {
     // data object param {}
   }
 
-  
   create() {
     //  Our player animations, turning, walking left and walking right.
-   /*  this.anims.create({
+    /*  this.anims.create({
       key: "left",
       frames: this.anims.generateFrameNumbers("scope", { start: 0, end: 3 }),
       frameRate: 10,
@@ -41,14 +39,50 @@ export default class Level1 extends Phaser.Scene {
       repeat: -1,
     }); */
 
-
     this.add.image(400, 300, "background");
-    this.add.image(400, 300, "interfaz").setScale(1);
     this.add.image(400, 452, "canon").setScale(0.5);
+    this.add.image(400, 300, "interfaz").setScale(1);
 
-    this.player = this.physics.add.sprite(400, 300, "scope").setScale(0.5);
-    this.player.setCollideWorldBounds(true);
+    let platforms = this.physics.add.staticGroup();
+    platforms
+      .create(400, 550, "platform")
+      .setScale(2.5)
+      .refreshBody()
+      .setVisible(false);
 
+    this.player = this.physics.add
+      .sprite(400, 300, "scope")
+      .setScale(0.5)
+      .setCircle(60, 12, 28)
+      .setDepth(2);
+
+    this.playerGroup = this.physics.add.group({
+      immovable: true,
+      allowGravity: false,
+    });
+    this.playerGroup.add(this.player);
+    this.asteroidGroup = this.physics.add.group();
+
+    this.time.addEvent({
+      delay: 1000,
+      callback: this.addShape,
+      callbackScope: this,
+      loop: true,
+    });
+
+    this.cursors = this.input.keyboard.createCursorKeys();
+
+    this.physics.add.collider(this.player, platforms);
+    this.physics.add.overlap(this.player, this.asteroidGroup);
+    this.physics.add.collider(platforms, this.asteroidGroup);
+
+    this.physics.add.overlap(
+      this.player,
+      this.asteroidGroup,
+      this.destruirAsteroides,
+      null,
+      this
+    );
 
     //const map = this.make.tilemap({ key: "map" });
 
@@ -69,8 +103,6 @@ export default class Level1 extends Phaser.Scene {
 
     //plataformaLayer.setCollisionByProperty({ colision: true });
 
-    
-
     /* 
     this.jugador = this.physics.add.sprite(spawnPoint.x, spawnPoint.y, "dude");
 
@@ -79,8 +111,6 @@ export default class Level1 extends Phaser.Scene {
     this.jugador.setCollideWorldBounds(true);
 
     // Input Events*/
-
-    this.cursors = this.input.keyboard.createCursorKeys();
 
     /*
     // Create empty group of starts
@@ -158,41 +188,45 @@ export default class Level1 extends Phaser.Scene {
     //moverse izquierda
     if (this.cursors.left.isDown) {
       this.player.setVelocityX(-160);
-      
     }
     //moveese derecha
     else if (this.cursors.right.isDown) {
       this.player.setVelocityX(160);
-      
     }
     //moverse abajo
-    else if (this.cursors.down.isDown){
+    else if (this.cursors.down.isDown) {
       this.player.setVelocityY(160);
-      
     }
     //moverse arriba
     else if (this.cursors.up.isDown) {
       this.player.setVelocityY(-160);
-
+    } else {
+      this.player.setVelocity(0);
     }
-
-    
 
     if (this.gameOver) {
       this.scene.start("GameOver");
     }
   }
 
-
-   spawnAsteroid(randomNumber) {
-    let asteroid = this.add.image(randomNumber, 50, "");
+  /* spawnAsteroid(randomNumber) {
+    let asteroid = this.add.image(randomNumber, 50, "asteroid");
     this.physics.add.existing(asteroid);
     asteroid.body.setCircle(25, 7, 7);
     this.add(asteroid);
-    asteroid.setTexture("asteroid")
+     */
 
-    
-  } 
+  addShape() {
+    //get random position x
+    const randomX = Phaser.Math.RND.between(0, 800);
+
+    //add shape to screen
+    this.asteroidGroup
+      .create(randomX, 0, "asteroid")
+      .setScale(0.15)
+      .setCircle(200, 3, 80)
+      .setDepth(1);
+  }
 
   /*
   recolectarEstrella(jugador,estrella) {
@@ -221,4 +255,10 @@ export default class Level1 extends Phaser.Scene {
       this.gameOver = true;
     }
   } */
+
+  destruirAsteroides(platform, asteroid) {
+    if (this.cursors.space.isDown) {
+      asteroid.destroy();
+    }
+  }
 }
