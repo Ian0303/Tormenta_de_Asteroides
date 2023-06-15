@@ -8,7 +8,7 @@ preload(){
 
  this.load.image("background", "./public/assets/images/Background.png");
  this.load.image("background2", "./public/assets/images/Background2.png");
- this.load.image("interfaz", "./public/assets/images/interfaz.pNg");
+ this.load.image("interfaz", "./public/assets/images/interfaz.png");
  this.load.image("botonI", "./public/assets/images/boton_inicio.png");
  this.load.image("title", "./public/assets/images/Title.png");
  this.load.image("loading", "./public/assets/images/loading.png");
@@ -16,6 +16,8 @@ preload(){
  this.load.image("scope", "./public/assets/images/scope.png");
  this.load.image("asteroid", "./public/assets/images/asteroid.png");
  this.load.image("platform", "./public/assets/images/platform.png");
+ this.load.image("explosion", "./public/assets/images/explosion.png");
+ this.load.image("decoracion", "./public/assets/images/decoraciones_menu.png");
 
 
 

@@ -84,6 +84,12 @@ export default class Level1 extends Phaser.Scene {
       this
     );
 
+    this.scoreText = this.add.text(20, 20, "Score:" + this.score, {
+      fontSize: "32px",
+      fontStyle: "bold",
+      fill: green,
+    });  
+
     //const map = this.make.tilemap({ key: "map" });
 
     // Parameters are the name you gave the tileset in Tiled and then the key of the tileset image in
@@ -260,5 +266,13 @@ export default class Level1 extends Phaser.Scene {
     if (this.cursors.space.isDown) {
       asteroid.destroy();
     }
+  }
+
+  setGameOver(platform, asteroid) {
+    if (asteroid.texture.key == "asteroid") {
+        asteroid.destroy();
+    }else{
+        this.gameOver = true;
+    }   
   }
 }
