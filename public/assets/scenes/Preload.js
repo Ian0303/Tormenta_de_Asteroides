@@ -18,6 +18,17 @@ preload(){
  this.load.image("platform", "./public/assets/images/platform.png");
  this.load.image("explosion", "./public/assets/images/explosion.png");
  this.load.image("decoracion", "./public/assets/images/decoraciones_menu.png");
+ this.load.image("sound", "./public/assets/images/sound.png");
+ this.load.image("soundOff", "./public/assets/images/soundOff.png");
+ this.load.image("botonInt", "./public/assets/images/boton_interfaz.png");
+ this.load.image("crack", "./public/assets/images/crack.png");
+
+ this.load.spritesheet("spritesheetCanon", "./public/assets/images/spritesheetCanon.png",{
+  frameWidth: 325,
+  frameHeight: 338,
+});
+
+ this.load.audio("musicMenu", "./public/assets/audio and music/menuMusic.mp3");
 
 
 

@@ -11,6 +11,7 @@ export default class Level1 extends Phaser.Scene {
   init() {
     this.score = 0;
     this.gameOver = false;
+    this.vida = 5;
     // this is called before the scene is created
     // init variables
     // take data passed from other scenes
@@ -41,7 +42,7 @@ export default class Level1 extends Phaser.Scene {
 
     this.add.image(400, 300, "background");
     this.add.image(400, 452, "canon").setScale(0.5);
-    this.add.image(400, 300, "interfaz").setScale(1);
+    this.add.image(400, 300, "interfaz").setScale(0.5);
 
     let platforms = this.physics.add.staticGroup();
     platforms
@@ -84,10 +85,20 @@ export default class Level1 extends Phaser.Scene {
       this
     );
 
-    this.scoreText = this.add.text(20, 20, "Score:" + this.score, {
+    /* this.physics.add.overlap(
+      this.platform,
+      this.asteroidGroup,
+      this.impactoAsteroide,
+      null,
+      this
+    );
+ */
+    this.scoreText = this.add.text(15, 15, 99999, {
       fontSize: "32px",
       fontStyle: "bold",
-      fill: green,
+      frontFamily: "Console",
+      
+      fill: "#33CC33",
     });  
 
     //const map = this.make.tilemap({ key: "map" });
@@ -193,19 +204,19 @@ export default class Level1 extends Phaser.Scene {
     // check input
     //moverse izquierda
     if (this.cursors.left.isDown) {
-      this.player.setVelocityX(-160);
+      this.player.setVelocityX(-250);
     }
     //moveese derecha
     else if (this.cursors.right.isDown) {
-      this.player.setVelocityX(160);
+      this.player.setVelocityX(250);
     }
     //moverse abajo
     else if (this.cursors.down.isDown) {
-      this.player.setVelocityY(160);
+      this.player.setVelocityY(250);
     }
     //moverse arriba
     else if (this.cursors.up.isDown) {
-      this.player.setVelocityY(-160);
+      this.player.setVelocityY(-250);
     } else {
       this.player.setVelocity(0);
     }
@@ -265,6 +276,7 @@ export default class Level1 extends Phaser.Scene {
   destruirAsteroides(platform, asteroid) {
     if (this.cursors.space.isDown) {
       asteroid.destroy();
+      this.score = this.score + 35;
     }
   }
 
@@ -274,5 +286,11 @@ export default class Level1 extends Phaser.Scene {
     }else{
         this.gameOver = true;
     }   
+  }
+
+  impactoAsteroide(platform, asteroid) {
+    this.vida--;
+    
+
   }
 }
