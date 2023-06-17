@@ -12,6 +12,7 @@ export default class Level1 extends Phaser.Scene {
     this.score = 0;
     this.gameOver = false;
     this.vida = 5;
+    this.cantMisil = 5;
     // this is called before the scene is created
     // init variables
     // take data passed from other scenes
@@ -43,6 +44,8 @@ export default class Level1 extends Phaser.Scene {
     this.add.image(400, 300, "background");
     this.add.image(400, 452, "canon").setScale(0.5);
     this.add.image(400, 300, "interfaz").setScale(0.5);
+    this.add.image(40, 550, "botonInt").setScale(0.5).setInteractive()
+    .on('pointerdown', () => this.scene.start('Menu')); ;;
 
     let platforms = this.physics.add.staticGroup();
     platforms
@@ -93,13 +96,21 @@ export default class Level1 extends Phaser.Scene {
       this
     );
  */
-    this.scoreText = this.add.text(15, 15, 99999, {
+    this.scoreText = this.add.text(10, 10, this.score, {
       fontSize: "32px",
       fontStyle: "bold",
       frontFamily: "Console",
       
       fill: "#33CC33",
-    });  
+    }); 
+
+    this.scoreText = this.add.text(150, 530, this.cantMisil, {
+      fontSize: "32px",
+      fontStyle: "bold",
+      frontFamily: "Console",
+      
+      fill: "#33CC33",
+    });
 
     //const map = this.make.tilemap({ key: "map" });
 
@@ -290,6 +301,8 @@ export default class Level1 extends Phaser.Scene {
 
   impactoAsteroide(platform, asteroid) {
     this.vida--;
+    this.asteroid.destroy();
+
     
 
   }
