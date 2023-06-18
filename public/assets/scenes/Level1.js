@@ -88,14 +88,14 @@ export default class Level1 extends Phaser.Scene {
       this
     );
 
-    /* this.physics.add.overlap(
-      this.platform,
-      this.asteroidGroup,
-      this.impactoAsteroide,
-      null,
-      this
-    );
- */
+  /*   this.physics.add.overlap(
+    this.platform,
+    this.asteroidGroup,
+    this.impactoAsteroide,
+    null,
+    this
+  ); */
+ 
     this.scoreText = this.add.text(10, 10, this.score, {
       fontSize: "32px",
       fontStyle: "bold",
@@ -232,7 +232,8 @@ export default class Level1 extends Phaser.Scene {
       this.player.setVelocity(0);
     }
 
-    if (this.gameOver) {
+
+    if (this.vida <= 0) {
       this.scene.start("GameOver");
     }
   }
@@ -302,6 +303,8 @@ export default class Level1 extends Phaser.Scene {
   impactoAsteroide(platform, asteroid) {
     this.vida--;
     this.asteroid.destroy();
+    console.log(this.vida)
+  
 
     
 

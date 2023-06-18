@@ -35,9 +35,6 @@ create(){
 }
 
 update(){
-if (!isMusicMuted) {
-  musicM.play()
-}
 
   
 }

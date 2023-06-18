@@ -8,11 +8,13 @@ export default class GameOver extends Phaser.Scene {
 
   }
   create() {
-    this.add.image(400, 300, "background")
-    
-    .setInteractive()
-    .on('pointerdown', () => this.scene.start('hello-world')); ;
+    this.add.image(400, 300, "background");
+    this.add.image(400, 300, "interfaz").setScale(0.5);
+    this.add.image(40, 550, "botonInt").setScale(0.5).setInteractive().on('pointerdown', () => this.scene.start("Menu")); ;
   
+
+
+    
    
 
   }
