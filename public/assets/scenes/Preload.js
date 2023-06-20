@@ -29,6 +29,7 @@ preload(){
 });
 
  this.load.audio("musicMenu", "./public/assets/audio and music/menuMusic.mp3");
+ this.load.audio("musicGame", "./public/assets/audio and music/GAMEMusic.mp3");
 
 
 

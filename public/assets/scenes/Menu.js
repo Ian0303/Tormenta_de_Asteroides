@@ -1,28 +1,31 @@
 export default class Menu extends Phaser.Scene {
-    constructor() {
-      super("Menu");
-    }
+  constructor() {
+    super("Menu");
+  }
 
-init(){
+  init() {
 
-}
+  }
 
-create(){
+  create() {
     this.add.image(400, 300, "background");
     this.add.image(400, 300, "background2");
     this.add.image(400, 300, "title");
     this.add.image(400, 310, "decoracion").setScale(0.5);
     //this.add.image(640, 130, "sound").setScale(0.5);
     this.add.image(400, 300, "botonI").setInteractive()
-    .on('pointerdown', () => this.scene.start('Level1')); ;
-    
-    let musicM = this.sound.add("musicMenu").setLoop(true);
-    let isMusicMuted = false;
+      .on('pointerdown', () => this.scene.start('Level1', {isMusicMuted},{musicM}));;
 
-    let musicOn = this.add.image(640, 130, "sound").setInteractive().setDepth(1).setScale(0.5);
-    
+
+
+
+    let isMusicMuted = false;
+    let musicM = this.sound.add("musicMenu").setLoop(true);
+    let musicOn = this.add.image(700, 40, "sound").setInteractive().setDepth(1);
+    musicM.play();
+
     musicOn.on("pointerdown", () => {
-      if (isMusicMuted){
+      if (isMusicMuted) {
         musicM.play();
         musicOn.setTexture("sound");
         isMusicMuted = false;
@@ -32,12 +35,12 @@ create(){
         isMusicMuted = true;
       }
     });
-}
+  }
 
-update(){
+  update() {
 
-  
-}
+
+  }
 
 
 

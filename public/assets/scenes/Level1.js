@@ -1,18 +1,20 @@
 // URL to explain PHASER scene: https://rexrainbow.github.io/phaser3-rex-notes/docs/site/scene/
 
 export default class Level1 extends Phaser.Scene {
-  score;
+  score; isMusicMuted;
   constructor() {
     // key of the scene
     // the key will be used to start the scene by other scenes
     super("Level1");
   }
 
-  init() {
+  init({isMusicMuted,musicM}) {
     this.score = 0;
     this.gameOver = false;
     this.vida = 5;
     this.cantMisil = 5;
+    this.isMusicMuted = isMusicMuted;
+    this.musicM = musicM;
     // this is called before the scene is created
     // init variables
     // take data passed from other scenes
@@ -47,6 +49,10 @@ export default class Level1 extends Phaser.Scene {
     this.add.image(40, 550, "botonInt").setScale(0.5).setInteractive()
     .on('pointerdown', () => this.scene.start('Menu')); ;;
 
+    
+    let isMusicMuted = this.isMusicMuted;
+    let musicM = this.musicM;
+
     let platforms = this.physics.add.staticGroup();
     platforms
       .create(400, 550, "platform")
@@ -78,7 +84,14 @@ export default class Level1 extends Phaser.Scene {
 
     this.physics.add.collider(this.player, platforms);
     this.physics.add.overlap(this.player, this.asteroidGroup);
-    this.physics.add.collider(platforms, this.asteroidGroup);
+
+    /* this.physics.add.overlap(
+      this.platforms, 
+      this.asteroid,
+      this.impactoAsteroide,
+      null,
+      this
+      ); */
 
     this.physics.add.overlap(
       this.player,
@@ -112,6 +125,11 @@ export default class Level1 extends Phaser.Scene {
       fill: "#33CC33",
     });
 
+      /* if (!isMusicMuted) {
+        this.musicM.stop();
+        this.musicM.start();
+        
+      } */
     //const map = this.make.tilemap({ key: "map" });
 
     // Parameters are the name you gave the tileset in Tiled and then the key of the tileset image in
