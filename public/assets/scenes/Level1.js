@@ -1,7 +1,7 @@
 // URL to explain PHASER scene: https://rexrainbow.github.io/phaser3-rex-notes/docs/site/scene/
 
 export default class Level1 extends Phaser.Scene {
-  score; isMusicMuted;
+  score; isMusicMuted; cantAsteroides;
   constructor() {
     // key of the scene
     // the key will be used to start the scene by other scenes
@@ -15,6 +15,7 @@ export default class Level1 extends Phaser.Scene {
     this.cantMisil = 5;
     this.isMusicMuted = isMusicMuted;
     this.musicM = musicM;
+    this.cantAsteroides = 0;
     // this is called before the scene is created
     // init variables
     // take data passed from other scenes
@@ -54,6 +55,7 @@ export default class Level1 extends Phaser.Scene {
 
     let isMusicMuted = this.isMusicMuted;
     let musicM = this.musicM;
+    let cantAsteroides = 0;
 
     let platforms = this.physics.add.staticGroup();
     platforms
@@ -86,6 +88,7 @@ export default class Level1 extends Phaser.Scene {
 
     this.physics.add.collider(this.player, platforms);
     this.physics.add.overlap(this.player, this.asteroidGroup);
+    this.physics.add.collider(this.platforms, this.asteroidGroup);
 
     /* this.physics.add.overlap(
       this.platforms, 
@@ -108,7 +111,7 @@ export default class Level1 extends Phaser.Scene {
     vida.scaleX = 0.6;
 
     this.physics.add.overlap(
-      this.platform,
+      this.platforms,
       this.asteroidGroup,
       this.impactoAsteroide,
       null,
@@ -314,8 +317,9 @@ export default class Level1 extends Phaser.Scene {
     if (this.cursors.space.isDown) {
       asteroid.destroy()
       this.score = this.score + 35;
-      this.scoreText.setText(this.score
-      );
+      this.scoreText.setText(this.score);
+      this.cantAsteroides++;
+      this.add.image(asteroid.x(),500, "explosion");
     }
   }
 

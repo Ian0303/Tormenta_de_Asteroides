@@ -5,6 +5,8 @@ import Level3 from "./public/assets/scenes/Level3.js";
 import Win from "./public/assets/scenes/Win.js";
 import Menu from "./public/assets/scenes/Menu.js";
 import Preload from "./public/assets/scenes/Preload.js";
+import Shop from "./public/assets/scenes/Shop.js";
+import End from "./public/assets/scenes/End.js";
 
 // Create a new Phaser config object
 const config = {
@@ -33,7 +35,7 @@ const config = {
   // List of scenes to load
   // Only the first scene will be shown
   // Remember to import the scene before adding it to the list
-  scene: [Preload, Menu, Level1, Level2, Level3, GameOver, Win],
+  scene: [Preload, GameOver,  Menu, Level1, Level2, Level3, Win, Shop, End,]
 };
 
 // Create a new Phaser game instance
