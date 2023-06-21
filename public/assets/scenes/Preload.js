@@ -22,6 +22,11 @@ preload(){
  this.load.image("soundOff", "./public/assets/images/soundOff.png");
  this.load.image("botonInt", "./public/assets/images/boton_interfaz.png");
  this.load.image("crack", "./public/assets/images/crack.png");
+ this.load.image("background3", "./public/assets/images/Background3.png");
+ this.load.image("background5", "./public/assets/images/Background5.png");
+ this.load.image("life", "./public/assets/images/life.png");
+
+
 
  this.load.spritesheet("spritesheetCanon", "./public/assets/images/spritesheetCanon.png",{
   frameWidth: 325,

@@ -8,10 +8,10 @@ export default class Level1 extends Phaser.Scene {
     super("Level1");
   }
 
-  init({isMusicMuted,musicM}) {
+  init({ isMusicMuted, musicM, score }) {
     this.score = 0;
     this.gameOver = false;
-    this.vida = 5;
+    this.vida = 1;
     this.cantMisil = 5;
     this.isMusicMuted = isMusicMuted;
     this.musicM = musicM;
@@ -47,9 +47,11 @@ export default class Level1 extends Phaser.Scene {
     this.add.image(400, 452, "canon").setScale(0.5);
     this.add.image(400, 300, "interfaz").setScale(0.5);
     this.add.image(40, 550, "botonInt").setScale(0.5).setInteractive()
-    .on('pointerdown', () => this.scene.start('Menu')); ;;
+      .on('pointerdown', () => this.scene.start('Menu'));;;
+    this.add.image(680, 530, "background5").setScale(0.4);
+    //this.add.image(680, 530, "life").setScale(0.6);
 
-    
+
     let isMusicMuted = this.isMusicMuted;
     let musicM = this.musicM;
 
@@ -101,35 +103,41 @@ export default class Level1 extends Phaser.Scene {
       this
     );
 
-  /*   this.physics.add.overlap(
-    this.platform,
-    this.asteroidGroup,
-    this.impactoAsteroide,
-    null,
-    this
-  ); */
- 
+
+    let vida = this.add.sprite(680, 530, "life").setScale(0.4);
+    vida.scaleX = 0.6;
+
+    this.physics.add.overlap(
+      this.platform,
+      this.asteroidGroup,
+      this.impactoAsteroide,
+      null,
+      this
+    );
+
     this.scoreText = this.add.text(10, 10, this.score, {
       fontSize: "32px",
       fontStyle: "bold",
       frontFamily: "Console",
-      
-      fill: "#33CC33",
-    }); 
 
-    this.scoreText = this.add.text(150, 530, this.cantMisil, {
-      fontSize: "32px",
-      fontStyle: "bold",
-      frontFamily: "Console",
-      
       fill: "#33CC33",
     });
 
-      /* if (!isMusicMuted) {
-        this.musicM.stop();
-        this.musicM.start();
-        
-      } */
+    this.misilText = this.add.text(150, 530, this.cantMisil, {
+      fontSize: "32px",
+      fontStyle: "bold",
+      frontFamily: "Console",
+
+      fill: "#33CC33",
+    });
+
+    /*  if (!isMusicMuted) {
+       this.musicM.stop();
+       this.musicM.start();
+       
+     } */
+
+
     //const map = this.make.tilemap({ key: "map" });
 
     // Parameters are the name you gave the tileset in Tiled and then the key of the tileset image in
@@ -138,7 +146,6 @@ export default class Level1 extends Phaser.Scene {
     //const capaPlataformas = map.addTilesetImage("platform", "tilesPlataforma");
 
     // Parameters: layer name (or index) from Tiled, tileset, x, y
-    //const fondoLayer = map.createLayer("fondo", capaFondo, 0, 0);
     /* const plataformaLayer = map.createLayer(
       "plataformas",
       capaPlataformas,
@@ -303,28 +310,36 @@ export default class Level1 extends Phaser.Scene {
     }
   } */
 
-  destruirAsteroides(platform, asteroid) {
+  destruirAsteroides(player, asteroid) {
     if (this.cursors.space.isDown) {
-      asteroid.destroy();
+      asteroid.destroy()
       this.score = this.score + 35;
+      this.scoreText.setText(this.score
+      );
     }
   }
 
   setGameOver(platform, asteroid) {
     if (asteroid.texture.key == "asteroid") {
-        asteroid.destroy();
-    }else{
-        this.gameOver = true;
-    }   
+      asteroid.destroy();
+    } else {
+      this.gameOver = true;
+    }
   }
 
   impactoAsteroide(platform, asteroid) {
-    this.vida--;
+    actualizarBarraVida(0.2)
     this.asteroid.destroy();
     console.log(this.vida)
-  
-
-    
-
   }
+
+  actualizarBarraVida(porcentaje) {
+    // Asegúrate de que el porcentaje esté dentro del rango válido (entre 0 y 1)
+    porcentaje = Phaser.Math.Clamp(porcentaje, 0, 1);
+
+    // Actualiza la escala de la barra de vida según el porcentaje
+    this.vida.scaleX = porcentaje;
+  }
+
+
 }
