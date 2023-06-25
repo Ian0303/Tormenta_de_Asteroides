@@ -11,6 +11,9 @@ preload(){
  this.load.image("background3", "./public/assets/images/Background3.png");
  this.load.image("background4", "./public/assets/images/Background4.png");
  this.load.image("background5", "./public/assets/images/Background5.png");
+ this.load.image("background5,5", "./public/assets/images/Background5,5.png");
+ this.load.image("background6", "./public/assets/images/Background6.png");
+ this.load.image("background7", "./public/assets/images/Background7.png");
  this.load.image("interfaz", "./public/assets/images/interfaz.png");
  this.load.image("botonI", "./public/assets/images/boton_inicio.png");
  this.load.image("title", "./public/assets/images/Title.png");
@@ -61,7 +64,7 @@ create(){
   
     this.time.addEvent({
       delay: 6000,
-      callback: this.scene.start("Win"),
+      callback: this.scene.start("Level1"),
       callbackScope: this,
       loop: false,
     });

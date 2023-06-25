@@ -11,7 +11,6 @@ export default class Level1 extends Phaser.Scene {
   init({ isMusicMuted, musicM, score }) {
     this.score = 0;
     this.gameOver = false;
-    this.vida = 1;
     this.cantMisil = 5;
     this.isMusicMuted = isMusicMuted;
     this.musicM = musicM;
@@ -45,7 +44,8 @@ export default class Level1 extends Phaser.Scene {
     }); */
 
     this.add.image(400, 300, "background");
-    this.add.image(400, 452, "canon").setScale(0.5);
+    this.add.sprite(400, 452, "canon").setScale(0.5);
+  
     this.add.image(400, 300, "interfaz").setScale(0.5);
     this.add.image(40, 550, "botonInt").setScale(0.5).setInteractive()
       .on('pointerdown', () => this.scene.start('Menu'));;;
@@ -56,6 +56,11 @@ export default class Level1 extends Phaser.Scene {
     let isMusicMuted = this.isMusicMuted;
     let musicM = this.musicM;
     let cantAsteroides = 0;
+
+
+
+    let vida = this.add.sprite(680, 530, "life").setScale(0.4);
+    vida.scaleX = 0.6;
 
     let platforms = this.physics.add.staticGroup();
     platforms
@@ -75,8 +80,9 @@ export default class Level1 extends Phaser.Scene {
       allowGravity: false,
     });
     this.playerGroup.add(this.player);
-    this.asteroidGroup = this.physics.add.group();
-
+    this.asteroidGroup = this.physics.add
+    .group();
+  
     this.time.addEvent({
       delay: 3000,
       callback: this.addShape,
@@ -88,7 +94,7 @@ export default class Level1 extends Phaser.Scene {
 
     this.physics.add.collider(this.player, platforms);
     this.physics.add.overlap(this.player, this.asteroidGroup);
-    this.physics.add.collider(this.platforms, this.asteroidGroup);
+    this.physics.add.collider(platforms, this.asteroidGroup);
 
     /* this.physics.add.overlap(
       this.platforms, 
@@ -106,12 +112,8 @@ export default class Level1 extends Phaser.Scene {
       this
     );
 
-
-    let vida = this.add.sprite(680, 530, "life").setScale(0.4);
-    vida.scaleX = 0.6;
-
     this.physics.add.overlap(
-      this.platforms,
+      platforms,
       this.asteroidGroup,
       this.impactoAsteroide,
       null,
@@ -133,6 +135,40 @@ export default class Level1 extends Phaser.Scene {
 
       fill: "#33CC33",
     });
+
+
+    this.anims.create({
+      key: "turn",
+      frames: this.anims.generateFrameNumbers("spritesheetCanon", { frame: 4}),
+      frameRate: 20
+    });
+  
+  this.anims.create({
+      key: "left",
+      frames: this.anims.generateFrameNumbers("spritesheetCanon", { start: 3, end: 0 }),
+      frameRate: 5,
+      repeat: -1,
+    });
+  
+    this.anims.create({
+      key: "up",
+      frames: [{ key: "spritesheetCanon", frame: 0 }],
+      frameRate: 20,
+    });
+  
+    this.anims.create({
+      key: "right",
+      frames: this.anims.generateFrameNumbers("spritesheetCanon", { start: 5, end: 8 }),
+      frameRate: 5,
+      repeat: -1,
+    });
+  
+    this.anims.create({
+      key: "down",
+      frames: [{ key: "spritesheetCanon", frame: 0 }],
+      frameRate: 20,
+    });
+   
 
     /*  if (!isMusicMuted) {
        this.musicM.stop();
@@ -196,31 +232,8 @@ export default class Level1 extends Phaser.Scene {
       }
     });
 
-    this.physics.add.collider(this.jugador, plataformaLayer);
-    this.physics.add.collider(this.estrellas, plataformaLayer);
-    this.physics.add.collider(this.salida, plataformaLayer);
-    this.physics.add.collider(
-      this.jugador,
-      this.estrellas,
-      this.recolectarEstrella,
-      null,
-      this
-    );
-    this.physics.add.collider(
-      this.jugador,
-      this.salida,
-      this.pasarNivel,
-      null,
-      this
-    );
 
-    // todo / para hacer: texto de puntaje
-    this.score = 0;
-    this.scoreText = this.add.text(20, 20, "Score:" + this.score, {
-      fontSize: "32px",
-      fontStyle: "bold",
-      fill: "#ffffff",
-    });
+  
 
     //timer
     this.timer = 30;
@@ -319,7 +332,7 @@ export default class Level1 extends Phaser.Scene {
       this.score = this.score + 35;
       this.scoreText.setText(this.score);
       this.cantAsteroides++;
-      this.add.image(asteroid.x(),500, "explosion");
+      this.add.image(asteroid.X(), 500, "explosion");
     }
   }
 
@@ -333,15 +346,15 @@ export default class Level1 extends Phaser.Scene {
 
   impactoAsteroide(platform, asteroid) {
     actualizarBarraVida(0.2)
-    this.asteroid.destroy();
+    asteroid.destroy();
     console.log(this.vida)
   }
 
   actualizarBarraVida(porcentaje) {
-    // Asegúrate de que el porcentaje esté dentro del rango válido (entre 0 y 1)
+    //  el porcentaje debe estar dentro del rango válido (entre 0 y 1)
     porcentaje = Phaser.Math.Clamp(porcentaje, 0, 1);
 
-    // Actualiza la escala de la barra de vida según el porcentaje
+    // actualiza la escala de la barra de vida según el porcentaje
     this.vida.scaleX = porcentaje;
   }
 
