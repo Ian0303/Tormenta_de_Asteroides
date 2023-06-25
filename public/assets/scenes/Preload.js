@@ -64,7 +64,7 @@ create(){
   
     this.time.addEvent({
       delay: 6000,
-      callback: this.scene.start("Level1"),
+      callback: this.scene.start("Menu"),
       callbackScope: this,
       loop: false,
     });

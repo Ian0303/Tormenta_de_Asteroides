@@ -58,10 +58,11 @@ export default class Level1 extends Phaser.Scene {
     let cantAsteroides = 0;
 
 
-
+    // varible de vida definida
     let vida = this.add.sprite(680, 530, "life").setScale(0.4);
     vida.scaleX = 0.6;
 
+    // plataforma utilizada para la funciones encargadas de ka perdida de vida y gameOver
     let platforms = this.physics.add.staticGroup();
     platforms
       .create(400, 550, "platform")
@@ -136,7 +137,7 @@ export default class Level1 extends Phaser.Scene {
       fill: "#33CC33",
     });
 
-
+    // animaciones del cañon (en proceso)
     this.anims.create({
       key: "turn",
       frames: this.anims.generateFrameNumbers("spritesheetCanon", { frame: 4}),
@@ -170,12 +171,15 @@ export default class Level1 extends Phaser.Scene {
     });
    
 
+    //Funcion para reiniciar musica(no funciona)
     /*  if (!isMusicMuted) {
        this.musicM.stop();
        this.musicM.start();
        
      } */
 
+
+     //CODIGO COPIADO POSIBLES FUNCIONES
 
     //const map = this.make.tilemap({ key: "map" });
 
@@ -279,6 +283,7 @@ export default class Level1 extends Phaser.Scene {
     }
   }
 
+  //función de spawn de ateroides (descartada)
   /* spawnAsteroid(randomNumber) {
     let asteroid = this.add.image(randomNumber, 50, "asteroid");
     this.physics.add.existing(asteroid);
@@ -287,10 +292,10 @@ export default class Level1 extends Phaser.Scene {
      */
 
   addShape() {
-    //get random position x
+    //devuelve una posición x aleatoria
     const randomX = Phaser.Math.RND.between(0, 800);
 
-    //add shape to screen
+    //añade un asteroide
     this.asteroidGroup
       .create(randomX, 0, "asteroid")
       .setScale(0.8)
@@ -298,6 +303,7 @@ export default class Level1 extends Phaser.Scene {
       .setDepth(1);
   }
 
+  // codigo copiado, posibles funciones
   /*
   recolectarEstrella(jugador,estrella) {
     estrella.disableBody(true, true);
@@ -326,6 +332,8 @@ export default class Level1 extends Phaser.Scene {
     }
   } */
 
+// destruye los asteroides que estan debajo de la mira(player) cunado se preciona la barra espaciadora,
+// suma puntos, la cantidad de asteroides destruidos y debe cambiar el sprite de "asteroide" por el de "explsion".(no funciona)
   destruirAsteroides(player, asteroid) {
     if (this.cursors.space.isDown) {
       asteroid.destroy()
@@ -336,14 +344,16 @@ export default class Level1 extends Phaser.Scene {
     }
   }
 
-  setGameOver(platform, asteroid) {
+  //funcion inicial de gameOver(descartada)
+ /*  setGameOver(platform, asteroid) {
     if (asteroid.texture.key == "asteroid") {
       asteroid.destroy();
     } else {
       this.gameOver = true;
     }
-  }
+  } */
 
+  //esta funcion debe usar la funcion "actualizarBarraVida()" para poducir un cambio en la barra de vida
   impactoAsteroide(platform, asteroid) {
     actualizarBarraVida(0.2)
     asteroid.destroy();
@@ -352,6 +362,7 @@ export default class Level1 extends Phaser.Scene {
 
   actualizarBarraVida(porcentaje) {
     //  el porcentaje debe estar dentro del rango válido (entre 0 y 1)
+    // el porcentaje se le asigna a la variable "scaleX" de la variable "vida" 
     porcentaje = Phaser.Math.Clamp(porcentaje, 0, 1);
 
     // actualiza la escala de la barra de vida según el porcentaje
