@@ -60,17 +60,17 @@ create(){
   this.add.image(400, 300, "background");
   this.add.image(400, 300, "background2");
   this.add.image(400, 300, "title");
-  this.add.image(400, 300, "loading")
+  this.add.image(400, 300, "loading").setInteractive()
+.on('pointerdown', () => this.scene.start("Menu")); ;
   
-    this.time.addEvent({
+   /*  this.time.addEvent({
       delay: 6000,
       callback: this.scene.start("Menu"),
       callbackScope: this,
       loop: false,
     });
-
-//.setInteractive()
-//.on('pointerdown', () => this.scene.start("GameOver")); ;
+ */
+//
 }
 
 

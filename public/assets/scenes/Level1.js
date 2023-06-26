@@ -340,7 +340,7 @@ export default class Level1 extends Phaser.Scene {
       this.score = this.score + 35;
       this.scoreText.setText(this.score);
       this.cantAsteroides++;
-      this.add.image(asteroid.X(), 500, "explosion");
+      //this.add.image(asteroid.x(), 500, "explosion");
     }
   }
 
