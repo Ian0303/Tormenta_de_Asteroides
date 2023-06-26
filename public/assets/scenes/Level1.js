@@ -74,7 +74,8 @@ export default class Level1 extends Phaser.Scene {
       .sprite(400, 300, "scope")
       .setScale(0.5)
       .setCircle(60, 12, 28)
-      .setDepth(2);
+      .setDepth(2)
+      .setColliderWorldBounds(true);
 
     this.playerGroup = this.physics.add.group({
       immovable: true,
