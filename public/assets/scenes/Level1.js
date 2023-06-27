@@ -102,6 +102,12 @@ export default class Level1 extends Phaser.Scene {
       loop: true,
     });
 
+    this.time.addEvent({
+      delay: 1000,
+      callback: this.onSecond,
+      callbackScope: this,
+      loop: true,
+    })
     this.cursors = this.input.keyboard.createCursorKeys();
 
     this.physics.add.collider(this.player, platforms);
@@ -408,13 +414,13 @@ export default class Level1 extends Phaser.Scene {
     this.explosion.on("animationcomplete", () => {
       this.explosion.destroy();
     }, this);
-    this.explosion.play("Explosion");
+    this.explosion.play("Explosion").setVolumen(0.5);
   }
 
   onSecond(){
     this.timer--;
     this.timerText.setText(this.timer);
-    if (this.timer <= 0) {
+    if (this.timer === 0) {
       this.scene.start("Win")
     }
   }
