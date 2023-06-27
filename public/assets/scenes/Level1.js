@@ -132,7 +132,7 @@ export default class Level1 extends Phaser.Scene {
       this
     );
 
-    this.scoreText = this.add.text(420, 10, this.score, {
+    this.scoreText = this.add.text(410, 10, this.score, {
       fontSize: "32px",
       fontStyle: "bold",
       frontFamily: "Console",
