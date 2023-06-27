@@ -9,6 +9,7 @@ export default class Level1 extends Phaser.Scene {
   }
 
   init({ isMusicMuted, musicM, score }) {
+    this.vida = 1;
     this.score = 0;
     this.gameOver = false;
     this.cantMisil = 5;
@@ -75,7 +76,7 @@ export default class Level1 extends Phaser.Scene {
       .setScale(0.5)
       .setCircle(60, 12, 28)
       .setDepth(2)
-      .setColliderWorldBounds(true);
+      // .setColliderWorldBounds(true);
 
     this.playerGroup = this.physics.add.group({
       immovable: true,
@@ -121,6 +122,11 @@ export default class Level1 extends Phaser.Scene {
       null,
       this
     );
+
+    // barra negra de la vida
+    this.makeBar(585, 520, '#000000');
+    // barra verde de la vida
+    this.health = this.makeBar(585, 520, 0x2ecc71);
 
     this.scoreText = this.add.text(10, 10, this.score, {
       fontSize: "32px",
@@ -337,11 +343,16 @@ export default class Level1 extends Phaser.Scene {
 // suma puntos, la cantidad de asteroides destruidos y debe cambiar el sprite de "asteroide" por el de "explsion".(no funciona)
   destruirAsteroides(player, asteroid) {
     if (this.cursors.space.isDown) {
-      asteroid.destroy()
+      asteroid.setTexture("explosion");
+      console.log("asteroide destruido",asteroid);
       this.score = this.score + 35;
       this.scoreText.setText(this.score);
       this.cantAsteroides++;
-      //this.add.image(asteroid.x(), 500, "explosion");
+
+      // destruir la explosion despues de 100 milisegundos
+      setTimeout(() => {
+        asteroid.destroy();
+      },100);
     }
   }
 
@@ -356,19 +367,41 @@ export default class Level1 extends Phaser.Scene {
 
   //esta funcion debe usar la funcion "actualizarBarraVida()" para poducir un cambio en la barra de vida
   impactoAsteroide(platform, asteroid) {
-    actualizarBarraVida(0.2)
+    this.actualizarBarraVida(0.2)
     asteroid.destroy();
-    console.log(this.vida)
   }
 
   actualizarBarraVida(porcentaje) {
     //  el porcentaje debe estar dentro del rango válido (entre 0 y 1)
     // el porcentaje se le asigna a la variable "scaleX" de la variable "vida" 
     porcentaje = Phaser.Math.Clamp(porcentaje, 0, 1);
+    this.vida -= porcentaje;
+    console.log(this.vida)
 
     // actualiza la escala de la barra de vida según el porcentaje
-    this.vida.scaleX = porcentaje;
+    this.setValueBar(this.vida);
   }
+
+  makeBar(x, y,color) {
+    //draw the bar
+    let bar = this.add.graphics();
+    //color the bar
+    bar.fillStyle(color, 1);
+    //fill the bar with a rectangle
+    bar.fillRect(0, 0, 190, 20);
+    //position the bar
+    bar.x = x;
+    bar.y = y;
+    //return the bar
+    return bar;
+}
+
+setValueBar(percentage) {
+  //scale the bar
+  this.health.scaleX = percentage;
+  console.log("🚀 ~ file: Level1.js:404 ~ setValueBar ~ this.health.scaleX:", this.health.scaleX)
+}
+
 
 
 }
