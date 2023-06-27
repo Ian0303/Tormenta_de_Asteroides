@@ -3,6 +3,7 @@
 export default class Level1 extends Phaser.Scene {
   score; isMusicMuted; cantAsteroides;
   constructor() {
+    
     // key of the scene
     // the key will be used to start the scene by other scenes
     super("Level1");
@@ -15,6 +16,10 @@ export default class Level1 extends Phaser.Scene {
     this.isMusicMuted = isMusicMuted;
     this.musicM = musicM;
     this.cantAsteroides = 0;
+    this.vidas = 3;
+    this.explosion = null;
+
+
     // this is called before the scene is created
     // init variables
     // take data passed from other scenes
@@ -44,23 +49,29 @@ export default class Level1 extends Phaser.Scene {
     }); */
 
     this.add.image(400, 300, "background");
-    this.add.sprite(400, 452, "canon").setScale(0.5);
+    //this.add.sprite(400, 452, "canon").setScale(0.5);
   
     this.add.image(400, 300, "interfaz").setScale(0.5);
+    this.add.image(400, 20, "background5,5").setScale(0.5);
     this.add.image(40, 550, "botonInt").setScale(0.5).setInteractive()
       .on('pointerdown', () => this.scene.start('Menu'));;;
-    this.add.image(680, 530, "background5").setScale(0.4);
+    this.add.image(680, 530, "background5").setScale(0.45);
     //this.add.image(680, 530, "life").setScale(0.6);
 
 
     let isMusicMuted = this.isMusicMuted;
     let musicM = this.musicM;
     let cantAsteroides = 0;
+    let relatedScene = "Level1";
+    let initialLives = 5;
 
-
+    this.vidasImagen = this.add
+    .image(789, 517, "life3")
+    .setOrigin(1, 0)
+    .setScale(0.7);
     // varible de vida definida
-    let vida = this.add.sprite(680, 530, "life").setScale(0.4);
-    vida.scaleX = 0.6;
+     /* let vida = this.add.sprite(680, 530, "life").setScale(0.4);
+     vida.scaleX = 0.6 */
 
     // plataforma utilizada para la funciones encargadas de ka perdida de vida y gameOver
     let platforms = this.physics.add.staticGroup();
@@ -74,16 +85,15 @@ export default class Level1 extends Phaser.Scene {
       .sprite(400, 300, "scope")
       .setScale(0.5)
       .setCircle(60, 12, 28)
-      .setDepth(2)
-      .setColliderWorldBounds(true);
+      .setDepth(2);
+      //.setColliderWorldBounds(true);
 
     this.playerGroup = this.physics.add.group({
       immovable: true,
       allowGravity: false,
     });
     this.playerGroup.add(this.player);
-    this.asteroidGroup = this.physics.add
-    .group();
+    this.asteroidGroup = this.physics.add.group();
   
     this.time.addEvent({
       delay: 3000,
@@ -122,7 +132,7 @@ export default class Level1 extends Phaser.Scene {
       this
     );
 
-    this.scoreText = this.add.text(10, 10, this.score, {
+    this.scoreText = this.add.text(420, 10, this.score, {
       fontSize: "32px",
       fontStyle: "bold",
       frontFamily: "Console",
@@ -138,39 +148,34 @@ export default class Level1 extends Phaser.Scene {
       fill: "#33CC33",
     });
 
-    // animaciones del cañon (en proceso)
+    //timer
+    this.timer = 30;
+    
+    
+
+    // animaciones del cañon (solo al disparar)
     this.anims.create({
       key: "turn",
       frames: this.anims.generateFrameNumbers("spritesheetCanon", { frame: 4}),
       frameRate: 20
     });
-  
-  this.anims.create({
-      key: "left",
-      frames: this.anims.generateFrameNumbers("spritesheetCanon", { start: 3, end: 0 }),
-      frameRate: 5,
-      repeat: -1,
-    });
-  
-    this.anims.create({
-      key: "up",
-      frames: [{ key: "spritesheetCanon", frame: 0 }],
-      frameRate: 20,
-    });
-  
-    this.anims.create({
-      key: "right",
-      frames: this.anims.generateFrameNumbers("spritesheetCanon", { start: 5, end: 8 }),
-      frameRate: 5,
-      repeat: -1,
-    });
-  
-    this.anims.create({
-      key: "down",
-      frames: [{ key: "spritesheetCanon", frame: 0 }],
-      frameRate: 20,
-    });
    
+    /* //barras de vida(codigo descartado)
+    let displacement = 60;
+    let firstPosition = 600 - ((this.initialLives - 1) * displacement);
+    this.liveImages = this.physics.add.staticGroup({
+      setScale: { x: 0.5, y: 0.5 },
+      key: "life",
+      frameQuantity: this.initialLives-1,
+      gridAlign: {
+        width: this.initialLives - 1,
+        height: 1,
+        cellWidth: displacement,
+        cellHeight: 30,
+        x: firstPosition,
+        y: 30
+      }
+    }); */
 
     //Funcion para reiniciar musica(no funciona)
     /*  if (!isMusicMuted) {
@@ -279,11 +284,14 @@ export default class Level1 extends Phaser.Scene {
     }
 
 
-    if (this.vida <= 0) {
+    if (this.vidas <= 0) {
       this.scene.start("GameOver");
     }
+
+    
   }
 
+  
   //función de spawn de ateroides (descartada)
   /* spawnAsteroid(randomNumber) {
     let asteroid = this.add.image(randomNumber, 50, "asteroid");
@@ -341,6 +349,7 @@ export default class Level1 extends Phaser.Scene {
       this.score = this.score + 35;
       this.scoreText.setText(this.score);
       this.cantAsteroides++;
+      console.log(this.cantAsteroides)
       //this.add.image(asteroid.x(), 500, "explosion");
     }
   }
@@ -355,8 +364,8 @@ export default class Level1 extends Phaser.Scene {
   } */
 
   //esta funcion debe usar la funcion "actualizarBarraVida()" para poducir un cambio en la barra de vida
-  impactoAsteroide(platform, asteroid) {
-    actualizarBarraVida(0.2)
+  /* impactoAsteroide(platform, asteroid) {
+    this.actualizarBarraVida(0.2)
     asteroid.destroy();
     console.log(this.vida)
   }
@@ -368,7 +377,45 @@ export default class Level1 extends Phaser.Scene {
 
     // actualiza la escala de la barra de vida según el porcentaje
     this.vida.scaleX = porcentaje;
+  } */
+  impactoAsteroide(platform, asteroid) {
+    this.vidas--;
+    this.crearExplosion(asteroid.x, asteroid.y)
+
+    switch (this.vidas) {
+      case 2:
+        this.vidasImagen.setTexture("life2");
+        break;
+      case 1:
+        this.vidasImagen.setTexture("life1");
+        break;
+      case 0:
+        this.vidasImagen.setTexture("0Vidas");
+        break;
+    }
+    //789, 517
+    this.vidasImagen.x = 789;
+    this.vidasImagen.y = 517;
+    asteroid.destroy();
+    if (this.vidas === 0) {
+// aca acción a realizar cuando vidas sea igual a "0"
+      this.scene.start("GameOver")
+    }
+  }
+  crearExplosion(x, y) {
+    this.explosion = this.add.sprite(x, y, "explosion").setScale(0.5); // Ajusta el valor de escala según tus necesidades
+    this.explosion.setOrigin(0.5, 0.5); // Ajusta el origen del sprite para que la posición sea relativa al centro
+    this.explosion.on("animationcomplete", () => {
+      this.explosion.destroy();
+    }, this);
+    this.explosion.play("Explosion");
   }
 
-
+  onSecond(){
+    this.timer--;
+    this.timerText.setText(this.timer);
+    if (this.timer <= 0) {
+      this.scene.start("GameOver")
+    }
+  }
 }

@@ -28,7 +28,9 @@ preload(){
  this.load.image("soundOff", "./public/assets/images/soundOff.png");
  this.load.image("botonInt", "./public/assets/images/boton_interfaz.png");
  this.load.image("crack", "./public/assets/images/crack.png");
- this.load.image("life", "./public/assets/images/life.png");
+ this.load.image("life1", "./public/assets/images/life1.png");
+ this.load.image("life2", "./public/assets/images/life2.png");
+ this.load.image("life3", "./public/assets/images/life3.png");
  this.load.image("reset", "./public/assets/images/reset.png");
  this.load.image("tienda", "./public/assets/images/tienda.png");
 
@@ -40,6 +42,7 @@ preload(){
 
  this.load.audio("musicMenu", "./public/assets/audio and music/menuMusic.mp3");
  this.load.audio("musicGame", "./public/assets/audio and music/GAMEMusic.mp3");
+ this.load.audio("Explosion", "./public/assets/audio and music/esplosión.mp3");
 
 
 
@@ -61,7 +64,7 @@ create(){
   this.add.image(400, 300, "background2");
   this.add.image(400, 300, "title");
   this.add.image(400, 300, "loading").setInteractive()
-.on('pointerdown', () => this.scene.start("Menu")); ;
+.on('pointerdown', () => this.scene.start("Level1")); ;
   
    /*  this.time.addEvent({
       delay: 6000,
