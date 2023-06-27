@@ -414,7 +414,7 @@ export default class Level1 extends Phaser.Scene {
     this.explosion.on("animationcomplete", () => {
       this.explosion.destroy();
     }, this);
-    this.explosion.play("Explosion").setVolumen(0.5);
+    this.explosion.play("Explosion");
   }
 
   onSecond(){
