@@ -17,7 +17,7 @@ export default class Win extends Phaser.Scene {
 
     create() {
       this.add.image(400, 300, "background");
-      this.add.image(400, 300, "interfaz").setScale(0.5);
+      //this.add.image(400, 300, "interfaz").setScale(0.5);
       this.add.image(400, 300, "background4").setScale(0.5);;
       this.add.image(400, 420, "tienda").setScale(0.5).setInteractive().on('pointerdown', () => this.scene.start("Menu")); ;
      

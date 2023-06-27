@@ -6,7 +6,7 @@ export default class GameOver extends Phaser.Scene {
   
   create() {
     this.add.image(400, 300, "background");
-    this.add.image(400, 300, "interfaz").setScale(0.5);
+    //this.add.image(400, 300, "interfaz").setScale(0.5);
     this.add.image(400, 300, "background3").setScale(0.5);;
     this.add.image(265, 400, "botonInt").setInteractive().on('pointerdown', () => this.scene.start("Menu")); ;
     this.add.image(555, 400, "reset").setScale(0.2).setInteractive().on('pointerdown', () => this.scene.restart("Level1")); ;
