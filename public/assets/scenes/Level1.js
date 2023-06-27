@@ -415,7 +415,7 @@ export default class Level1 extends Phaser.Scene {
     this.timer--;
     this.timerText.setText(this.timer);
     if (this.timer <= 0) {
-      this.scene.start("GameOver")
+      this.scene.start("Win")
     }
   }
 }
