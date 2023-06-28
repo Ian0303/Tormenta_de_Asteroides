@@ -9,14 +9,15 @@ export default class Level1 extends Phaser.Scene {
     super("Level1");
   }
 
-  init({ isMusicMuted, musicM, score }) {
+  init({ isMusicMuted, musicM, score, cantAsteroides}) {
     this.score = 0;
+    this.cantAsteroides = 0;
+
+    this.vidas = 3;
     this.gameOver = false;
     this.cantMisil = 5;
     this.isMusicMuted = isMusicMuted;
     this.musicM = musicM;
-    this.cantAsteroides = 0;
-    this.vidas = 3;
     this.explosion = null;
 
 
@@ -26,7 +27,7 @@ export default class Level1 extends Phaser.Scene {
     // data object param {}
   }
 
-  create() {
+  create(data) {
     //  Our player animations, turning, walking left and walking right.
     /*  this.anims.create({
       key: "left",
@@ -62,17 +63,13 @@ export default class Level1 extends Phaser.Scene {
     let isMusicMuted = this.isMusicMuted;
     let musicM = this.musicM;
     let cantAsteroides = 0;
-    let relatedScene = "Level1";
-    let initialLives = 5;
+    
 
     this.vidasImagen = this.add
     .image(789, 517, "life3")
     .setOrigin(1, 0)
     .setScale(0.7);
-    // varible de vida definida
-     /* let vida = this.add.sprite(680, 530, "life").setScale(0.4);
-     vida.scaleX = 0.6 */
-
+   
     // plataforma utilizada para la funciones encargadas de ka perdida de vida y gameOver
     let platforms = this.physics.add.staticGroup();
     platforms
@@ -114,14 +111,6 @@ export default class Level1 extends Phaser.Scene {
     this.physics.add.overlap(this.player, this.asteroidGroup);
     this.physics.add.collider(platforms, this.asteroidGroup);
 
-    /* this.physics.add.overlap(
-      this.platforms, 
-      this.asteroid,
-      this.impactoAsteroide,
-      null,
-      this
-      ); */
-
     this.physics.add.overlap(
       this.player,
       this.asteroidGroup,
@@ -138,7 +127,7 @@ export default class Level1 extends Phaser.Scene {
       this
     );
 
-    this.scoreText = this.add.text(410, 10, this.score, {
+    this.scoreText = this.add.text(400, 12, this.score, {
       fontSize: "32px",
       fontStyle: "bold",
       frontFamily: "Console",
@@ -166,22 +155,7 @@ export default class Level1 extends Phaser.Scene {
       frameRate: 20
     });
    
-    /* //barras de vida(codigo descartado)
-    let displacement = 60;
-    let firstPosition = 600 - ((this.initialLives - 1) * displacement);
-    this.liveImages = this.physics.add.staticGroup({
-      setScale: { x: 0.5, y: 0.5 },
-      key: "life",
-      frameQuantity: this.initialLives-1,
-      gridAlign: {
-        width: this.initialLives - 1,
-        height: 1,
-        cellWidth: displacement,
-        cellHeight: 30,
-        x: firstPosition,
-        y: 30
-      }
-    }); */
+
 
     //Funcion para reiniciar musica(no funciona)
     /*  if (!isMusicMuted) {
@@ -405,7 +379,7 @@ export default class Level1 extends Phaser.Scene {
     asteroid.destroy();
     if (this.vidas === 0) {
 // aca acción a realizar cuando vidas sea igual a "0"
-      this.scene.start("GameOver")
+      this.scene.start("GameOver", {score: this.score, cantAsteroides: this.cantAsteroides})
     }
   }
   crearExplosion(x, y) {
@@ -419,9 +393,8 @@ export default class Level1 extends Phaser.Scene {
 
   onSecond(){
     this.timer--;
-    this.timerText.setText(this.timer);
     if (this.timer === 0) {
-      this.scene.start("Win")
+      this.scene.start("Win",{score: this.score, cantAsteroides: this.cantAsteroides})
     }
   }
 }

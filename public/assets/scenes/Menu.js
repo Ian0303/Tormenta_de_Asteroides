@@ -14,7 +14,7 @@ export default class Menu extends Phaser.Scene {
     this.add.image(400, 300, "title");
     this.add.image(400, 310, "decoracion").setScale(0.5);
     //this.add.image(640, 130, "sound").setScale(0.5);
-    this.add.image(400, 500, "botonI").setInteractive()
+    this.add.image(400, 415, "botonI").setInteractive()
       .on('pointerdown', () => this.scene.start('Level1', {isMusicMuted},{musicM}));;
 
 

@@ -5,7 +5,7 @@ export default class Win extends Phaser.Scene {
     }
   
     init({ isMusicMuted, musicM, score, cantAsteroides }) {
-      this.score = 0;
+      this.score = score;
       this.gameOver = false;
       this.vida = 1;
       this.cantMisil = 5;
@@ -15,7 +15,7 @@ export default class Win extends Phaser.Scene {
     }
   
 
-    create() {
+    create(data) {
       this.add.image(400, 300, "background");
       //this.add.image(400, 300, "interfaz").setScale(0.5);
       this.add.image(400, 300, "background4").setScale(0.5);;
@@ -39,13 +39,13 @@ export default class Win extends Phaser.Scene {
         stroke: '#00ff00',
         strokeThickness: 4,
       });
-      this.gameOverText = this.add.text(200, 270, "Puntos conseguidos:" + this.score,{
+      this.gameOverText = this.add.text(200, 270, "Puntos conseguidos:" + data.score,{
         fontSize: "24px",
         fontStyle: "bold",
         frontFamily: "Console",
         color: '#000000',
         })
-        this.gameOverText = this.add.text(200, 320, "Asteroides destruidos:" + this.cantAsteroides,{
+        this.gameOverText = this.add.text(200, 320, "Asteroides destruidos:" + data.cantAsteroides,{
           fontSize: "24px",
           fontStyle: "bold",
           frontFamily: "Console",
