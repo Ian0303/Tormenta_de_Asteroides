@@ -33,6 +33,8 @@ preload(){
  this.load.image("life3", "./public/assets/images/life3.png");
  this.load.image("reset", "./public/assets/images/reset.png");
  this.load.image("tienda", "./public/assets/images/tienda.png");
+ this.load.image("ayuda2", "./public/assets/images/ayuda2.png");
+
 
 
  this.load.spritesheet("spritesheetCanon", "./public/assets/images/spritesheetCanon.png",{

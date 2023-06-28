@@ -58,12 +58,19 @@ export default class Level1 extends Phaser.Scene {
       .on('pointerdown', () => this.scene.start('Menu'));;;
     this.add.image(680, 530, "background5").setScale(0.45);
     //this.add.image(680, 530, "life").setScale(0.6);
+    //this.add.image(200, 450, "ayuda2").setScale(0.8)
 
 
     let isMusicMuted = this.isMusicMuted;
     let musicM = this.musicM;
     let cantAsteroides = 0;
     
+    let ayuda = this.physics.add.staticGroup()
+    .create(200, 450, "ayuda2")
+    .setScale(0.8)
+    .setInteractive()
+    .on('pointerdown', () => ayuda.destroy())
+    ;
 
     this.vidasImagen = this.add
     .image(789, 517, "life3")
@@ -105,6 +112,9 @@ export default class Level1 extends Phaser.Scene {
       callbackScope: this,
       loop: true,
     })
+
+    
+
     this.cursors = this.input.keyboard.createCursorKeys();
 
     this.physics.add.collider(this.player, platforms);
