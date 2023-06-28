@@ -127,7 +127,7 @@ export default class Level1 extends Phaser.Scene {
       this
     );
 
-    this.scoreText = this.add.text(400, 12, this.score, {
+    this.scoreText = this.add.text(380, 12, this.score, {
       fontSize: "32px",
       fontStyle: "bold",
       frontFamily: "Console",
@@ -144,7 +144,7 @@ export default class Level1 extends Phaser.Scene {
     });
 
     //timer
-    this.timer = 30;
+    this.timer = 35;
     
     
 
@@ -282,7 +282,7 @@ export default class Level1 extends Phaser.Scene {
 
   addShape() {
     //devuelve una posición x aleatoria
-    const randomX = Phaser.Math.RND.between(0, 800);
+    const randomX = Phaser.Math.RND.between(20, 780);
 
     //añade un asteroide
     this.asteroidGroup
