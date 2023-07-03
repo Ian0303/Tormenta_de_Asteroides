@@ -1,16 +1,18 @@
-import Nivel_1 from "./public/assets/scenes/Nivel_1.js";
+import GameOver from "./public/assets/scenes/GameOver.js";
+import Level1 from "./public/assets/scenes/Level1.js";
+import Level2 from "./public/assets/scenes/Level2.js";
+import Level3 from "./public/assets/scenes/Level3.js";
+import Win from "./public/assets/scenes/Win.js";
 import Menu from "./public/assets/scenes/Menu.js";
-import Tienda from "./public/assets/scenes/Tienda.js";
-import Final from "./public/assets/scenes/Final.js";
 import Preload from "./public/assets/scenes/Preload.js";
-
+import Shop from "./public/assets/scenes/Shop.js";
+import End from "./public/assets/scenes/End.js";
 
 // Create a new Phaser config object
 const config = {
   type: Phaser.AUTO,
   width: 800,
   height: 600,
-  
   scale: {
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH,
@@ -30,14 +32,11 @@ const config = {
       debug: true,
     },
   },
-  
   // List of scenes to load
   // Only the first scene will be shown
   // Remember to import the scene before adding it to the list
-  scene: [Preload, Menu, Nivel_1, Tienda, Final],
+  scene: [Preload, GameOver,  Menu, Level1, Level2, Level3, Win, Shop, End,]
 };
-
-
 
 // Create a new Phaser game instance
 window.game = new Phaser.Game(config);
