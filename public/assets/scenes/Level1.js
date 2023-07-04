@@ -335,12 +335,15 @@ export default class Level1 extends Phaser.Scene {
 // suma puntos, la cantidad de asteroides destruidos y debe cambiar el sprite de "asteroide" por el de "explsion".(no funciona)
   destruirAsteroides(player, asteroid) {
     if (this.cursors.space.isDown) {
-      asteroid.destroy()
+      asteroid.setTexture("explosion").setScale(0.5);
       this.score = this.score + 35;
       this.scoreText.setText(this.score);
       this.cantAsteroides++;
-      console.log(this.cantAsteroides)
-      //this.add.image(asteroid.x(), 500, "explosion");
+      console.log("Asteroides destruidos: " + this.cantAsteroides)
+
+      setTimeout(() => {
+        asteroid.destroy();
+      },100);
     }
   }
 
@@ -394,9 +397,12 @@ export default class Level1 extends Phaser.Scene {
   }
   crearExplosion(x, y) {
     this.explosion = this.add.sprite(x, y, "explosion").setScale(0.5); // Ajusta el valor de escala según tus necesidades
-    this.explosion.setOrigin(0.5, 0.5); // Ajusta el origen del sprite para que la posición sea relativa al centro
+    this.explosion.setOrigin(0.5, 0.5);
+    setTimeout(() => {
+        this.explosion.destroy();
+      },100); // Ajusta el origen del sprite para que la posición sea relativa al centro
     this.explosion.on("animationcomplete", () => {
-      this.explosion.destroy();
+      
     }, this);
     this.explosion.play("Explosion");
   }

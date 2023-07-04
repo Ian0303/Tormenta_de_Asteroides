@@ -5,7 +5,7 @@ import Level3 from "./public/assets/scenes/Level3.js";
 import Win from "./public/assets/scenes/Win.js";
 import Menu from "./public/assets/scenes/Menu.js";
 import Preload from "./public/assets/scenes/Preload.js";
-import Shop from "./public/assets/scenes/Shop.js";
+import Shop from "./public/assets/scenes/Updates.js";
 import End from "./public/assets/scenes/End.js";
 
 // Create a new Phaser config object
