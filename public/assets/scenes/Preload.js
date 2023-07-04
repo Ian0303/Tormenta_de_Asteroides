@@ -23,6 +23,7 @@ preload(){
  this.load.image("asteroid", "./public/assets/images/asteroid.png");
  this.load.image("asteroidExpl", "./public/assets/images/asteroidExpl.png");
  this.load.image("asteroidFrag", "./public/assets/images/asteroidFrag.png");
+ this.load.image("asteroidGren", "./public/assets/images/asteroidGren.png");
  this.load.image("platform", "./public/assets/images/platform.png");
  this.load.image("explosion", "./public/assets/images/explosion.png");
  this.load.image("decoracion", "./public/assets/images/decoraciones_menu.png");

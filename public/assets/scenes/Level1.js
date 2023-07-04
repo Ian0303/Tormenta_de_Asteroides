@@ -397,10 +397,10 @@ export default class Level1 extends Phaser.Scene {
   }
   crearExplosion(x, y) {
     this.explosion = this.add.sprite(x, y, "explosion").setScale(0.5); // Ajusta el valor de escala según tus necesidades
-    this.explosion.setOrigin(0.5, 0.5);
+    this.explosion.setOrigin(0.5, 0.5);// Ajusta el origen del sprite para que la posición sea relativa al centro
     setTimeout(() => {
         this.explosion.destroy();
-      },100); // Ajusta el origen del sprite para que la posición sea relativa al centro
+      },100); 
     this.explosion.on("animationcomplete", () => {
       
     }, this);
