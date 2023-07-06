@@ -1,12 +1,12 @@
 // URL to explain PHASER scene: https://rexrainbow.github.io/phaser3-rex-notes/docs/site/scene/
 
-export default class Level1 extends Phaser.Scene {
-    score; isMusicMuted; cantAsteroides;
+export default class Level2 extends Phaser.Scene {
+    isMusicMuted; cantAsteroides;
     constructor() {
       
       // key of the scene
       // the key will be used to start the scene by other scenes
-      super("Level1");
+      super("Level2");
     }
   
     init({ isMusicMuted, musicM, score, cantAsteroides}) {
@@ -64,7 +64,9 @@ export default class Level1 extends Phaser.Scene {
       let isMusicMuted = this.isMusicMuted;
       let musicM = this.musicM;
       let cantAsteroides = 0;
-      
+      this.load = true
+      this.asteroidLife = 200
+
       let ayuda = this.physics.add.staticGroup()
       .create(200, 450, "ayuda2")
       .setScale(0.8)
@@ -97,7 +99,8 @@ export default class Level1 extends Phaser.Scene {
         allowGravity: false,
       });
       this.playerGroup.add(this.player);
-      this.asteroidGroup = this.physics.add.group();
+      this.asteroidGroup = this.physics.add.group({
+      });
     
       this.time.addEvent({
         delay: 3000,
@@ -284,6 +287,19 @@ export default class Level1 extends Phaser.Scene {
     
    
   
+    /* addShape() {
+      //devuelve una posición x aleatoria
+      const randomX = Phaser.Math.RND.between(20, 780);
+  
+      //añade un asteroide
+      this.asteroidGroup
+        .create(randomX, 0, "asteroid")
+        .setScale(0.8)
+        .setCircle(45, 0, 0)
+        .setDepth(1);
+    }
+   */
+    
     addShape() {
       //devuelve una posición x aleatoria
       const randomX = Phaser.Math.RND.between(20, 780);
@@ -296,23 +312,39 @@ export default class Level1 extends Phaser.Scene {
         .setDepth(1);
     }
   
-    
+
+
+
   
   // destruye los asteroides que estan debajo de la mira(player) cunado se preciona la barra espaciadora,
   // suma puntos, la cantidad de asteroides destruidos y debe cambiar el sprite de "asteroide" por el de "explsion".(no funciona)
     destruirAsteroides(player, asteroid) {
-      if (this.cursors.space.isDown) {
+      if (this.cursors.space.isDown && this.load === true) {
+        asteroid.destroy();
+        this.asteroidGroup
+        .create(asteroid.x, asteroid.y, "asteroid")
+        .setScale(0.8)
+        .setCircle(45, 0, 0)
+        .setDepth(1);
+
+       if (this.cursors.space.isDown && this.load === true) {
         asteroid.setTexture("explosion").setScale(0.5);
+        setTimeout(() => {
+          asteroid.destroy();
+        },100);
         this.score = this.score + 35;
         this.scoreText.setText(this.score);
         this.cantAsteroides++;
         console.log("Asteroides destruidos: " + this.cantAsteroides)
-  
+        this.load = false
         setTimeout(() => {
-          asteroid.destroy();
-        },100);
+          this.load = true
+        },50);
       }
-    }
+      }
+
+      this.asteroidLife = 200
+    }  
   
     
     impactoAsteroide(platform, asteroid) {

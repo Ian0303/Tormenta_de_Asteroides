@@ -1,7 +1,7 @@
 // URL to explain PHASER scene: https://rexrainbow.github.io/phaser3-rex-notes/docs/site/scene/
 
 export default class Level1 extends Phaser.Scene {
-  score; isMusicMuted; cantAsteroides;
+   isMusicMuted; cantAsteroides;
   constructor() {
     
     // key of the scene
@@ -64,6 +64,7 @@ export default class Level1 extends Phaser.Scene {
     let isMusicMuted = this.isMusicMuted;
     let musicM = this.musicM;
     let cantAsteroides = 0;
+    this.load = true
     
     let ayuda = this.physics.add.staticGroup()
     .create(200, 450, "ayuda2")
@@ -334,16 +335,20 @@ export default class Level1 extends Phaser.Scene {
 // destruye los asteroides que estan debajo de la mira(player) cunado se preciona la barra espaciadora,
 // suma puntos, la cantidad de asteroides destruidos y debe cambiar el sprite de "asteroide" por el de "explsion".(no funciona)
   destruirAsteroides(player, asteroid) {
-    if (this.cursors.space.isDown) {
+    if (this.cursors.space.isDown && this.load === true) {
       asteroid.setTexture("explosion").setScale(0.5);
+      setTimeout(() => {
+        asteroid.destroy();
+      },100);
       this.score = this.score + 35;
       this.scoreText.setText(this.score);
       this.cantAsteroides++;
       console.log("Asteroides destruidos: " + this.cantAsteroides)
-
-      setTimeout(() => {
-        asteroid.destroy();
+      this.load = false
+      setTimeout(() => {//coltdown
+        this.load = true
       },100);
+      
     }
   }
 
@@ -396,14 +401,10 @@ export default class Level1 extends Phaser.Scene {
     }
   }
   crearExplosion(x, y) {
-    this.explosion = this.add.sprite(x, y, "explosion").setScale(0.5); // Ajusta el valor de escala según tus necesidades
-    this.explosion.setOrigin(0.5, 0.5);// Ajusta el origen del sprite para que la posición sea relativa al centro
+    asteroid.setTexture("explosion").setScale(0.5);
     setTimeout(() => {
-        this.explosion.destroy();
-      },100); 
-    this.explosion.on("animationcomplete", () => {
-      
-    }, this);
+      asteroid.destroy();
+    },100);
     this.explosion.play("Explosion");
   }
 
