@@ -12,18 +12,22 @@ preload(){
  this.load.image("background4", "./public/assets/images/Background4.png");
  this.load.image("background5", "./public/assets/images/Background5.png");
  this.load.image("background5,5", "./public/assets/images/Background5,5.png");
+ this.load.image("background5,6", "./public/assets/images/Background5,6.png");
  this.load.image("background6", "./public/assets/images/Background6.png");
  this.load.image("background7", "./public/assets/images/Background7.png");
+
  this.load.image("interfaz", "./public/assets/images/interfaz.png");
  this.load.image("botonI", "./public/assets/images/boton_inicio.png");
  this.load.image("title", "./public/assets/images/Title.png");
  this.load.image("loading", "./public/assets/images/loading.png");
- this.load.image("canon", "./public/assets/images/canon.png");
+ //this.load.image("canon", "./public/assets/images/canon.png");
  this.load.image("scope", "./public/assets/images/scope.png");
+
  this.load.image("asteroid", "./public/assets/images/asteroid.png");
  this.load.image("asteroidExpl", "./public/assets/images/asteroidExpl.png");
  this.load.image("asteroidFrag", "./public/assets/images/asteroidFrag.png");
  this.load.image("asteroidGren", "./public/assets/images/asteroidGren.png");
+
  this.load.image("platform", "./public/assets/images/platform.png");
  this.load.image("explosion", "./public/assets/images/explosion.png");
  this.load.image("decoracion", "./public/assets/images/decoraciones_menu.png");
@@ -35,8 +39,13 @@ preload(){
  this.load.image("life2", "./public/assets/images/life2.png");
  this.load.image("life3", "./public/assets/images/life3.png");
  this.load.image("reset", "./public/assets/images/reset.png");
- this.load.image("tienda", "./public/assets/images/tienda.png");
+ this.load.image("updates", "./public/assets/images/updates.png");
  this.load.image("ayuda2", "./public/assets/images/ayuda2.png");
+ this.load.image("shield1", "./public/assets/images/shield1.png");
+ this.load.image("update1Esc", "./public/assets/images/update1Esc.png");
+ this.load.image("update2Vel", "./public/assets/images/update2Vel.png");
+ this.load.image("update3Dur", "./public/assets/images/update3Dur.png");
+ this.load.image("updates", "./public/assets/images/updates.png");
 
 
 
@@ -69,7 +78,7 @@ create(){
   this.add.image(400, 300, "background2");
   this.add.image(400, 300, "title");
   this.add.image(400, 300, "loading").setInteractive()
-.on('pointerdown', () => this.scene.start("Level2")); ;
+.on('pointerdown', () => this.scene.start("End")); ;
   
    /*  this.time.addEvent({
       delay: 6000,
