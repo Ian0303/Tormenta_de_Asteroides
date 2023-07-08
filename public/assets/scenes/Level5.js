@@ -465,7 +465,7 @@ export default class Level5 extends Phaser.Scene {
 
   win() {
     this.winI = this.add.image(400, 300, "background4").setScale(0.5);
-    this.mejoras = this.add.image(400, 420, "updates").setScale(0.25).setInteractive().on('pointerdown', () => this.updates());
+    this.mejoras = this.add.image(400, 420, "updates").setScale(0.25).setInteractive().on('pointerdown', () => this.scene.start('End'));
     this.player.setVisible(false);
     this.pause = true;
 
@@ -498,73 +498,8 @@ export default class Level5 extends Phaser.Scene {
       color: '#000000',
     })
   }
-
-  updates() {
-    this.winI.destroy();
-    this.mejoras.destroy();
-    this.winText1.destroy();
-    this.winText2.destroy();
-    this.pointsText.destroy();
-    this.cantAText.destroy();
-    this.player.setVisible(false);
-    this.updatesI = this.add.image(400, 300, "background6").setScale(0.5);
-    this.updatesText = this.add.text(180, 130, "Elige una mejora ", {
-      fontSize: "45px",
-      fontStyle: "bold",
-      frontFamily: "Console",
-      color: '#0000FF',
-    })
-
-    this.pause = true;
-
-    //mejoras
-    this.update1Esc = this.add.image(230, 270, "update1Esc")
-      .setScale(0.5)
-      .setInteractive()
-      .setDepth(4)
-      .on('pointerdown', () => this.update1())
-      .on('pointerdown', () => this.scene.start('End'));
-    this.update2Vel = this.add.image(400, 270, "update2Vel")
-      .setScale(0.5)
-      .setInteractive()
-      .setDepth(4)
-      .on('pointerdown', () => this.update2());
-    this.update3Dur = this.add.image(570, 270, "update3Dur")
-      .setScale(0.5)
-      .setInteractive()
-      .setDepth(4)
-      .on('pointerdown', () => this.update3());
-
    /*  this.next = this.add.image(600, 370, "next").setScale(0.5).setInteractive()
       .on('pointerdown', () => this.scene.start('Level2', {})); */
   }
 //shield, vidas, velocityABA, velocityARI, velocityIZQ, velocityDER 
 
-
-  update1() {
-    this.shield = true
-    console.log("shield: " + this.shield)
-
-  }
-
-  update2() {
-    this.velocityIZQ = this.velocityIZQ - 25;
-    this.velocityDER = this.velocityDER + 25;
-    this.velocityABA = this.velocityABA + 25;
-    this.velocityARI = this.velocityARI - 25;
-    console.log("velocityIZQ: " + this.velocityIZQ)
-    console.log("velocityDER: " + this.velocityDER)
-    console.log("velocityABA: " + this.velocityABA)
-    console.log("velocityARI: " + this.velocityARI)
-
-  }
-
-  update3() {
-    this.vidas = this.vidas + 1;
-    console.log("vidas: " + this.vidas)
-
-  }
-
-
-
-}
