@@ -61,7 +61,8 @@ export default class Level1 extends Phaser.Scene {
     //this.add.image(680, 530, "life").setScale(0.6);
     //this.add.image(200, 450, "ayuda2").setScale(0.8)
 
-
+    let score = this.score
+    
     this.isMusicMuted = this.isMusicMuted;
     this.musicM = this.musicM;
     this.cantAsteroides = 0;
@@ -166,7 +167,7 @@ export default class Level1 extends Phaser.Scene {
     });
 
     //timer
-    this.timer = 1;
+    this.timer = 5;
 
 
 
@@ -285,7 +286,7 @@ export default class Level1 extends Phaser.Scene {
       this.player.setVelocity(0);
     }
 
-
+    
 
 
   }
@@ -468,6 +469,7 @@ export default class Level1 extends Phaser.Scene {
     this.mejoras = this.add.image(400, 420, "updates").setScale(0.25).setInteractive().on('pointerdown', () => this.updates());
     this.player.setVisible(false);
     this.pause = true;
+    
 
     this.winText1 = this.add.text(170, 120, "¡¡Camino", {
       fontSize: "55px",
@@ -523,7 +525,7 @@ export default class Level1 extends Phaser.Scene {
       .setInteractive()
       .setDepth(4)
       .on('pointerdown', () => this.update1())
-      .on('pointerdown', () => this.scene.start('Level2'));
+      .on('pointerdown', () => this.scene.start('Level2', {this:this.score}));
     this.update2Vel = this.add.image(400, 270, "update2Vel")
       .setScale(0.5)
       .setInteractive()

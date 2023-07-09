@@ -18,9 +18,9 @@ export default class Preload extends Phaser.Scene {
     this.add.image(400, 300, "background");
 
     this.add.image(400, 300, "background7").setScale(0.5);;
-    this.add.image(400, 420, "botonI").setInteractive().on('pointerdown', () => this.scene.start("Menu"));;
+    this.add.image(400, 450, "botonInt").setInteractive().on('pointerdown', () => this.scene.start("Menu"));;
 
-    this.clasificText = this.add.text(170, 100, "Clasificación:", {
+    this.clasificText = this.add.text(200, 100, "Clasificación:", {
       fontSize: "45px",
       fontStyle: "bold",
       frontFamily: "Console",
@@ -29,32 +29,66 @@ export default class Preload extends Phaser.Scene {
       strokeThickness: 4,
     });
 
-    this.playerScoreText = this.add.text(200, 260, "nombre " + this.score, {
+    this.playerScoreText = this.add.text(220, 260, "nombre ", {
       fontSize: "24px",
       fontStyle: "bold",
       frontFamily: "Console",
       color: '#000000',
     })
-    this.scoreJuanText = this.add.text(200, 290, "Juan: 10000", {
+    this.playerScoreNText = this.add.text(500, 260, this.score, {
       fontSize: "24px",
       fontStyle: "bold",
       frontFamily: "Console",
       color: '#000000',
     })
-    this.scorePabloText = this.add.text(200, 320, "Pablo: 8000", {
+    this.scoreJuanText = this.add.text(220, 290, "Juan: ", {
       fontSize: "24px",
       fontStyle: "bold",
       frontFamily: "Console",
       color: '#000000',
     })
-    this.scoreMariaText = this.add.text(200, 350, "Maria: 5000", {
+    this.scoreJuanNText = this.add.text(500, 290, "10000", {
       fontSize: "24px",
       fontStyle: "bold",
       frontFamily: "Console",
       color: '#000000',
     })
-
-
+    this.scorePabloText = this.add.text(220, 320, "Pablo: ", {
+      fontSize: "24px",
+      fontStyle: "bold",
+      frontFamily: "Console",
+      color: '#000000',
+    })
+    this.scorePabloNText = this.add.text(500, 320, "8000", {
+      fontSize: "24px",
+      fontStyle: "bold",
+      frontFamily: "Console",
+      color: '#000000',
+    })
+    this.scoreMariaText = this.add.text(220, 350, "Maria: ", {
+      fontSize: "24px",
+      fontStyle: "bold",
+      frontFamily: "Console",
+      color: '#000000',
+    })
+    this.scoreMariaNText = this.add.text(500, 350, "5000", {
+      fontSize: "24px",
+      fontStyle: "bold",
+      frontFamily: "Console",
+      color: '#000000',
+    })
+    this.scoreLucasText = this.add.text(220, 380, "Lucas: ", {
+      fontSize: "24px",
+      fontStyle: "bold",
+      frontFamily: "Console",
+      color: '#000000',
+    })
+    this.scoreLucasNText = this.add.text(500, 380, "3000", {
+      fontSize: "24px",
+      fontStyle: "bold",
+      frontFamily: "Console",
+      color: '#000000',
+    })
   }
 
 

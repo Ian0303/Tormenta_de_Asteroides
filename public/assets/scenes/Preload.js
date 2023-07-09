@@ -78,7 +78,7 @@ create(){
   this.add.image(400, 300, "background2");
   this.add.image(400, 300, "title");
   this.add.image(400, 300, "loading").setInteractive()
-.on('pointerdown', () => this.scene.start("End")); ;
+.on('pointerdown', () => this.scene.start("Level1")); ;
   
    /*  this.time.addEvent({
       delay: 6000,

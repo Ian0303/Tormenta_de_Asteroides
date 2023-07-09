@@ -1,7 +1,7 @@
 // URL to explain PHASER scene: https://rexrainbow.github.io/phaser3-rex-notes/docs/site/scene/
 
 export default class Level2 extends Phaser.Scene {
-  isMusicMuted; cantAsteroides;
+  isMusicMuted; cantAsteroides; score;
   constructor() {
 
     // key of the scene
@@ -9,10 +9,10 @@ export default class Level2 extends Phaser.Scene {
     super("Level2");
   }
 
-  init({ isMusicMuted, musicM, score, cantAsteroides }) {
-    this.score = 0;
+  init({ isMusicMuted, musicM, score ,cantAsteroides }) {
+    this.score = score;
+    
     this.cantAsteroides = 0;
-
     this.vidas = 3;
     this.cantMisil = 5;
     this.isMusicMuted = isMusicMuted;
