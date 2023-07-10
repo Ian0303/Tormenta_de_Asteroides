@@ -9,9 +9,14 @@ export default class Level5 extends Phaser.Scene {
     super("Level5");
   }
 
-  init({ isMusicMuted, musicM, score, cantAsteroides }) {
-    this.score = 0;
-    this.cantAsteroides = 0;
+  init({ isMusicMuted, musicM, scoreTotal, cantAsteroidesTotal, shield }) {
+    this.scoreTotal = scoreTotal;
+    this.score5 = 0;
+
+    this.cantAsteroidesTotal = cantAsteroidesTotal;
+    this.cantAsteroides5 = 0;
+
+    this.shield = shield
 
     this.vidas = 3;
     this.cantMisil = 5;
@@ -19,6 +24,12 @@ export default class Level5 extends Phaser.Scene {
     this.musicM = musicM;
     this.explosion = null;
 
+    //escudo
+    if (this.shield === true) {
+      this.shieldImagen = this.add
+        .image(680, 570, "shield1")
+        .setScale(0.7)
+    }
 
     // this is called before the scene is created
     // init variables
@@ -77,12 +88,7 @@ export default class Level5 extends Phaser.Scene {
     this.velocityABA = 250;
     this.velocityARI = -250;
 
-    let ayuda = this.physics.add.staticGroup()
-      .create(200, 450, "ayuda2")
-      .setScale(0.8)
-      .setInteractive()
-      .on('pointerdown', () => ayuda.destroy())
-      ;
+    
 
     this.vidasImagen = this.add
       .image(789, 517, "life3")
@@ -149,7 +155,7 @@ export default class Level5 extends Phaser.Scene {
       this
     );
 
-    this.scoreText = this.add.text(380, 12, this.score, {
+    this.scoreText = this.add.text(380, 12, this.score5, {
       fontSize: "32px",
       fontStyle: "bold",
       frontFamily: "Console",
@@ -351,10 +357,12 @@ export default class Level5 extends Phaser.Scene {
       setTimeout(() => {
         asteroid.destroy();
       }, 100);
-      this.score = this.score + 35;
-      this.scoreText.setText(this.score);
-      this.cantAsteroides++;
-      console.log("Asteroides destruidos: " + this.cantAsteroides)
+      this.score5 = this.score5 + 35;
+      this.scoreTotal = this.scoreTotal + this.score5;
+      this.scoreText.setText(this.score5);
+      this.cantAsteroides5++;
+      this.cantAsteroidesTotal = this.cantAsteroides + this.cantAsteroides5;
+      console.log("Asteroides destruidos: " + this.cantAsteroides5)
       this.load = false
       setTimeout(() => {//coltdown
         this.load = true
@@ -388,24 +396,33 @@ export default class Level5 extends Phaser.Scene {
     this.vida.scaleX = porcentaje;
   } */
   impactoAsteroide(platform, asteroid) {
-    this.vidas--;
+    asteroid.destroy();
     this.crearExplosion(asteroid.x, asteroid.y)
 
-    switch (this.vidas) {
-      case 2:
-        this.vidasImagen.setTexture("life2");
-        break;
-      case 1:
-        this.vidasImagen.setTexture("life1");
-        break;
-      case 0:
-        this.vidasImagen.setTexture();
-        break;
+    if (this.shield === true) {
+      this.shieldImagen.destroy();
+      this.shield = false;
+    } else {
+      this.vidas--;
+      switch (this.vidas) {
+        case 3:
+          this.vidasShield.setTexture();
+          break;
+        case 2:
+          this.vidasImagen.setTexture("life2");
+          break;
+        case 1:
+          this.vidasImagen.setTexture("life1");
+          break;
+        case 0:
+          this.vidasImagen.setTexture();
+          break;
+      }
     }
     //789, 517
     this.vidasImagen.x = 789;
     this.vidasImagen.y = 517;
-    asteroid.destroy();
+
     if (this.vidas === 0) {
       // aca acción a realizar cuando vidas sea igual a "0"
       this.gameOver();
@@ -465,7 +482,12 @@ export default class Level5 extends Phaser.Scene {
 
   win() {
     this.winI = this.add.image(400, 300, "background4").setScale(0.5);
-    this.mejoras = this.add.image(400, 420, "updates").setScale(0.25).setInteractive().on('pointerdown', () => this.scene.start('End'));
+    this.mejoras = this.add.image(400, 420, "updates").setScale(0.25).setInteractive().on('pointerdown', () => this.scene.start('End'), {
+      scoreTotal:this.scoreTotal,
+      score5:this.score5,
+      cantAsteroidesTotal:this.cantAsteroidesTotal,
+      cantAsteroides5:this.cantAsteroides5
+    });
     this.player.setVisible(false);
     this.pause = true;
 
@@ -485,13 +507,13 @@ export default class Level5 extends Phaser.Scene {
       stroke: '#00ff00',
       strokeThickness: 4,
     });
-    this.pointsText = this.add.text(200, 270, "Puntos conseguidos:" + this.score, {
+    this.pointsText = this.add.text(200, 270, "Puntos conseguidos:" + this.score5, {
       fontSize: "24px",
       fontStyle: "bold",
       frontFamily: "Console",
       color: '#000000',
     })
-    this.cantAText = this.add.text(200, 320, "Asteroides destruidos:" + this.cantAsteroides, {
+    this.cantAText = this.add.text(200, 320, "Asteroides destruidos:" + this.cantAsteroides5, {
       fontSize: "24px",
       fontStyle: "bold",
       frontFamily: "Console",

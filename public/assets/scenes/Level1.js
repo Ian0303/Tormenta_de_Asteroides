@@ -1,7 +1,7 @@
 // URL to explain PHASER scene: https://rexrainbow.github.io/phaser3-rex-notes/docs/site/scene/
 
 export default class Level1 extends Phaser.Scene {
-  isMusicMuted; cantAsteroides;
+  isMusicMuted;
   constructor() {
 
     // key of the scene
@@ -9,9 +9,10 @@ export default class Level1 extends Phaser.Scene {
     super("Level1");
   }
 
-  init({ isMusicMuted, musicM, score, cantAsteroides }) {
-    this.score = 0;
-    this.cantAsteroides = 0;
+  init({ isMusicMuted, musicM }) {
+    this.score1 = 0;
+
+    this.cantAsteroides1 = 0;
 
     this.vidas = 3;
     this.cantMisil = 5;
@@ -58,14 +59,12 @@ export default class Level1 extends Phaser.Scene {
       .on('pointerdown', () => this.scene.start('Menu'));
     this.add.image(680, 530, "background5").setScale(0.45);
     this.add.image(680, 570, "background5").setScale(0.45);
-    //this.add.image(680, 530, "life").setScale(0.6);
-    //this.add.image(200, 450, "ayuda2").setScale(0.8)
 
-    let score = this.score
-    
+
+
     this.isMusicMuted = this.isMusicMuted;
     this.musicM = this.musicM;
-    this.cantAsteroides = 0;
+
     this.load = true;
     this.pause = false;
     this.shield = false;
@@ -84,6 +83,9 @@ export default class Level1 extends Phaser.Scene {
       .setInteractive()
       .on('pointerdown', () => ayuda.destroy())
       ;
+    setTimeout(() => {
+      this.ayuda.destroy();
+    }, 300);
 
     this.vidasImagen = this.add
       .image(789, 517, "life3")
@@ -150,7 +152,7 @@ export default class Level1 extends Phaser.Scene {
       this
     );
 
-    this.scoreText = this.add.text(380, 12, this.score, {
+    this.scoreText = this.add.text(380, 12, this.score1, {
       fontSize: "32px",
       fontStyle: "bold",
       frontFamily: "Console",
@@ -286,7 +288,7 @@ export default class Level1 extends Phaser.Scene {
       this.player.setVelocity(0);
     }
 
-    
+
 
 
   }
@@ -352,10 +354,10 @@ export default class Level1 extends Phaser.Scene {
       setTimeout(() => {
         asteroid.destroy();
       }, 100);
-      this.score = this.score + 35;
-      this.scoreText.setText(this.score);
-      this.cantAsteroides++;
-      console.log("Asteroides destruidos: " + this.cantAsteroides)
+      this.score1 = this.score1 + 35;
+      this.scoreText.setText(this.score1);
+      this.cantAsteroides1++;
+      console.log("Asteroides destruidos: " + this.cantAsteroides1)
       this.load = false
       setTimeout(() => {//coltdown
         this.load = true
@@ -469,7 +471,7 @@ export default class Level1 extends Phaser.Scene {
     this.mejoras = this.add.image(400, 420, "updates").setScale(0.25).setInteractive().on('pointerdown', () => this.updates());
     this.player.setVisible(false);
     this.pause = true;
-    
+
 
     this.winText1 = this.add.text(170, 120, "¡¡Camino", {
       fontSize: "55px",
@@ -487,13 +489,13 @@ export default class Level1 extends Phaser.Scene {
       stroke: '#00ff00',
       strokeThickness: 4,
     });
-    this.pointsText = this.add.text(200, 270, "Puntos conseguidos:" + this.score, {
+    this.pointsText = this.add.text(200, 270, "Puntos conseguidos:" + this.score1, {
       fontSize: "24px",
       fontStyle: "bold",
       frontFamily: "Console",
       color: '#000000',
     })
-    this.cantAText = this.add.text(200, 320, "Asteroides destruidos:" + this.cantAsteroides, {
+    this.cantAText = this.add.text(200, 320, "Asteroides destruidos:" + this.cantAsteroides1, {
       fontSize: "24px",
       fontStyle: "bold",
       frontFamily: "Console",
@@ -525,7 +527,11 @@ export default class Level1 extends Phaser.Scene {
       .setInteractive()
       .setDepth(4)
       .on('pointerdown', () => this.update1())
-      .on('pointerdown', () => this.scene.start('Level2', {this:this.score}));
+      .on('pointerdown', () => this.scene.start('Level2', {
+        score1: this.score1,
+        cantAsteroides1: this.cantAsteroides1,
+        shield: this.shield
+      }));
     this.update2Vel = this.add.image(400, 270, "update2Vel")
       .setScale(0.5)
       .setInteractive()
@@ -537,10 +543,10 @@ export default class Level1 extends Phaser.Scene {
       .setDepth(4)
       .on('pointerdown', () => this.update3());
 
-   /*  this.next = this.add.image(600, 370, "next").setScale(0.5).setInteractive()
-      .on('pointerdown', () => this.scene.start('Level2', {})); */
+    /*  this.next = this.add.image(600, 370, "next").setScale(0.5).setInteractive()
+       .on('pointerdown', () => this.scene.start('Level2', {})); */
   }
-//shield, vidas, velocityABA, velocityARI, velocityIZQ, velocityDER 
+  //shield, vidas, velocityABA, velocityARI, velocityIZQ, velocityDER 
 
 
   update1() {

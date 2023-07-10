@@ -1,7 +1,7 @@
 // URL to explain PHASER scene: https://rexrainbow.github.io/phaser3-rex-notes/docs/site/scene/
 
 export default class Level2 extends Phaser.Scene {
-  isMusicMuted; cantAsteroides; score;
+  isMusicMuted; cantAsteroides;
   constructor() {
 
     // key of the scene
@@ -9,10 +9,15 @@ export default class Level2 extends Phaser.Scene {
     super("Level2");
   }
 
-  init({ isMusicMuted, musicM, score ,cantAsteroides }) {
-    this.score = score;
-    
-    this.cantAsteroides = 0;
+  init({ isMusicMuted, musicM, score1, cantAsteroides1, shield }) {
+    this.scoreTotal = score1;
+    this.score2 = 0;
+
+    this.cantAsteroidesTotal = cantAsteroides1;
+    this.cantAsteroides2 = 0;
+
+    this.shield = shield
+
     this.vidas = 3;
     this.cantMisil = 5;
     this.isMusicMuted = isMusicMuted;
@@ -58,16 +63,18 @@ export default class Level2 extends Phaser.Scene {
       .on('pointerdown', () => this.scene.start('Menu'));
     this.add.image(680, 530, "background5").setScale(0.45);
     this.add.image(680, 570, "background5").setScale(0.45);
-    //this.add.image(680, 530, "life").setScale(0.6);
-    //this.add.image(200, 450, "ayuda2").setScale(0.8)
 
+    //escudo
+    if (this.shield === true) {
+      this.shieldImagen = this.add
+        .image(680, 570, "shield1")
+        .setScale(0.7)
+    }
 
     this.isMusicMuted = this.isMusicMuted;
     this.musicM = this.musicM;
-    this.cantAsteroides = 0;
     this.load = true;
     this.pause = false;
-    this.shield = false;
     this.dead = false;
 
 
@@ -77,12 +84,6 @@ export default class Level2 extends Phaser.Scene {
     this.velocityABA = 250;
     this.velocityARI = -250;
 
-    let ayuda = this.physics.add.staticGroup()
-      .create(200, 450, "ayuda2")
-      .setScale(0.8)
-      .setInteractive()
-      .on('pointerdown', () => ayuda.destroy())
-      ;
 
     this.vidasImagen = this.add
       .image(789, 517, "life3")
@@ -149,7 +150,7 @@ export default class Level2 extends Phaser.Scene {
       this
     );
 
-    this.scoreText = this.add.text(380, 12, this.score, {
+    this.scoreText = this.add.text(380, 12, this.score2, {
       fontSize: "32px",
       fontStyle: "bold",
       frontFamily: "Console",
@@ -166,7 +167,7 @@ export default class Level2 extends Phaser.Scene {
     });
 
     //timer
-    this.timer = 1;
+    this.timer = 6;
 
 
 
@@ -285,9 +286,6 @@ export default class Level2 extends Phaser.Scene {
       this.player.setVelocity(0);
     }
 
-
-
-
   }
 
 
@@ -351,10 +349,12 @@ export default class Level2 extends Phaser.Scene {
       setTimeout(() => {
         asteroid.destroy();
       }, 100);
-      this.score = this.score + 35;
-      this.scoreText.setText(this.score);
-      this.cantAsteroides++;
-      console.log("Asteroides destruidos: " + this.cantAsteroides)
+      this.score2 = this.score2 + 35;
+      this.scoreTotal = this.scoreTotal + this.score2;
+      this.scoreText.setText(this.score2);
+      this.cantAsteroides2++;
+      this.cantAsteroidesTotal = this.cantAsteroides + this.cantAsteroides2;
+      console.log("Asteroides destruidos: " + this.cantAsteroides2)
       this.load = false
       setTimeout(() => {//coltdown
         this.load = true
@@ -388,24 +388,33 @@ export default class Level2 extends Phaser.Scene {
     this.vida.scaleX = porcentaje;
   } */
   impactoAsteroide(platform, asteroid) {
-    this.vidas--;
+    asteroid.destroy();
     this.crearExplosion(asteroid.x, asteroid.y)
 
-    switch (this.vidas) {
-      case 2:
-        this.vidasImagen.setTexture("life2");
-        break;
-      case 1:
-        this.vidasImagen.setTexture("life1");
-        break;
-      case 0:
-        this.vidasImagen.setTexture();
-        break;
+    if (this.shield === true) {
+      this.shieldImagen.destroy();
+      this.shield = false;
+    } else {
+      this.vidas--;
+      switch (this.vidas) {
+        case 3:
+          this.vidasShield.setTexture();
+          break;
+        case 2:
+          this.vidasImagen.setTexture("life2");
+          break;
+        case 1:
+          this.vidasImagen.setTexture("life1");
+          break;
+        case 0:
+          this.vidasImagen.setTexture();
+          break;
+      }
     }
     //789, 517
     this.vidasImagen.x = 789;
     this.vidasImagen.y = 517;
-    asteroid.destroy();
+
     if (this.vidas === 0) {
       // aca acción a realizar cuando vidas sea igual a "0"
       this.gameOver();
@@ -485,13 +494,13 @@ export default class Level2 extends Phaser.Scene {
       stroke: '#00ff00',
       strokeThickness: 4,
     });
-    this.pointsText = this.add.text(200, 270, "Puntos conseguidos:" + this.score, {
+    this.pointsText = this.add.text(200, 270, "Puntos conseguidos:" + this.score2, {
       fontSize: "24px",
       fontStyle: "bold",
       frontFamily: "Console",
       color: '#000000',
     })
-    this.cantAText = this.add.text(200, 320, "Asteroides destruidos:" + this.cantAsteroides, {
+    this.cantAText = this.add.text(200, 320, "Asteroides destruidos:" + this.cantAsteroides2, {
       fontSize: "24px",
       fontStyle: "bold",
       frontFamily: "Console",
@@ -523,7 +532,13 @@ export default class Level2 extends Phaser.Scene {
       .setInteractive()
       .setDepth(4)
       .on('pointerdown', () => this.update1())
-      .on('pointerdown', () => this.scene.start('Level3'));
+      .on('pointerdown', () => this.scene.start('Level3', {
+        scoreTotal: this.scoreTotal,
+        score2: this.score2,
+        cantAsteroidesTotal: this.cantAsteroidesTotal,
+        cantAsteroides2: this.cantAsteroides2,
+        shield: this.shield
+      }));
     this.update2Vel = this.add.image(400, 270, "update2Vel")
       .setScale(0.5)
       .setInteractive()
@@ -535,16 +550,16 @@ export default class Level2 extends Phaser.Scene {
       .setDepth(4)
       .on('pointerdown', () => this.update3());
 
-   /*  this.next = this.add.image(600, 370, "next").setScale(0.5).setInteractive()
-      .on('pointerdown', () => this.scene.start('Level2', {})); */
+    /*  this.next = this.add.image(600, 370, "next").setScale(0.5).setInteractive()
+       .on('pointerdown', () => this.scene.start('Level2', {})); */
   }
-//shield, vidas, velocityABA, velocityARI, velocityIZQ, velocityDER 
+  //shield, vidas, velocityABA, velocityARI, velocityIZQ, velocityDER 
 
 
   update1() {
     this.shield = true
     console.log("shield: " + this.shield)
-
+    console.log(this.scoreTotal)
   }
 
   update2() {

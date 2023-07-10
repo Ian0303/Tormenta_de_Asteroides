@@ -3,14 +3,16 @@ export default class Preload extends Phaser.Scene {
     super("End");
   }
 
-  init({ isMusicMuted, musicM, score, cantAsteroides }) {
-    this.score = 0;
+  init({ isMusicMuted, musicM, scoreTotal, cantAsteroidesTotal }) {
+    this.scoreTotal = scoreTotal;
+    this.cantAsteroidesTotal = cantAsteroidesTotal;
+
     this.gameOver = false;
     this.vida = 1;
     this.cantMisil = 5;
     this.isMusicMuted = isMusicMuted;
     this.musicM = musicM;
-    cantAsteroides = cantAsteroides
+    
   }
 
 
@@ -35,7 +37,7 @@ export default class Preload extends Phaser.Scene {
       frontFamily: "Console",
       color: '#000000',
     })
-    this.playerScoreNText = this.add.text(500, 260, this.score, {
+    this.playerScoreNText = this.add.text(500, 260, this.scoreTotal, {
       fontSize: "24px",
       fontStyle: "bold",
       frontFamily: "Console",
