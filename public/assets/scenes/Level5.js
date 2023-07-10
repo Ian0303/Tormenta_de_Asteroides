@@ -9,7 +9,7 @@ export default class Level5 extends Phaser.Scene {
     super("Level5");
   }
 
-  init({ isMusicMuted, musicM, scoreTotal, cantAsteroidesTotal, shield }) {
+  init({ isMusicMuted, musicM, scoreTotal, cantAsteroidesTotal, shield, vidasMax}) {
     this.scoreTotal = scoreTotal;
     this.score5 = 0;
 
@@ -18,7 +18,9 @@ export default class Level5 extends Phaser.Scene {
 
     this.shield = shield
 
-    this.vidas = 3;
+    this.vidasMax = vidasMax;
+    this.vidas = this.vidasMax;
+    
     this.cantMisil = 5;
     this.isMusicMuted = isMusicMuted;
     this.musicM = musicM;
@@ -88,12 +90,38 @@ export default class Level5 extends Phaser.Scene {
     this.velocityABA = 250;
     this.velocityARI = -250;
 
-    
-
-    this.vidasImagen = this.add
-      .image(789, 517, "life3")
-      .setOrigin(1, 0)
-      .setScale(0.7);
+    switch (this.vidasMax) {
+      case 7:
+        this.vidasImagen = this.add
+          .image(789, 517, "life7")
+          .setOrigin(1, 0)
+          .setScale(0.7);
+        break;
+      case 6:
+        this.vidasImagen = this.add
+          .image(789, 517, "life6")
+          .setOrigin(1, 0)
+          .setScale(0.7);
+        break;
+      case 5:
+        this.vidasImagen = this.add
+          .image(789, 517, "life5")
+          .setOrigin(1, 0)
+          .setScale(0.7);
+        break;
+      case 4:
+        this.vidasImagen = this.add
+          .image(789, 517, "life4")
+          .setOrigin(1, 0)
+          .setScale(0.7);
+        break;
+      case 3:
+        this.vidasImagen = this.add
+          .image(789, 517, "life3")
+          .setOrigin(1, 0)
+          .setScale(0.7);
+        break;
+    }
 
     // plataforma utilizada para la funciones encargadas de ka perdida de vida y gameOver
     let platforms = this.physics.add.staticGroup();
@@ -405,8 +433,20 @@ export default class Level5 extends Phaser.Scene {
     } else {
       this.vidas--;
       switch (this.vidas) {
+        case 7:
+          this.vidasImagen.setTexture("life7");
+          break;
+        case 6:
+          this.vidasImagen.setTexture("life6");
+          break;
+        case 5:
+          this.vidasImagen.setTexture("life5");
+          break;
+        case 4:
+          this.vidasImagen.setTexture("life4");
+          break;
         case 3:
-          this.vidasShield.setTexture();
+          this.vidasImagen.setTexture("life3");
           break;
         case 2:
           this.vidasImagen.setTexture("life2");

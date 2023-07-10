@@ -9,16 +9,18 @@ export default class Level2 extends Phaser.Scene {
     super("Level2");
   }
 
-  init({ isMusicMuted, musicM, score1, cantAsteroides1, shield }) {
+  init({ isMusicMuted, musicM, score1, cantAsteroides1, shield, vidasMax}) {
     this.scoreTotal = score1;
     this.score2 = 0;
 
     this.cantAsteroidesTotal = cantAsteroides1;
     this.cantAsteroides2 = 0;
 
-    this.shield = shield
+    this.shield = shield;
 
-    this.vidas = 3;
+    this.vidasMax = vidasMax;
+    this.vidas = this.vidasMax;
+
     this.cantMisil = 5;
     this.isMusicMuted = isMusicMuted;
     this.musicM = musicM;
@@ -84,11 +86,18 @@ export default class Level2 extends Phaser.Scene {
     this.velocityABA = 250;
     this.velocityARI = -250;
 
-
-    this.vidasImagen = this.add
-      .image(789, 517, "life3")
+if (this.vidasMax === 4) {
+  this.vidasImagen = this.add
+      .image(789, 517, "life4")
       .setOrigin(1, 0)
       .setScale(0.7);
+}else{
+  this.vidasImagen = this.add
+  .image(789, 517, "life3")
+  .setOrigin(1, 0)
+  .setScale(0.7);
+}
+    
 
     // plataforma utilizada para la funciones encargadas de ka perdida de vida y gameOver
     let platforms = this.physics.add.staticGroup();
@@ -397,8 +406,12 @@ export default class Level2 extends Phaser.Scene {
     } else {
       this.vidas--;
       switch (this.vidas) {
+        
+        case 4:
+          this.vidasImagen.setTexture("life4");
+          break;
         case 3:
-          this.vidasShield.setTexture();
+          this.vidasImagen.setTexture("life3");
           break;
         case 2:
           this.vidasImagen.setTexture("life2");
@@ -528,27 +541,38 @@ export default class Level2 extends Phaser.Scene {
 
     //mejoras
     this.update1Esc = this.add.image(230, 270, "update1Esc")
-      .setScale(0.5)
-      .setInteractive()
-      .setDepth(4)
-      .on('pointerdown', () => this.update1())
-      .on('pointerdown', () => this.scene.start('Level3', {
-        scoreTotal: this.scoreTotal,
-        score2: this.score2,
-        cantAsteroidesTotal: this.cantAsteroidesTotal,
-        cantAsteroides2: this.cantAsteroides2,
-        shield: this.shield
-      }));
-    this.update2Vel = this.add.image(400, 270, "update2Vel")
-      .setScale(0.5)
-      .setInteractive()
-      .setDepth(4)
-      .on('pointerdown', () => this.update2());
-    this.update3Dur = this.add.image(570, 270, "update3Dur")
-      .setScale(0.5)
-      .setInteractive()
-      .setDepth(4)
-      .on('pointerdown', () => this.update3());
+    .setScale(0.5)
+    .setInteractive()
+    .setDepth(4)
+    .on('pointerdown', () => this.update1())
+    .on('pointerdown', () => this.scene.start('Level3', {
+      score1: this.score1,
+      cantAsteroides1: this.cantAsteroides1,
+      shield: this.shield,
+      vidasMax:this.vidasMax
+    }));
+  this.update2Vel = this.add.image(400, 270, "update2Vel")
+    .setScale(0.5)
+    .setInteractive()
+    .setDepth(4)
+    .on('pointerdown', () => this.update2())
+    .on('pointerdown', () => this.scene.start('Level3', {
+      score1: this.score1,
+      cantAsteroides1: this.cantAsteroides1,
+      shield: this.shield,
+      vidasMax:this.vidasMax
+    }));
+  this.update3Dur = this.add.image(570, 270, "update3Dur")
+    .setScale(0.5)
+    .setInteractive()
+    .setDepth(4)
+    .on('pointerdown', () => this.update3())
+    .on('pointerdown', () => this.scene.start('Level3', {
+      score1: this.score1,
+      cantAsteroides1: this.cantAsteroides1,
+      shield: this.shield,
+      vidasMax:this.vidasMax
+    }));
 
     /*  this.next = this.add.image(600, 370, "next").setScale(0.5).setInteractive()
        .on('pointerdown', () => this.scene.start('Level2', {})); */
@@ -575,9 +599,9 @@ export default class Level2 extends Phaser.Scene {
   }
 
   update3() {
-    this.vidas = this.vidas + 1;
-    console.log("vidas: " + this.vidas)
-
+    this.vidasMax = this.vidasMax + 1;
+    console.log("vidas: " + this.vidasMax)
+    console.log(this.scoreTotal)
   }
 
 
