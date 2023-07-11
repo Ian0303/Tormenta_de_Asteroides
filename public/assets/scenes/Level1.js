@@ -535,9 +535,14 @@ export default class Level1 extends Phaser.Scene {
       .on('pointerdown', () => this.update1())
       .on('pointerdown', () => this.scene.start('Level2', {
         score1: this.score1,
+        scoreTotal:this.score1,
         cantAsteroides1: this.cantAsteroides1,
         shield: this.shield,
-        vidasMax: this.vidasMax
+        vidasMax: this.vidasMax,
+        velocityABA:this.velocityABA,
+        velocityARI:this.velocityARI,
+        velocityDER:this.velocityDER,
+        velocityIZQ:this.velocityIZQ
       }));
     this.update2Vel = this.add.image(400, 270, "update2Vel")
       .setScale(0.5)
@@ -546,9 +551,14 @@ export default class Level1 extends Phaser.Scene {
       .on('pointerdown', () => this.update2())
       .on('pointerdown', () => this.scene.start('Level2', {
         score1: this.score1,
+        scoreTotal:this.score1,
         cantAsteroides1: this.cantAsteroides1,
         shield: this.shield,
-        vidasMax: this.vidasMax
+        vidasMax: this.vidasMax,
+        velocityABA:this.velocityABA,
+        velocityARI:this.velocityARI,
+        velocityDER:this.velocityDER,
+        velocityIZQ:this.velocityIZQ
       }));
     this.update3Dur = this.add.image(570, 270, "update3Dur")
       .setScale(0.5)
@@ -557,9 +567,14 @@ export default class Level1 extends Phaser.Scene {
       .on('pointerdown', () => this.update3())
       .on('pointerdown', () => this.scene.start('Level2', {
         score1: this.score1,
+        scoreTotal:this.score1,
         cantAsteroides1: this.cantAsteroides1,
         shield: this.shield,
-        vidasMax: this.vidasMax
+        vidasMax: this.vidasMax,
+        velocityABA:this.velocityABA,
+        velocityARI:this.velocityARI,
+        velocityDER:this.velocityDER,
+        velocityIZQ:this.velocityIZQ
       }));
 
     /*  this.next = this.add.image(600, 370, "next").setScale(0.5).setInteractive()

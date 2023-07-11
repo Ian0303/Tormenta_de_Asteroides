@@ -9,7 +9,7 @@ export default class Level2 extends Phaser.Scene {
     super("Level2");
   }
 
-  init({ isMusicMuted, musicM, score1, cantAsteroides1, shield, vidasMax}) {
+  init({ isMusicMuted, musicM, score1, cantAsteroides1, shield, vidasMax, velocityABA, velocityARI, velocityDER, velocityIZQ }) {
     this.scoreTotal = score1;
     this.score2 = 0;
 
@@ -20,6 +20,12 @@ export default class Level2 extends Phaser.Scene {
 
     this.vidasMax = vidasMax;
     this.vidas = this.vidasMax;
+
+    //velocity player
+    this.velocityIZQ = velocityIZQ;
+    this.velocityDER = velocityDER;
+    this.velocityABA = velocityABA;
+    this.velocityARI = velocityARI;
 
     this.cantMisil = 5;
     this.isMusicMuted = isMusicMuted;
@@ -79,25 +85,18 @@ export default class Level2 extends Phaser.Scene {
     this.pause = false;
     this.dead = false;
 
+    if (this.vidasMax === 4) {
+      this.vidasImagen = this.add
+        .image(789, 517, "life4")
+        .setOrigin(1, 0)
+        .setScale(0.7);
+    } else {
+      this.vidasImagen = this.add
+        .image(789, 517, "life3")
+        .setOrigin(1, 0)
+        .setScale(0.7);
+    }
 
-    //velosidad player
-    this.velocityIZQ = -250;
-    this.velocityDER = 250;
-    this.velocityABA = 250;
-    this.velocityARI = -250;
-
-if (this.vidasMax === 4) {
-  this.vidasImagen = this.add
-      .image(789, 517, "life4")
-      .setOrigin(1, 0)
-      .setScale(0.7);
-}else{
-  this.vidasImagen = this.add
-  .image(789, 517, "life3")
-  .setOrigin(1, 0)
-  .setScale(0.7);
-}
-    
 
     // plataforma utilizada para la funciones encargadas de ka perdida de vida y gameOver
     let platforms = this.physics.add.staticGroup();
@@ -406,7 +405,7 @@ if (this.vidasMax === 4) {
     } else {
       this.vidas--;
       switch (this.vidas) {
-        
+
         case 4:
           this.vidasImagen.setTexture("life4");
           break;
@@ -541,38 +540,53 @@ if (this.vidasMax === 4) {
 
     //mejoras
     this.update1Esc = this.add.image(230, 270, "update1Esc")
-    .setScale(0.5)
-    .setInteractive()
-    .setDepth(4)
-    .on('pointerdown', () => this.update1())
-    .on('pointerdown', () => this.scene.start('Level3', {
-      score1: this.score1,
-      cantAsteroides1: this.cantAsteroides1,
-      shield: this.shield,
-      vidasMax:this.vidasMax
-    }));
-  this.update2Vel = this.add.image(400, 270, "update2Vel")
-    .setScale(0.5)
-    .setInteractive()
-    .setDepth(4)
-    .on('pointerdown', () => this.update2())
-    .on('pointerdown', () => this.scene.start('Level3', {
-      score1: this.score1,
-      cantAsteroides1: this.cantAsteroides1,
-      shield: this.shield,
-      vidasMax:this.vidasMax
-    }));
-  this.update3Dur = this.add.image(570, 270, "update3Dur")
-    .setScale(0.5)
-    .setInteractive()
-    .setDepth(4)
-    .on('pointerdown', () => this.update3())
-    .on('pointerdown', () => this.scene.start('Level3', {
-      score1: this.score1,
-      cantAsteroides1: this.cantAsteroides1,
-      shield: this.shield,
-      vidasMax:this.vidasMax
-    }));
+      .setScale(0.5)
+      .setInteractive()
+      .setDepth(4)
+      .on('pointerdown', () => this.update1())
+      .on('pointerdown', () => this.scene.start('Level3', {
+        score2: this.score2,
+        scoreTotal:this.scoreTotal,
+        cantAsteroides1: this.cantAsteroides1,
+        shield: this.shield,
+        vidasMax: this.vidasMax,
+        velocityABA: this.velocityABA,
+        velocityARI: this.velocityARI,
+        velocityDER: this.velocityDER,
+        velocityIZQ: this.velocityIZQ
+      }));
+    this.update2Vel = this.add.image(400, 270, "update2Vel")
+      .setScale(0.5)
+      .setInteractive()
+      .setDepth(4)
+      .on('pointerdown', () => this.update2())
+      .on('pointerdown', () => this.scene.start('Level3', {
+        score2: this.score2,
+        scoreTotal:this.scoreTotal,
+        cantAsteroides1: this.cantAsteroides1,
+        shield: this.shield,
+        vidasMax: this.vidasMax,
+        velocityABA: this.velocityABA,
+        velocityARI: this.velocityARI,
+        velocityDER: this.velocityDER,
+        velocityIZQ: this.velocityIZQ
+      }));
+    this.update3Dur = this.add.image(570, 270, "update3Dur")
+      .setScale(0.5)
+      .setInteractive()
+      .setDepth(4)
+      .on('pointerdown', () => this.update3())
+      .on('pointerdown', () => this.scene.start('Level3', {
+        score2: this.score2,
+        scoreTotal:this.scoreTotal,
+        cantAsteroides1: this.cantAsteroides1,
+        shield: this.shield,
+        vidasMax: this.vidasMax,
+        velocityABA: this.velocityABA,
+        velocityARI: this.velocityARI,
+        velocityDER: this.velocityDER,
+        velocityIZQ: this.velocityIZQ
+      }));
 
     /*  this.next = this.add.image(600, 370, "next").setScale(0.5).setInteractive()
        .on('pointerdown', () => this.scene.start('Level2', {})); */

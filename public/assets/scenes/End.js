@@ -3,7 +3,7 @@ export default class Preload extends Phaser.Scene {
     super("End");
   }
 
-  init({ isMusicMuted, musicM, scoreTotal, cantAsteroidesTotal }) {
+  init({ isMusicMuted, musicM, scoreTotal, cantAsteroidesTotal, }) {
     this.scoreTotal = scoreTotal;
     this.cantAsteroidesTotal = cantAsteroidesTotal;
 
