@@ -79,14 +79,14 @@ export default class Level1 extends Phaser.Scene {
     this.velocityABA = 250;
     this.velocityARI = -250;
 
-    let ayuda = this.physics.add.staticGroup()
+    this.ayuda = this.physics.add.staticGroup()
       .create(200, 450, "ayuda2")
       .setScale(0.8)
       .setInteractive()
       .on('pointerdown', () => ayuda.destroy())
       ;
     setTimeout(() => {
-      this.ayuda.destroy();
+      this.ayuda.destroy()
     }, 300);
 
     this.vidasImagen = this.add
@@ -155,13 +155,13 @@ export default class Level1 extends Phaser.Scene {
     this.physics.add.overlap(this.player, this.asteroidGroup);
     this.physics.add.collider(platforms, this.asteroidGroup);
 
-    this.physics.add.overlap(
+    /* this.physics.add.overlap(
       this.misil,
       this.asteroidGroup,
       this.destruirAsteroides,
       null,
       this
-    );
+    ); */
 
     this.physics.add.overlap(
       this.player,
