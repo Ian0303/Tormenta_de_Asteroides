@@ -196,7 +196,7 @@ export default class Level4 extends Phaser.Scene {
     });
 
     //timer
-    this.timer = 34;
+    this.timer = 32;
 
 
 
