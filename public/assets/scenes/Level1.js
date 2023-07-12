@@ -79,14 +79,14 @@ export default class Level1 extends Phaser.Scene {
     this.velocityABA = 250;
     this.velocityARI = -250;
 
-    this.ayuda = this.physics.add.staticGroup()
+    let ayuda = this.physics.add.staticGroup()
       .create(200, 450, "ayuda2")
       .setScale(0.8)
       .setInteractive()
       .on('pointerdown', () => ayuda.destroy())
       ;
     setTimeout(() => {
-      this.ayuda.destroy()
+      ayuda.destroy()
     }, 300);
 
     this.vidasImagen = this.add
