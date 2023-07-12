@@ -30,6 +30,9 @@ export default class Preload extends Phaser.Scene {
 
     this.load.image("scope", "./public/assets/images/scope.png");
 
+    this.load.image("misile", "./public/assets/images/misile.png");
+    this.load.image("grey", "./public/assets/images/grey.png");
+
     this.load.image("asteroid", "./public/assets/images/asteroid.png");
     this.load.image("asteroidExpl", "./public/assets/images/asteroidExpl.png");
     this.load.image("asteroidFrag", "./public/assets/images/asteroidFrag.png");
@@ -87,7 +90,7 @@ export default class Preload extends Phaser.Scene {
     this.add.image(400, 300, "background2");
     this.add.image(400, 300, "title");
     this.add.image(400, 300, "loading").setInteractive()
-      .on('pointerdown', () => this.scene.start("Level1"));;
+      .on('pointerdown', () => this.scene.start("Menu"));;
 
     /*  this.time.addEvent({
        delay: 6000,

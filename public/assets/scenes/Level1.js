@@ -94,6 +94,24 @@ export default class Level1 extends Phaser.Scene {
       .setOrigin(1, 0)
       .setScale(0.7);
 
+    //const particles = this.add.particles("grey");
+
+    /* const emitter = particles.createEmitter({
+      speed: 300,
+      scale: { start: 1, end: 0 },
+      blendMode: "ADD",
+    }); */
+
+    /* const misil = this.physics.add
+      .sprite(400, 520, "misile")
+      .setOrigin(1)
+      .setScale(0.5)
+      .setDepth(3)
+      .setVelocityX(-400) */
+
+
+    //emitter.startFollow(this.misil);
+
     // plataforma utilizada para la funciones encargadas de ka perdida de vida y gameOver
     let platforms = this.physics.add.staticGroup();
     platforms
@@ -130,13 +148,20 @@ export default class Level1 extends Phaser.Scene {
       loop: true,
     })
 
-
-
     this.cursors = this.input.keyboard.createCursorKeys();
+    //this.teclaM = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.M);
 
     this.physics.add.collider(this.player, platforms);
     this.physics.add.overlap(this.player, this.asteroidGroup);
     this.physics.add.collider(platforms, this.asteroidGroup);
+
+    this.physics.add.overlap(
+      this.misil,
+      this.asteroidGroup,
+      this.destruirAsteroides,
+      null,
+      this
+    );
 
     this.physics.add.overlap(
       this.player,
@@ -171,7 +196,7 @@ export default class Level1 extends Phaser.Scene {
     });
 
     //timer
-    this.timer = 5;
+    this.timer = 34;
 
 
 
@@ -290,8 +315,9 @@ export default class Level1 extends Phaser.Scene {
       this.player.setVelocity(0);
     }
 
-
-
+    /* if (this.teclaM.M.isDown) {
+      this.launchMisile();
+    } */
 
   }
 
@@ -414,7 +440,7 @@ export default class Level1 extends Phaser.Scene {
     //789, 517
     this.vidasImagen.x = 789;
     this.vidasImagen.y = 517;
-    
+
     if (this.vidas === 0) {
       // aca acción a realizar cuando vidas sea igual a "0"
       this.gameOver();
@@ -535,14 +561,14 @@ export default class Level1 extends Phaser.Scene {
       .on('pointerdown', () => this.update1())
       .on('pointerdown', () => this.scene.start('Level2', {
         score1: this.score1,
-        scoreTotal:this.score1,
+        scoreTotal: this.score1,
         cantAsteroides1: this.cantAsteroides1,
         shield: this.shield,
         vidasMax: this.vidasMax,
-        velocityABA:this.velocityABA,
-        velocityARI:this.velocityARI,
-        velocityDER:this.velocityDER,
-        velocityIZQ:this.velocityIZQ
+        velocityABA: this.velocityABA,
+        velocityARI: this.velocityARI,
+        velocityDER: this.velocityDER,
+        velocityIZQ: this.velocityIZQ
       }));
     this.update2Vel = this.add.image(400, 270, "update2Vel")
       .setScale(0.5)
@@ -551,14 +577,14 @@ export default class Level1 extends Phaser.Scene {
       .on('pointerdown', () => this.update2())
       .on('pointerdown', () => this.scene.start('Level2', {
         score1: this.score1,
-        scoreTotal:this.score1,
+        scoreTotal: this.score1,
         cantAsteroides1: this.cantAsteroides1,
         shield: this.shield,
         vidasMax: this.vidasMax,
-        velocityABA:this.velocityABA,
-        velocityARI:this.velocityARI,
-        velocityDER:this.velocityDER,
-        velocityIZQ:this.velocityIZQ
+        velocityABA: this.velocityABA,
+        velocityARI: this.velocityARI,
+        velocityDER: this.velocityDER,
+        velocityIZQ: this.velocityIZQ
       }));
     this.update3Dur = this.add.image(570, 270, "update3Dur")
       .setScale(0.5)
@@ -567,14 +593,14 @@ export default class Level1 extends Phaser.Scene {
       .on('pointerdown', () => this.update3())
       .on('pointerdown', () => this.scene.start('Level2', {
         score1: this.score1,
-        scoreTotal:this.score1,
+        scoreTotal: this.score1,
         cantAsteroides1: this.cantAsteroides1,
         shield: this.shield,
         vidasMax: this.vidasMax,
-        velocityABA:this.velocityABA,
-        velocityARI:this.velocityARI,
-        velocityDER:this.velocityDER,
-        velocityIZQ:this.velocityIZQ
+        velocityABA: this.velocityABA,
+        velocityARI: this.velocityARI,
+        velocityDER: this.velocityDER,
+        velocityIZQ: this.velocityIZQ
       }));
 
     /*  this.next = this.add.image(600, 370, "next").setScale(0.5).setInteractive()
@@ -607,6 +633,14 @@ export default class Level1 extends Phaser.Scene {
     console.log(this.scoreTotal)
   }
 
+  launchMisile() {
+    var direccion = Phaser.Math.Angle.Between(misil.x, misil.y, this.asteroidGroup.x, this.asteroidGroup.y);
+    var distancia = Phaser.Math.Distance.Between(misil.x, misil.y, this.asteroidGroup.x, this.asteroidGroup.y);
 
+    Phaser.Actions.ShiftPosition([misil], Math.cos(direccion) * velocidadSeguimiento * delta / 1000, Math.sin(direccion) * velocidadSeguimiento * delta / 1000);
+
+
+
+  }
 
 }
