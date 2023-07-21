@@ -63,10 +63,11 @@ export default class Level1 extends Phaser.Scene {
     this.add.image(680, 570, "background5").setScale(0.45);
 
 
-
+    //musica, aún no implementada
     this.isMusicMuted = this.isMusicMuted;
     this.musicM = this.musicM;
 
+    //varaiables booleanas de recargar los cañones, pausa, los escudos y muerte
     this.load = true;
     this.pause = false;
     this.shield = false;
@@ -79,6 +80,7 @@ export default class Level1 extends Phaser.Scene {
     this.velocityABA = 250;
     this.velocityARI = -250;
 
+    //pop-up de ayuda con los controles
     let ayuda = this.physics.add.staticGroup()
       .create(200, 450, "ayuda2")
       .setScale(0.8)
@@ -89,28 +91,31 @@ export default class Level1 extends Phaser.Scene {
       ayuda.destroy()
     }, 300);
 
+    //imagen inicial de vidas del jugador
     this.vidasImagen = this.add
       .image(789, 517, "life3")
       .setOrigin(1, 0)
       .setScale(0.7);
 
-    //const particles = this.add.particles("grey");
-
-    /* const emitter = particles.createEmitter({
+      //particulas de humo
+    const particles = this.add.particles("grey");
+    //emisor de particulas
+     const emitter = particles.createEmitter({
       speed: 300,
       scale: { start: 1, end: 0 },
       blendMode: "ADD",
-    }); */
+    }); 
 
-    /* const misil = this.physics.add
+    //misil cuyo objetivo es destruir al astereoide más cercano al presionar una tecla.
+     const misil = this.physics.add
       .sprite(400, 520, "misile")
       .setOrigin(1)
       .setScale(0.5)
       .setDepth(3)
-      .setVelocityX(-400) */
+      .setVelocityX(-400) 
 
-
-    //emitter.startFollow(this.misil);
+    //funcion para emitir particulas mientras se sigue al misil
+    emitter.startFollow(this.misil);
 
     // plataforma utilizada para la funciones encargadas de ka perdida de vida y gameOver
     let platforms = this.physics.add.staticGroup();
@@ -124,7 +129,8 @@ export default class Level1 extends Phaser.Scene {
       .sprite(400, 300, "scope")
       .setScale(0.5)
       .setCircle(60, 12, 28)
-      .setDepth(3);
+      .setDepth(3)
+      .setCollideWorldBounds(true);
     //.setColliderWorldBounds(true);
 
     this.playerGroup = this.physics.add.group({
@@ -148,20 +154,22 @@ export default class Level1 extends Phaser.Scene {
       loop: true,
     })
 
+    //variable para activar el lanzamiento de los misiles
     this.cursors = this.input.keyboard.createCursorKeys();
-    //this.teclaM = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.M);
+    this.teclaM = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.M);
 
     this.physics.add.collider(this.player, platforms);
     this.physics.add.overlap(this.player, this.asteroidGroup);
     this.physics.add.collider(platforms, this.asteroidGroup);
 
-    /* this.physics.add.overlap(
+    //oeverlap del misil
+    this.physics.add.overlap(
       this.misil,
       this.asteroidGroup,
       this.destruirAsteroides,
       null,
       this
-    ); */
+    ); 
 
     this.physics.add.overlap(
       this.player,
@@ -196,7 +204,7 @@ export default class Level1 extends Phaser.Scene {
     });
 
     //timer
-    this.timer = 32;
+    this.timer = 30;
 
 
 
@@ -315,9 +323,10 @@ export default class Level1 extends Phaser.Scene {
       this.player.setVelocity(0);
     }
 
-    /* if (this.teclaM.M.isDown) {
+    //activación de la funcion para lanzar un misil
+     if (this.teclaM.M.isDown) {
       this.launchMisile();
-    } */
+    } 
 
   }
 
@@ -390,7 +399,8 @@ export default class Level1 extends Phaser.Scene {
       setTimeout(() => {//coltdown
         this.load = true
       }, 100);
-
+      this.direccion = Phaser.Math.sin(this.asteroidGroup.y/(Math.sqrt((400**2) + (this.asteroidGroup.y**2))))
+      console.log(this.direccion);
     }
   }
 
@@ -632,12 +642,21 @@ export default class Level1 extends Phaser.Scene {
     console.log("vidas: " + this.vidasMax)
     console.log(this.scoreTotal)
   }
-
+//funcion para disprar el misil, utlizando las cordenadas del asteroide debe calcular el algulo de la direccion y la distancia para dirigir el misil hacia el asteroide.
   launchMisile() {
-    var direccion = Phaser.Math.Angle.Between(misil.x, misil.y, this.asteroidGroup.x, this.asteroidGroup.y);
-    var distancia = Phaser.Math.Distance.Between(misil.x, misil.y, this.asteroidGroup.x, this.asteroidGroup.y);
 
-    Phaser.Actions.ShiftPosition([misil], Math.cos(direccion) * velocidadSeguimiento * delta / 1000, Math.sin(direccion) * velocidadSeguimiento * delta / 1000);
+    //ECUACION: θ=arc sen(h / √(x² + h²))
+         //this.direccion = Phaser.Math.sin(this.asteroidGroup.y/(Math.sqrt((400**2) + (this.asteroidGroup.y**2))))
+        //console.log(this.direccion);
+
+
+        //SOLUCION PROPUESTA POR CHATGPT.
+        // Calcular la dirección y la distancia entre los objetos
+    // var direccion = Phaser.Math.Angle.Between(misil.x, misil.y, this.asteroidGroup.x, this.asteroidGroup.y);
+    // var distancia = Phaser.Math.Distance.Between(misil.x, misil.y, this.asteroidGroup.x, this.asteroidGroup.y);
+                
+    // Mover el objeto que sigue en la dirección calculada y con la velocidad de seguimiento
+    // Phaser.Actions.ShiftPosition([misil], Math.cos(direccion) * velocidadSeguimiento * delta / 1000, Math.sin(direccion) * velocidadSeguimiento * delta / 1000);
 
 
 
