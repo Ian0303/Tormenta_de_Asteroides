@@ -72,7 +72,7 @@ export default class Level1 extends Phaser.Scene {
     this.pause = false;
     this.shield = false;
     this.dead = false;
-
+    
 
     //velosidad player
     this.velocityIZQ = -250;
@@ -98,24 +98,27 @@ export default class Level1 extends Phaser.Scene {
       .setScale(0.7);
 
       //particulas de humo
-    const particles = this.add.particles("grey");
+    this.particles = this.add.particles("grey");
     //emisor de particulas
-     const emitter = particles.createEmitter({
+    this.emitter = this.particles.createEmitter({
       speed: 300,
-      scale: { start: 1, end: 0 },
+      scale: { start: 0.6, end: 0 },
       blendMode: "ADD",
     }); 
 
     //misil cuyo objetivo es destruir al astereoide más cercano al presionar una tecla.
-     const misil = this.physics.add
-      .sprite(400, 520, "misile")
+     this.misil = this.physics.add
+      .sprite(400, 300, "misile")
       .setOrigin(1)
       .setScale(0.5)
       .setDepth(3)
-      .setVelocityX(-400) 
+      .setVelocity(0, 0)
+      .setVisible(false)
+      .setCollideWorldBounds(true)
+      ;
 
     //funcion para emitir particulas mientras se sigue al misil
-    emitter.startFollow(this.misil);
+    this.emitter.startFollow(this.misil);
 
     // plataforma utilizada para la funciones encargadas de ka perdida de vida y gameOver
     let platforms = this.physics.add.staticGroup();
@@ -156,20 +159,24 @@ export default class Level1 extends Phaser.Scene {
 
     //variable para activar el lanzamiento de los misiles
     this.cursors = this.input.keyboard.createCursorKeys();
-    this.teclaM = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.M);
+    //this.teclaM = this.input.keyboard.createCursorKeys();
+
+    /* this.teclaM = this.input.keyboard.on("keydown_M", () => {
+      this.launchMisile();
+    }); */
 
     this.physics.add.collider(this.player, platforms);
     this.physics.add.overlap(this.player, this.asteroidGroup);
     this.physics.add.collider(platforms, this.asteroidGroup);
 
-    //oeverlap del misil
-    this.physics.add.overlap(
+    /* //oeverlap del misil RAZÓN POR LA CUAL FALLA EL JUEGO.
+     this.physics.add.overlap(
       this.misil,
       this.asteroidGroup,
       this.destruirAsteroides,
       null,
       this
-    ); 
+    ); */
 
     this.physics.add.overlap(
       this.player,
@@ -215,7 +222,7 @@ export default class Level1 extends Phaser.Scene {
       frameRate: 20
     });
 
-
+ //console.log(Phaser.Input.Keyboard.KeyCode);
 
     //Funcion para reiniciar musica(no funciona)
     /*  if (!isMusicMuted) {
@@ -323,10 +330,13 @@ export default class Level1 extends Phaser.Scene {
       this.player.setVelocity(0);
     }
 
+    /* if (this.misil.setVisible(false)) {
+      this.emitter.setVisible(false)
+    } */
     //activación de la funcion para lanzar un misil
-     if (this.teclaM.M.isDown) {
+       if (this.cursors.left.isDown) {
       this.launchMisile();
-    } 
+    }  
 
   }
 
@@ -561,7 +571,7 @@ export default class Level1 extends Phaser.Scene {
       color: '#0000FF',
     })
 
-    this.pause = true;
+    
 
     //mejoras
     this.update1Esc = this.add.image(230, 270, "update1Esc")
@@ -644,9 +654,14 @@ export default class Level1 extends Phaser.Scene {
   }
 //funcion para disprar el misil, utlizando las cordenadas del asteroide debe calcular el algulo de la direccion y la distancia para dirigir el misil hacia el asteroide.
   launchMisile() {
-
+    console.log("fire?")
+    this.misil
+    .setVisible(true)
+    .setVelocity(0, -300)
+    ;
+    this.particles.setVisible(true)
     //ECUACION: θ=arc sen(h / √(x² + h²))
-         //this.direccion = Phaser.Math.sin(this.asteroidGroup.y/(Math.sqrt((400**2) + (this.asteroidGroup.y**2))))
+        // this.direccion = Phaser.Math.sin(this.asteroidGroup.y/(Math.sqrt((400**2) + (this.asteroidGroup.y**2))))
         //console.log(this.direccion);
 
 

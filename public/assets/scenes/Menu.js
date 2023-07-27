@@ -21,12 +21,12 @@ export default class Menu extends Phaser.Scene {
 
 
     let isMusicMuted = false;
-    let musicM = this.sound.add("musicMenu").setLoop(true);
+    let musicM = this.sound.add("musicMenu", {loop: false});
     let musicOn = this.add.image(700, 40, "sound").setInteractive().setDepth(1);
     //musicM.play();
 
     musicOn.on("pointerdown", () => {
-      if (isMusicMuted) {
+      if (!isMusicMuted) {
         musicM.play();
         musicOn.setTexture("sound");
         isMusicMuted = false;
