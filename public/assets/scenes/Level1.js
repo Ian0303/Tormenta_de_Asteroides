@@ -55,7 +55,7 @@ export default class Level1 extends Phaser.Scene {
     //this.add.sprite(400, 452, "canon").setScale(0.5);
 
     this.add.image(400, 300, "interfaz").setScale(0.5);
-    ;
+    
     this.add.image(400, 20, "background5,5").setScale(0.5);
     this.add.image(40, 550, "botonInt").setScale(0.5).setInteractive()
       .on('pointerdown', () => this.scene.start('Menu'));
@@ -98,16 +98,16 @@ export default class Level1 extends Phaser.Scene {
       .setScale(0.7);
 
       //particulas de humo
-    this.particles = this.add.particles("grey");
+    /* this.particles = this.add.particles("grey");
     //emisor de particulas
     this.emitter = this.particles.createEmitter({
       speed: 300,
       scale: { start: 0.4, end: 0 },
       blendMode: "ADD",
     }); 
-
+    this.emitter.startFollow(this.misil).setDepth(2); */
     //misil cuyo objetivo es destruir al astereoide más cercano al presionar una tecla.
-     this.misil = this.physics.add
+     /* this.misil = this.physics.add
       .sprite(400, 300, "misile")
       .setOrigin(1)
       .setScale(0.5)
@@ -115,10 +115,10 @@ export default class Level1 extends Phaser.Scene {
       .setVelocity(0, 0)
       .setVisible(false)
       .setCollideWorldBounds(true)
-      ;
+      ; */
 
     //funcion para emitir particulas mientras se sigue al misil
-    this.emitter.startFollow(this.misil);
+    
 
     // plataforma utilizada para la funciones encargadas de ka perdida de vida y gameOver
     let platforms = this.physics.add.staticGroup();
@@ -654,12 +654,26 @@ export default class Level1 extends Phaser.Scene {
   }
 //funcion para disprar el misil, utlizando las cordenadas del asteroide debe calcular el algulo de la direccion y la distancia para dirigir el misil hacia el asteroide.
   launchMisile() {
+    this.misil = this.physics.add
+      .sprite(400, 300, "misile")
+      .setOrigin(1)
+      .setScale(0.5)
+      .setDepth(3)
+      .setVelocity(0, -300)
+      .setVisible(true)
+      .setCollideWorldBounds(true)
+      ;
+
     console.log("fire?")
-    this.misil
-    .setVisible(true)
-    .setVelocity(0, -300)
-    ;
-    this.particles.setVisible(true)
+
+    this.particles = this.add.particles("grey");
+    //emisor de particulas
+    this.emitter = this.particles.createEmitter({
+      speed: 300,
+      scale: { start: 0.4, end: 0 },
+      blendMode: "ADD",
+    }); 
+    this.emitter.startFollow(this.misil);
     //ECUACION: θ=arc sen(h / √(x² + h²))
         // this.direccion = Phaser.Math.sin(this.asteroidGroup.y/(Math.sqrt((400**2) + (this.asteroidGroup.y**2))))
         //console.log(this.direccion);
