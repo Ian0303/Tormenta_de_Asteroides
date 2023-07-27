@@ -102,7 +102,7 @@ export default class Level1 extends Phaser.Scene {
     //emisor de particulas
     this.emitter = this.particles.createEmitter({
       speed: 300,
-      scale: { start: 0.6, end: 0 },
+      scale: { start: 0.4, end: 0 },
       blendMode: "ADD",
     }); 
 
@@ -409,7 +409,7 @@ export default class Level1 extends Phaser.Scene {
       setTimeout(() => {//coltdown
         this.load = true
       }, 100);
-      this.direccion = Phaser.Math.sin(this.asteroidGroup.y/(Math.sqrt((400**2) + (this.asteroidGroup.y**2))))
+      //this.direccion = Phaser.Math.sin(this.asteroidGroup.y/(Math.sqrt((400**2) + (this.asteroidGroup.y**2))))
       console.log(this.direccion);
     }
   }
