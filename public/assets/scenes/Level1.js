@@ -134,14 +134,23 @@ export default class Level1 extends Phaser.Scene {
       .setCircle(60, 12, 28)
       .setDepth(3)
       .setCollideWorldBounds(true);
-    //.setColliderWorldBounds(true);
+    //.setCollideWorldBounds(true);
 
     this.playerGroup = this.physics.add.group({
       immovable: true,
       allowGravity: false,
     });
+
+    /* this.misileGroup = this.physics.add.group({
+      immovable: true,
+      allowGravity: false,
+    });
+
+    this.misileGroup.add(this.misil) */
     this.playerGroup.add(this.player);
     this.asteroidGroup = this.physics.add.group();
+
+    
 
     this.time.addEvent({
       delay: 3000,
@@ -160,23 +169,27 @@ export default class Level1 extends Phaser.Scene {
     //variable para activar el lanzamiento de los misiles
     this.cursors = this.input.keyboard.createCursorKeys();
     //this.teclaM = this.input.keyboard.createCursorKeys();
-
+    let teclaM = Phaser.Input.Keyboard.KeyCodes.M;
     /* this.teclaM = this.input.keyboard.on("keydown_M", () => {
       this.launchMisile();
     }); */
 
+    //        this.physics.add.collider(this.misiles, this.asteroides, this.colisionMisilAsteroide, null, this);
+
     this.physics.add.collider(this.player, platforms);
     this.physics.add.overlap(this.player, this.asteroidGroup);
     this.physics.add.collider(platforms, this.asteroidGroup);
+    //this.physics.add.collider(this.misileGroup, this.asteroidGroup, this.destruirAsteroides, null, this);
+    //this.physics.add.overlap(this.misil, this.asteroidGroup, this.destruirAsteroides, null, this);
 
-    /* //oeverlap del misil RAZÓN POR LA CUAL FALLA EL JUEGO.
-     this.physics.add.overlap(
+     //oeverlap del misil RAZÓN POR LA CUAL FALLA EL JUEGO.
+    /*  this.physics.add.overlap(
       this.misil,
       this.asteroidGroup,
-      this.destruirAsteroides,
+      this.destruirAsteroides2,
       null,
       this
-    ); */
+    );  */
 
     this.physics.add.overlap(
       this.player,
@@ -334,8 +347,8 @@ export default class Level1 extends Phaser.Scene {
       this.emitter.setVisible(false)
     } */
     //activación de la funcion para lanzar un misil
-       if (this.cursors.left.isDown) {
-      this.launchMisile();
+       if (this.cantMisil>0) {
+        this.input.keyboard.on('keydown-M', this.launchMisile, this);
     }  
 
   }
@@ -654,26 +667,64 @@ export default class Level1 extends Phaser.Scene {
   }
 //funcion para disprar el misil, utlizando las cordenadas del asteroide debe calcular el algulo de la direccion y la distancia para dirigir el misil hacia el asteroide.
   launchMisile() {
+    if (this.cantMisil>0 && this.load === true) {
+      
+    
     this.misil = this.physics.add
-      .sprite(400, 300, "misile")
+      .sprite(this.player.x, 600, "misile")
       .setOrigin(1)
       .setScale(0.5)
-      .setDepth(3)
-      .setVelocity(0, -300)
+      .setDepth(1)
+      .setVelocityY(-350)
       .setVisible(true)
       .setCollideWorldBounds(true)
+      .setGravity(0)
       ;
 
+      //.setGravity(0) .body.gravity.y = 0 ;
     console.log("fire?")
 
     this.particles = this.add.particles("grey");
     //emisor de particulas
     this.emitter = this.particles.createEmitter({
-      speed: 300,
-      scale: { start: 0.4, end: 0 },
+      speed: 200,
+      scale: { start: 0.2, end: 0 },
       blendMode: "ADD",
     }); 
     this.emitter.startFollow(this.misil);
+    
+    this.cantMisil--;
+    this.misilText.setText(this.cantMisil);
+
+    this.misileGroup = this.physics.add.group({
+      gravity: { y: 0 },
+      allowGravity: false,
+      immovable: true,  
+    })
+    //.setGravityY(0)
+    .setVelocity(0, -350);
+
+    this.misileGroup.children.iterate((this.misil),{
+      allowGravity : false,
+    })
+
+    this.misil.setGravity(() =>
+    {
+        this.body.gravity.y = 0;
+
+        return this;
+    }),
+
+    this.misil.body.allowGravity = false;
+    
+    this.misileGroup.add(this.misil, setGravity(0))
+
+    this.physics.add.collider(this.misil, this.asteroidGroup);
+    this.physics.add.overlap(this.misil, this.asteroidGroup, this.destruirAsteroides2, null, this);
+    
+//this.misil.body.gravity.y = -1000 ;
+    //this.misileGroup.setGravity(-1000)
+
     //ECUACION: θ=arc sen(h / √(x² + h²))
         // this.direccion = Phaser.Math.sin(this.asteroidGroup.y/(Math.sqrt((400**2) + (this.asteroidGroup.y**2))))
         //console.log(this.direccion);
@@ -686,9 +737,15 @@ export default class Level1 extends Phaser.Scene {
                 
     // Mover el objeto que sigue en la dirección calculada y con la velocidad de seguimiento
     // Phaser.Actions.ShiftPosition([misil], Math.cos(direccion) * velocidadSeguimiento * delta / 1000, Math.sin(direccion) * velocidadSeguimiento * delta / 1000);
+    this.load = false
+    setTimeout(() => {//coltdown
+      this.load = true
+    }, 300);
+}
 
-
-
+  }
+  destruirAsteroides2(){
+    console.log("kaboom?")
   }
 
 }
