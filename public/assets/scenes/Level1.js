@@ -107,7 +107,7 @@ export default class Level1 extends Phaser.Scene {
 
     this.misileGroup.add(this.misil) */
     this.playerGroup.add(this.player);
-    this.asteroidGroup = this.physics.add.group();
+    /* this.asteroidGroup = this.physics.add.group();
     
     this.misileGroup = this.physics.add.group({
       immovable: true,
@@ -115,7 +115,7 @@ export default class Level1 extends Phaser.Scene {
     })
     //.setGravityY(0)
     .setVelocity(0, -350);
-
+ */
 
     this.time.addEvent({
       delay: 3000,
@@ -141,20 +141,19 @@ export default class Level1 extends Phaser.Scene {
 
 
     this.physics.add.collider(this.player, platforms);
-    this.physics.add.overlap(this.player, this.asteroidGroup);
     this.physics.add.collider(platforms, this.asteroidGroup);
 
     //this.physics.add.collider(this.misil, this.asteroidGroup);
 
      //overlap del misil RAZÓN POR LA CUAL FALLA EL JUEGO.
-      this.physics.add.overlap(
+     /*  this.physics.add.overlap(
       this.misileGroup,
       this.asteroidGroup,
       this.destruirAsteroides2,
       null,
       this
     ); 
-
+ */
     
     this.physics.add.overlap(
       this.player,
@@ -172,7 +171,7 @@ export default class Level1 extends Phaser.Scene {
       this
     );
 
-    let misil = this.physics.add
+    /* let misil = this.physics.add
     .sprite(this.player.x, 600, "misile")
     .setOrigin(1)
     .setScale(0.5)
@@ -183,15 +182,7 @@ export default class Level1 extends Phaser.Scene {
     .setGravity(0)
     setTimeout(() => misil.destroy(), 4000);
 
-    this.misileGroup.add(this.misil)
-
-    this.physics.moveTo(
-      misil,
-      this.asteroid.x,
-      this.asteroid.y,
-      -350
-    );
-
+    this.misileGroup.add(this.misil) */
 
     this.scoreText = this.add.text(380, 12, this.score1, {
       fontSize: "32px",
@@ -232,11 +223,11 @@ export default class Level1 extends Phaser.Scene {
 
     //timer
     this.timer = 30;
-    this.timerText = this.add.text(700, 20, this.timer, {
+   /*  this.timerText = this.add.text(700, 20, this.timer, {
       fontSize: "32px",
       fontStyle: "bold",
       fill: "#000",
-    });
+    }); */
 
     this.time.addEvent({
       delay: 1000,
@@ -530,23 +521,29 @@ export default class Level1 extends Phaser.Scene {
       //.setGravity(0) .body.gravity.y = 0 ;
     console.log("fire?")
 
-    this.particles = this.add.particles("grey");
+    /* this.particles = this.add.particles("grey");
     //emisor de particulas
     this.emitter = this.particles.createEmitter({
       speed: 50,
       scale: { start: 0.2, end: 0 },
       blendMode: "ADD",
     }); 
-    this.emitter.startFollow(this.misil);
+    this.emitter.startFollow(this.misil); */
     
     this.cantMisil--;
     this.misilText.setText(this.cantMisil);
 
-  
-    this.misileGroup.children.create((this.misil),{
+    this.physics.moveTo(
+      misil,
+      this.asteroid.x,
+      this.asteroid.y,
+      -350
+    );
+
+    /* this.misileGroup.children.create((this.misil),{
       allowGravity : false,
     })
-
+ */
     /* this.misil.setGravity(() =>
     {this.gravity.y = 0;
         return this;}), */
