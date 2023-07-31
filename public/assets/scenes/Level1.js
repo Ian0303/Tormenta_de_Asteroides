@@ -687,7 +687,7 @@ export default class Level1 extends Phaser.Scene {
     this.particles = this.add.particles("grey");
     //emisor de particulas
     this.emitter = this.particles.createEmitter({
-      speed: 200,
+      speed: 50,
       scale: { start: 0.2, end: 0 },
       blendMode: "ADD",
     }); 
