@@ -149,7 +149,7 @@ export default class Level1 extends Phaser.Scene {
     this.misileGroup.add(this.misil) */
     this.playerGroup.add(this.player);
     this.asteroidGroup = this.physics.add.group();
-
+    this.
     
 
     this.time.addEvent({
@@ -174,15 +174,15 @@ export default class Level1 extends Phaser.Scene {
       this.launchMisile();
     }); */
 
-    //        this.physics.add.collider(this.misiles, this.asteroides, this.colisionMisilAsteroide, null, this);
 
     this.physics.add.collider(this.player, platforms);
     this.physics.add.overlap(this.player, this.asteroidGroup);
     this.physics.add.collider(platforms, this.asteroidGroup);
-    this.physics.add.collider(this.misileGroup, this.asteroidGroup, this.destruirAsteroides2, null, this);
+
+    //this.physics.add.collider(this.misil, this.asteroidGroup);
     //this.physics.add.overlap(this.misil, this.asteroidGroup, this.destruirAsteroides, null, this);
 
-     //oeverlap del misil RAZÓN POR LA CUAL FALLA EL JUEGO.
+     //overlap del misil RAZÓN POR LA CUAL FALLA EL JUEGO.
     /*  this.physics.add.overlap(
       this.misil,
       this.asteroidGroup,
@@ -704,7 +704,7 @@ export default class Level1 extends Phaser.Scene {
     //.setGravityY(0)
     .setVelocity(0, -350);
 
-    this.misileGroup.children.iterate((this.misil),{
+    this.misileGroup.children.create((this.misil),{
       allowGravity : false,
     })
 
