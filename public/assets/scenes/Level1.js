@@ -179,7 +179,7 @@ export default class Level1 extends Phaser.Scene {
     this.physics.add.collider(this.player, platforms);
     this.physics.add.overlap(this.player, this.asteroidGroup);
     this.physics.add.collider(platforms, this.asteroidGroup);
-    //this.physics.add.collider(this.misileGroup, this.asteroidGroup, this.destruirAsteroides, null, this);
+    this.physics.add.collider(this.misileGroup, this.asteroidGroup, this.destruirAsteroides2, null, this);
     //this.physics.add.overlap(this.misil, this.asteroidGroup, this.destruirAsteroides, null, this);
 
      //oeverlap del misil RAZÓN POR LA CUAL FALLA EL JUEGO.
