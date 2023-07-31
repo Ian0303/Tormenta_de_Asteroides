@@ -13,6 +13,8 @@ export default class Preload extends Phaser.Scene {
     this.isMusicMuted = isMusicMuted;
     this.musicM = musicM;
     
+    console.log("puntaje total: " + this.scoreTotal)
+    console.log("asteroide destruidos en total: " + this.cantAsteroides1)
   }
 
 
@@ -32,6 +34,12 @@ export default class Preload extends Phaser.Scene {
     });
 
     this.playerScoreText = this.add.text(220, 260, "nombre: ", {
+      fontSize: "24px",
+      fontStyle: "bold",
+      frontFamily: "Console",
+      color: '#000000',
+    })
+    this.playerScoreText = this.add.text(320, 260, this.cantAsteroidesTotal, {
       fontSize: "24px",
       fontStyle: "bold",
       frontFamily: "Console",

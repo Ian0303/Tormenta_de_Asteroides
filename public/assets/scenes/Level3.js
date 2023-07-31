@@ -199,7 +199,7 @@ export default class Level3 extends Phaser.Scene {
     });
 
     //timer
-    this.timer = 30;
+    this.timer = 35;
 
 
 
@@ -632,8 +632,8 @@ export default class Level3 extends Phaser.Scene {
   update1() {
     this.shield = true
     console.log("shield: " + this.shield)
-    console.log(this.scoreTotal)
-  }
+    console.log("puntaje total: " + this.scoreTotal)
+    console.log("asteroide destruidos en total: " + this.cantAsteroides1)  }
 
   update2() {
     this.velocityIZQ = this.velocityIZQ - 25;
@@ -644,14 +644,14 @@ export default class Level3 extends Phaser.Scene {
     console.log("velocityDER: " + this.velocityDER)
     console.log("velocityABA: " + this.velocityABA)
     console.log("velocityARI: " + this.velocityARI)
-    console.log(this.scoreTotal)
-  }
+    console.log("puntaje total: " + this.scoreTotal)
+    console.log("asteroide destruidos en total: " + this.cantAsteroides1)  }
 
   update3() {
     this.vidasMax = this.vidasMax + 1;
     console.log("vidas: " + this.vidasMax)
-    console.log(this.scoreTotal)
-  }
+   console.log("puntaje total: " + this.scoreTotal)
+    console.log("asteroide destruidos en total: " + this.cantAsteroides1)  }
 
 
 

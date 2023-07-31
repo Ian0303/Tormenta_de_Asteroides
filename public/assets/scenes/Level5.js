@@ -196,7 +196,7 @@ export default class Level5 extends Phaser.Scene {
     });
 
     //timer
-    this.timer = 30;
+    this.timer = 35;
 
 
 
@@ -526,6 +526,9 @@ export default class Level5 extends Phaser.Scene {
     });
     this.player.setVisible(false);
     this.pause = true;
+
+    console.log("puntaje total: " + this.scoreTotal)
+    console.log("asteroide destruidos en total: " + this.cantAsteroides1)
 
     this.winText1 = this.add.text(170, 120, "¡¡Camino", {
       fontSize: "55px",
