@@ -720,7 +720,7 @@ export default class Level1 extends Phaser.Scene {
     this.misileGroup.add(this.misil, setGravity(0))
 
     this.physics.add.collider(this.misil, this.asteroidGroup);
-    this.physics.add.overlap(this.misil, this.asteroidGroup, this.destruirAsteroides2, null, this);
+    //this.physics.add.overlap(this.misil, this.asteroidGroup, this.destruirAsteroides2, null, this);
     
 //this.misil.body.gravity.y = -1000 ;
     //this.misileGroup.setGravity(-1000)
