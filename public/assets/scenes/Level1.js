@@ -107,8 +107,8 @@ export default class Level1 extends Phaser.Scene {
 
     this.misileGroup.add(this.misil) */
     this.playerGroup.add(this.player);
-    /* this.asteroidGroup = this.physics.add.group();
-    
+    this.asteroidGroup = this.physics.add.group();
+    /*
     this.misileGroup = this.physics.add.group({
       immovable: true,
       allowGravity: false,
@@ -263,9 +263,9 @@ export default class Level1 extends Phaser.Scene {
       this.emitter.setVisible(false)
     } */
     //activación de la funcion para lanzar un misil
-       if (this.cantMisil>0) {
+       /* if (this.cantMisil>0) {
         this.input.keyboard.on('keydown-M', this.launchMisile, this,);
-    }  
+    }   */
 
   }
 
