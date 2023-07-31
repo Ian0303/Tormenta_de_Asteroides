@@ -30,26 +30,7 @@ export default class Level1 extends Phaser.Scene {
   }
 
   create(data) {
-    //  Our player animations, turning, walking left and walking right.
-    /*  this.anims.create({
-      key: "left",
-      frames: this.anims.generateFrameNumbers("scope", { start: 0, end: 3 }),
-      frameRate: 10,
-      repeat: -1,
-    });
 
-    this.anims.create({
-      key: "turn",
-      frames: [{ key: "scope", frame: 4 }],
-      frameRate: 20,
-    });
-
-    this.anims.create({
-      key: "right",
-      frames: this.anims.generateFrameNumbers("scope", { start: 5, end: 8 }),
-      frameRate: 10,
-      repeat: -1,
-    }); */
 
     this.add.image(400, 300, "background");
     //this.add.sprite(400, 452, "canon").setScale(0.5);
@@ -96,28 +77,6 @@ export default class Level1 extends Phaser.Scene {
       .image(789, 517, "life3")
       .setOrigin(1, 0)
       .setScale(0.7);
-
-      //particulas de humo
-    /* this.particles = this.add.particles("grey");
-    //emisor de particulas
-    this.emitter = this.particles.createEmitter({
-      speed: 300,
-      scale: { start: 0.4, end: 0 },
-      blendMode: "ADD",
-    }); 
-    this.emitter.startFollow(this.misil).setDepth(2); */
-    //misil cuyo objetivo es destruir al astereoide más cercano al presionar una tecla.
-     /* this.misil = this.physics.add
-      .sprite(400, 300, "misile")
-      .setOrigin(1)
-      .setScale(0.5)
-      .setDepth(3)
-      .setVelocity(0, 0)
-      .setVisible(false)
-      .setCollideWorldBounds(true)
-      ; */
-
-    //funcion para emitir particulas mientras se sigue al misil
     
 
     // plataforma utilizada para la funciones encargadas de ka perdida de vida y gameOver
@@ -150,7 +109,13 @@ export default class Level1 extends Phaser.Scene {
     this.playerGroup.add(this.player);
     this.asteroidGroup = this.physics.add.group();
     
-    
+    this.misileGroup = this.physics.add.group({
+      immovable: true,
+      allowGravity: false,
+    })
+    //.setGravityY(0)
+    .setVelocity(0, -350);
+
 
     this.time.addEvent({
       delay: 3000,
@@ -180,17 +145,17 @@ export default class Level1 extends Phaser.Scene {
     this.physics.add.collider(platforms, this.asteroidGroup);
 
     //this.physics.add.collider(this.misil, this.asteroidGroup);
-    //this.physics.add.overlap(this.misil, this.asteroidGroup, this.destruirAsteroides, null, this);
 
      //overlap del misil RAZÓN POR LA CUAL FALLA EL JUEGO.
-    /*  this.physics.add.overlap(
-      this.misil,
+      this.physics.add.overlap(
+      this.misileGroup,
       this.asteroidGroup,
       this.destruirAsteroides2,
       null,
       this
-    );  */
+    ); 
 
+    
     this.physics.add.overlap(
       this.player,
       this.asteroidGroup,
@@ -206,6 +171,27 @@ export default class Level1 extends Phaser.Scene {
       null,
       this
     );
+
+    let misil = this.physics.add
+    .sprite(this.player.x, 600, "misile")
+    .setOrigin(1)
+    .setScale(0.5)
+    .setDepth(1)
+    .setVelocityY(-350)
+    .setVisible(true)
+    .setCollideWorldBounds(true)
+    .setGravity(0)
+    setTimeout(() => misil.destroy(), 4000);
+
+    this.misileGroup.add(this.misil)
+
+    this.physics.moveTo(
+      misil,
+      this.asteroid.x,
+      this.asteroid.y,
+      -350
+    );
+
 
     this.scoreText = this.add.text(380, 12, this.score1, {
       fontSize: "32px",
@@ -244,67 +230,6 @@ export default class Level1 extends Phaser.Scene {
        
      } */
 
-
-    //CODIGO COPIADO POSIBLES FUNCIONES
-
-    //const map = this.make.tilemap({ key: "map" });
-
-    // Parameters are the name you gave the tileset in Tiled and then the key of the tileset image in
-    // Phaser's cache (i.e. the name you used in preload)
-    //const capaFondo = map.addTilesetImage("sky", "tilesFondo");
-    //const capaPlataformas = map.addTilesetImage("platform", "tilesPlataforma");
-
-    // Parameters: layer name (or index) from Tiled, tileset, x, y
-    /* const plataformaLayer = map.createLayer(
-      "plataformas",
-      capaPlataformas,
-      0,
-      0
-    );
-    const objectosLayer = map.getObjectLayer("objetos"); */
-
-    //plataformaLayer.setCollisionByProperty({ colision: true });
-
-    /* 
-    this.jugador = this.physics.add.sprite(spawnPoint.x, spawnPoint.y, "dude");
-
-    //  Player physics properties. Give the little guy a slight bounce.
-    this.jugador.setBounce(0.1);
-    this.jugador.setCollideWorldBounds(true);
-
-    // Input Events*/
-
-    /*
-    // Create empty group of starts
-    this.estrellas = this.physics.add.group();
-    spawnPoint = map.findObject("objetos", (obj) => obj.name === "salida");
-    console.log("spawn point exit ", spawnPoint);
-    this.salida = this.physics.add
-      .sprite(spawnPoint.x, spawnPoint.y, "exit")
-      .setScale(0.05);
-    this.salida.visible = false;
-    
-
-
-    // find object layer
-    // if type is "stars", add to stars group
-    objectosLayer.objects.forEach((objData) => {
-      //console.log(objData.name, objData.type, objData.x, objData.y);
-
-      const { x = 0, y = 0, name } = objData;
-      switch (name) {
-        case "estrella": {
-          // add star to scene
-          // console.log("estrella agregada: ", x, y);
-          const star = this.estrellas.create(x, y, "star");
-          break;
-        }
-      }
-    });
-
-
-  
-
     //timer
     this.timer = 30;
     this.timerText = this.add.text(700, 20, this.timer, {
@@ -318,7 +243,7 @@ export default class Level1 extends Phaser.Scene {
       callback: this.onSecond,
       callbackScope: this,
       loop: true,
-    });*/
+    });
   }
 
   update() {
@@ -348,19 +273,10 @@ export default class Level1 extends Phaser.Scene {
     } */
     //activación de la funcion para lanzar un misil
        if (this.cantMisil>0) {
-        this.input.keyboard.on('keydown-M', this.launchMisile, this);
+        this.input.keyboard.on('keydown-M', this.launchMisile, this,);
     }  
 
   }
-
-
-  //función de spawn de ateroides (descartada)
-  /* spawnAsteroid(randomNumber) {
-    let asteroid = this.add.image(randomNumber, 50, "asteroid");
-    this.physics.add.existing(asteroid);
-    asteroid.body.setCircle(25, 7, 7);
-    this.add(asteroid);
-     */
 
   addShape() {
     if (this.pause === false) {
@@ -376,35 +292,6 @@ export default class Level1 extends Phaser.Scene {
         .setDepth(1);
     }
   }
-
-  // codigo copiado, posibles funciones
-  /*
-  recolectarEstrella(jugador,estrella) {
-    estrella.disableBody(true, true);
-    //this.score = this.score + 10;
-    //console.log(this.score);
-      this.score++;
-      this.scoreText.setText(
-        "Score:" + this.score
-      );
-    if (this.estrellas.getTotalUsed() == 0) {
-      this.salida.visible = true;
-      this.score--
-    }
-  }
-  pasarNivel(salida) {
-    if (this.salida.visible === true) {
-      this.scene.start("Juego2",{score: this.score,});
-      
-    }
-  }
-  onSecond() {
-    this.timer--;
-    this.timerText.setText(this.timer);
-    if (this.timer <= 0) {
-      this.gameOver = true;
-    }
-  } */
 
   // destruye los asteroides que estan debajo de la mira(player) cunado se preciona la barra espaciadora,
   // suma puntos, la cantidad de asteroides destruidos y debe cambiar el sprite de "asteroide" por el de "explsion".(no funciona)
@@ -427,30 +314,7 @@ export default class Level1 extends Phaser.Scene {
     }
   }
 
-  //funcion inicial de gameOver(descartada)
-  /*  setGameOver(platform, asteroid) {
-     if (asteroid.texture.key == "asteroid") {
-       asteroid.destroy();
-     } else {
-       this.gameOver = true;
-     }
-   } */
 
-  //esta funcion debe usar la funcion "actualizarBarraVida()" para poducir un cambio en la barra de vida
-  /* impactoAsteroide(platform, asteroid) {
-    this.actualizarBarraVida(0.2)
-    asteroid.destroy();
-    console.log(this.vida)
-  }
-
-  actualizarBarraVida(porcentaje) {
-    //  el porcentaje debe estar dentro del rango válido (entre 0 y 1)
-    // el porcentaje se le asigna a la variable "scaleX" de la variable "vida" 
-    porcentaje = Phaser.Math.Clamp(porcentaje, 0, 1);
-
-    // actualiza la escala de la barra de vida según el porcentaje
-    this.vida.scaleX = porcentaje;
-  } */
   impactoAsteroide(platform, asteroid) {
     this.vidas--;
     asteroid.destroy();
@@ -584,7 +448,6 @@ export default class Level1 extends Phaser.Scene {
       color: '#0000FF',
     })
 
-    
 
     //mejoras
     this.update1Esc = this.add.image(230, 270, "update1Esc")
@@ -635,13 +498,7 @@ export default class Level1 extends Phaser.Scene {
         velocityDER: this.velocityDER,
         velocityIZQ: this.velocityIZQ
       }));
-
-    /*  this.next = this.add.image(600, 370, "next").setScale(0.5).setInteractive()
-       .on('pointerdown', () => this.scene.start('Level2', {})); */
-  }
-  //shield, vidas, velocityABA, velocityARI, velocityIZQ, velocityDER 
-
-
+    }
   update1() {
     this.shield = true
     console.log("shield: " + this.shield)
@@ -665,21 +522,10 @@ export default class Level1 extends Phaser.Scene {
     console.log("vidas: " + this.vidasMax)
     console.log(this.scoreTotal)
   }
+
 //funcion para disprar el misil, utlizando las cordenadas del asteroide debe calcular el algulo de la direccion y la distancia para dirigir el misil hacia el asteroide.
   launchMisile() {
     if (this.cantMisil>0 && this.load === true) {
-      
-    
-    this.misil = this.physics.add
-      .sprite(this.player.x, 600, "misile")
-      .setOrigin(1)
-      .setScale(0.5)
-      .setDepth(1)
-      .setVelocityY(-350)
-      .setVisible(true)
-      .setCollideWorldBounds(true)
-      .setGravity(0)
-      ;
 
       //.setGravity(0) .body.gravity.y = 0 ;
     console.log("fire?")
@@ -696,35 +542,21 @@ export default class Level1 extends Phaser.Scene {
     this.cantMisil--;
     this.misilText.setText(this.cantMisil);
 
-    this.misileGroup = this.physics.add.group({
-      gravity: { y: 0 },
-      allowGravity: false,
-      immovable: true,  
-    })
-    //.setGravityY(0)
-    .setVelocity(0, -350);
-
+  
     this.misileGroup.children.create((this.misil),{
       allowGravity : false,
     })
 
-    this.misil.setGravity(() =>
-    {
-        this.body.gravity.y = 0;
+    /* this.misil.setGravity(() =>
+    {this.gravity.y = 0;
+        return this;}), */
 
-        return this;
-    }),
-
-    this.misil.body.allowGravity = false;
+    //this.misil.body.allowGravity = false;
     
-    this.misileGroup.add(this.misil, setGravity(0))
 
-    this.physics.add.collider(this.misil, this.asteroidGroup);
-    //this.physics.add.overlap(this.misil, this.asteroidGroup, this.destruirAsteroides2, null, this);
+    //this.physics.add.collider(this.misileGroup, this.asteroidGroup);
+    //this.physics.add.overlap(this.misilGroup, this.asteroidGroup, this.destruirAsteroides2, null, this);
     
-//this.misil.body.gravity.y = -1000 ;
-    //this.misileGroup.setGravity(-1000)
-
     //ECUACION: θ=arc sen(h / √(x² + h²))
         // this.direccion = Phaser.Math.sin(this.asteroidGroup.y/(Math.sqrt((400**2) + (this.asteroidGroup.y**2))))
         //console.log(this.direccion);
