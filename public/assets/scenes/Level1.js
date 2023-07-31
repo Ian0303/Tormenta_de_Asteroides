@@ -149,7 +149,7 @@ export default class Level1 extends Phaser.Scene {
     this.misileGroup.add(this.misil) */
     this.playerGroup.add(this.player);
     this.asteroidGroup = this.physics.add.group();
-    this.
+    
     
 
     this.time.addEvent({
