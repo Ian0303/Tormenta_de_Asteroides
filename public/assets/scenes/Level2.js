@@ -547,7 +547,7 @@ export default class Level2 extends Phaser.Scene {
       .on('pointerdown', () => this.scene.start('Level3', {
         score2: this.score2,
         scoreTotal:this.scoreTotal,
-        cantAsteroides1: this.cantAsteroides1,
+        cantAsteroidesTotal: this.cantAsteroidesTotal,
         shield: this.shield,
         vidasMax: this.vidasMax,
         velocityABA: this.velocityABA,
@@ -563,7 +563,7 @@ export default class Level2 extends Phaser.Scene {
       .on('pointerdown', () => this.scene.start('Level3', {
         score2: this.score2,
         scoreTotal:this.scoreTotal,
-        cantAsteroides1: this.cantAsteroides1,
+        cantAsteroidesTotal: this.cantAsteroidesTotal,
         shield: this.shield,
         vidasMax: this.vidasMax,
         velocityABA: this.velocityABA,
@@ -579,7 +579,7 @@ export default class Level2 extends Phaser.Scene {
       .on('pointerdown', () => this.scene.start('Level3', {
         score2: this.score2,
         scoreTotal:this.scoreTotal,
-        cantAsteroides1: this.cantAsteroides1,
+        cantAsteroidesTotal: this.cantAsteroidesTotal,
         shield: this.shield,
         vidasMax: this.vidasMax,
         velocityABA: this.velocityABA,
@@ -610,14 +610,14 @@ export default class Level2 extends Phaser.Scene {
     console.log("velocityABA: " + this.velocityABA)
     console.log("velocityARI: " + this.velocityARI)
     console.log("puntaje total: " + this.scoreTotal)
-    console.log("asteroide destruidos en total: " + this.cantAsteroides1)
+    console.log("asteroide destruidos en total: " + this.cantAsteroidesTotal)
   }
 
   update3() {
     this.vidasMax = this.vidasMax + 1;
     console.log("vidas: " + this.vidasMax)
     console.log("puntaje total: " + this.scoreTotal)
-    console.log("asteroide destruidos en total: " + this.cantAsteroides1)  }
+    console.log("asteroide destruidos en total: " + this.cantAsteroidesTotal)  }
 
 
 

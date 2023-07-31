@@ -528,7 +528,7 @@ export default class Level5 extends Phaser.Scene {
     this.pause = true;
 
     console.log("puntaje total: " + this.scoreTotal)
-    console.log("asteroide destruidos en total: " + this.cantAsteroides1)
+    console.log("asteroide destruidos en total: " + this.cantAsteroidesTotal)
 
     this.winText1 = this.add.text(170, 120, "¡¡Camino", {
       fontSize: "55px",

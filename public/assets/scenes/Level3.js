@@ -582,7 +582,7 @@ export default class Level3 extends Phaser.Scene {
       .on('pointerdown', () => this.scene.start('Level4', {
         score3: this.score3,
         scoreTotal:this.scoreTotal,
-        cantAsteroides1: this.cantAsteroides1,
+        cantAsteroidesTotal: this.cantAsteroidesTotal,
         shield: this.shield,
         vidasMax: this.vidasMax,
         velocityABA: this.velocityABA,
@@ -598,7 +598,7 @@ export default class Level3 extends Phaser.Scene {
       .on('pointerdown', () => this.scene.start('Level4', {
         score3: this.score3,
         scoreTotal:this.scoreTotal,
-        cantAsteroides1: this.cantAsteroides1,
+        cantAsteroidesTotal: this.cantAsteroidesTotal,
         shield: this.shield,
         vidasMax: this.vidasMax,
         velocityABA: this.velocityABA,
@@ -614,7 +614,7 @@ export default class Level3 extends Phaser.Scene {
       .on('pointerdown', () => this.scene.start('Level4', {
         score3: this.score3,
         scoreTotal:this.scoreTotal,
-        cantAsteroides1: this.cantAsteroides1,
+        cantAsteroidesTotal: this.cantAsteroidesTotal,
         shield: this.shield,
         vidasMax: this.vidasMax,
         velocityABA: this.velocityABA,
@@ -633,7 +633,7 @@ export default class Level3 extends Phaser.Scene {
     this.shield = true
     console.log("shield: " + this.shield)
     console.log("puntaje total: " + this.scoreTotal)
-    console.log("asteroide destruidos en total: " + this.cantAsteroides1)  }
+    console.log("asteroide destruidos en total: " + this.cantAsteroidesTotal)  }
 
   update2() {
     this.velocityIZQ = this.velocityIZQ - 25;
@@ -645,13 +645,13 @@ export default class Level3 extends Phaser.Scene {
     console.log("velocityABA: " + this.velocityABA)
     console.log("velocityARI: " + this.velocityARI)
     console.log("puntaje total: " + this.scoreTotal)
-    console.log("asteroide destruidos en total: " + this.cantAsteroides1)  }
+    console.log("asteroide destruidos en total: " + this.cantAsteroidesTotal)  }
 
   update3() {
     this.vidasMax = this.vidasMax + 1;
     console.log("vidas: " + this.vidasMax)
    console.log("puntaje total: " + this.scoreTotal)
-    console.log("asteroide destruidos en total: " + this.cantAsteroides1)  }
+    console.log("asteroide destruidos en total: " + this.cantAsteroidesTotal)  }
 
 
 
