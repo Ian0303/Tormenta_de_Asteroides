@@ -221,9 +221,9 @@ export default class Level1 extends Phaser.Scene {
        
      } */
 
-    //timer
-    this.timer = 30;
-   /*  this.timerText = this.add.text(700, 20, this.timer, {
+   /*  //timer
+    this.timer = 35;
+    this.timerText = this.add.text(700, 20, this.timer, {
       fontSize: "32px",
       fontStyle: "bold",
       fill: "#000",
