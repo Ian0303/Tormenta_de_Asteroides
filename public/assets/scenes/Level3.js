@@ -497,7 +497,7 @@ export default class Level3 extends Phaser.Scene {
   gameOver() {
     this.gameOverI = this.add.image(400, 300, "background3").setScale(0.5);
     this.botonInt = this.add.image(265, 400, "botonInt").setInteractive().on('pointerdown', () => this.scene.start("Menu"));
-    this.reset = this.add.image(555, 400, "reset").setScale(0.2).setInteractive().on('pointerdown', () => this.scene.start("Level1"));
+    this.reset = this.add.image(555, 400, "reset").setScale(0.2).setInteractive().on('pointerdown', () => this.scene.start("Level3"));
     this.player.setVisible(false);
     this.pause = true;
     this.dead = true;

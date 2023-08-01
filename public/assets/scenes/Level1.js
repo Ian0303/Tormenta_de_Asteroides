@@ -54,6 +54,15 @@ export default class Level1 extends Phaser.Scene {
     this.shield = false;
     this.dead = false;
     
+    let score1 = 0;
+    let scoreTotal = 0;
+    let cantAsteroides1 = 0;
+    let shield = false;
+    let vidasMax = 3;
+    let velocityABA = -250;
+    let velocityARI = 250;
+    let velocityDER = 250;
+    let velocityIZQ = -250;
 
     //velosidad player
     this.velocityIZQ = -250;
@@ -292,7 +301,7 @@ export default class Level1 extends Phaser.Scene {
       setTimeout(() => {
         asteroid.destroy();
       }, 100);
-      this.score1 = this.score1 + 35;
+      this.score1 += 35;
       this.scoreText.setText(this.score1);
       this.cantAsteroides1++;
       console.log("Asteroides destruidos: " + this.cantAsteroides1)
