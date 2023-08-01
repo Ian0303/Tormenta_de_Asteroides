@@ -3,9 +3,11 @@ export default class Preload extends Phaser.Scene {
     super("End");
   }
 
-  init({ isMusicMuted, musicM, scoreTotal, cantAsteroidesTotal, }) {
+  init({ isMusicMuted, musicM, scoreTotal, cantAsteroidesTotal, cantAsteroides5, score5 }) {
     this.scoreTotal = scoreTotal;
     this.cantAsteroidesTotal = cantAsteroidesTotal;
+    this.score5 = score5
+    this.cantAsteroides5 = cantAsteroides5
 
     this.gameOver = false;
     this.vida = 1;
@@ -21,8 +23,11 @@ export default class Preload extends Phaser.Scene {
   create() {
     this.add.image(400, 300, "background");
 
-    this.add.image(400, 300, "background7").setScale(0.5);;
-    this.add.image(400, 450, "botonInt").setInteractive().on('pointerdown', () => this.scene.start("Menu"));;
+    this.add.image(400, 300, "background7").setScale(0.5);
+    this.add.image(400, 450, "botonInt").setInteractive().on('pointerdown', () => this.scene.start("Menu"));
+
+    this.cantAsteroidesTotal += this.cantAsteroides5
+    this.scoreTotal += this.score5
 
     this.clasificText = this.add.text(200, 100, "Clasificación:", {
       fontSize: "45px",
@@ -33,7 +38,7 @@ export default class Preload extends Phaser.Scene {
       strokeThickness: 4,
     });
 
-    this.playerScoreText = this.add.text(220, 260, "nombre: ", {
+    this.playerScoreText = this.add.text(220, 260, "Jugador: ", {
       fontSize: "24px",
       fontStyle: "bold",
       frontFamily: "Console",

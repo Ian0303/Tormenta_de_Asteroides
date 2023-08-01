@@ -37,8 +37,8 @@ export default class Level1 extends Phaser.Scene {
     this.add.image(680, 570, "background5").setScale(0.45);
 
     //musica, aún no implementada
-    this.isMusicMuted = this.isMusicMuted;
-    this.musicM = this.musicM;
+    /* this.isMusicMuted = this.isMusicMuted;
+    this.musicM = this.musicM; */
 
     //varaiables booleanas de recargar los cañones, pausa, los escudos y muerte
     this.load = true;
@@ -60,8 +60,9 @@ export default class Level1 extends Phaser.Scene {
       .setInteractive()
       .on("pointerdown", () => ayuda.destroy());
     setTimeout(() => {
+
       ayuda.destroy();
-    }, 300);
+    }, 2000);
 
     //imagen inicial de vidas del jugador
     this.vidasImagen = this.add
@@ -155,11 +156,12 @@ export default class Level1 extends Phaser.Scene {
     this.timer = 32;
 
     // animaciones del cañon (solo al disparar)
-    this.anims.create({
+   /*  this.anims.create({
       key: "turn",
       frames: this.anims.generateFrameNumbers("spritesheetCanon", { frame: 4 }),
-      frameRate: 20,
-    });
+
+      frameRate: 20
+    }); */
 
     this.time.addEvent({
       delay: 1000,
@@ -218,17 +220,18 @@ export default class Level1 extends Phaser.Scene {
       setTimeout(() => {
         asteroid.destroy();
       }, 100);
-      this.score1 = this.score1 + 35;
+      this.score1 += 35;
       this.scoreText.setText(this.score1);
       this.cantAsteroides1++;
-      console.log("Asteroides destruidos: " + this.cantAsteroides1);
-      this.load = false;
-      setTimeout(() => {
-        //coltdown
-        this.load = true;
+
+      console.log("Puntos: " + this.score1)
+      console.log("Asteroides destruidos: " + this.cantAsteroides1):
+      this.load = false:
+      setTimeout(() => {//coltdown
+        this.load = true:
       }, 100);
       //this.direccion = Phaser.Math.sin(this.asteroidGroup.y/(Math.sqrt((400**2) + (this.asteroidGroup.y**2))))
-      console.log(this.direccion);
+      //console.log(this.direccion);
     }
   }
 
@@ -291,6 +294,7 @@ export default class Level1 extends Phaser.Scene {
     this.player.setVisible(false);
     this.pause = true;
     this.dead = true;
+    this.player.setVelocity(0,0).setMaxVelocity(0,0);
 
     this.gameOverText = this.add.text(170, 120, "¡Nave", {
       fontSize: "70px",
@@ -319,6 +323,9 @@ export default class Level1 extends Phaser.Scene {
       .on("pointerdown", () => this.updates());
     this.player.setVisible(false);
     this.pause = true;
+
+    this.player.setVelocity(0,0).setMaxVelocity(0,0);
+
 
     this.winText1 = this.add.text(170, 120, "¡¡Camino", {
       fontSize: "55px",
@@ -436,10 +443,12 @@ export default class Level1 extends Phaser.Scene {
       );
   }
   update1() {
+
     this.shield = true;
     console.log("shield: " + this.shield);
-    console.log("puntaje total: " + score1);
-    console.log("asteroide destruidos en total: " + cantAsteroides1);
+    console.log("puntaje total: " + this.score1);
+    console.log("asteroide destruidos en total: " + this.cantAsteroides1);
+
   }
 
   update2() {
@@ -447,19 +456,23 @@ export default class Level1 extends Phaser.Scene {
     this.velocityDER = this.velocityDER + 25;
     this.velocityABA = this.velocityABA + 25;
     this.velocityARI = this.velocityARI - 25;
+
     console.log("velocityIZQ: " + this.velocityIZQ);
     console.log("velocityDER: " + this.velocityDER);
     console.log("velocityABA: " + this.velocityABA);
     console.log("velocityARI: " + this.velocityARI);
-    console.log("puntaje total: " + score1);
-    console.log("asteroide destruidos en total: " + cantAsteroides1);
+    console.log("puntaje total: " + this.score1);
+    console.log("asteroide destruidos en total: " + this.cantAsteroides1);
+
   }
 
   update3() {
     this.vidasMax = this.vidasMax + 1;
+
     console.log("vidas: " + this.vidasMax);
-    console.log("puntaje total: " + score1);
-    console.log("asteroide destruidos en total: " + cantAsteroides1);
+    console.log("puntaje total: " + this.score1);
+    console.log("asteroide destruidos en total: " + this.cantAsteroides1);
+
   }
 
   //funcion para disprar el misil, utlizando las cordenadas del asteroide debe calcular el algulo de la direccion y la distancia para dirigir el misil hacia el asteroide.

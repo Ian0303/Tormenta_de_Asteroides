@@ -110,8 +110,8 @@ export default class Level2 extends Phaser.Scene {
       .sprite(400, 300, "scope")
       .setScale(0.5)
       .setCircle(60, 12, 28)
-      .setDepth(3);
-    //.setColliderWorldBounds(true);
+      .setDepth(3)
+    .setCollideWorldBounds(true);
 
     this.playerGroup = this.physics.add.group({
       immovable: true,
@@ -121,7 +121,7 @@ export default class Level2 extends Phaser.Scene {
     this.asteroidGroup = this.physics.add.group();
 
     this.time.addEvent({
-      delay: 3000,
+      delay: 2500,
       callback: this.addShape,
       callbackScope: this,
       loop: true,
@@ -358,10 +358,9 @@ export default class Level2 extends Phaser.Scene {
         asteroid.destroy();
       }, 100);
       this.score2 = this.score2 + 35;
-      this.scoreTotal = this.scoreTotal + this.score2;
       this.scoreText.setText(this.score2);
       this.cantAsteroides2++;
-      this.cantAsteroidesTotal = this.cantAsteroides + this.cantAsteroides2;
+      console.log("Puntos: " + this.score2);
       console.log("Asteroides destruidos: " + this.cantAsteroides2)
       this.load = false
       setTimeout(() => {//coltdown
@@ -462,10 +461,11 @@ export default class Level2 extends Phaser.Scene {
   gameOver() {
     this.gameOverI = this.add.image(400, 300, "background3").setScale(0.5);
     this.botonInt = this.add.image(265, 400, "botonInt").setInteractive().on('pointerdown', () => this.scene.start("Menu"));
-    this.reset = this.add.image(555, 400, "reset").setScale(0.2).setInteractive().on('pointerdown', () => this.scene.start("Level1"));
+    this.reset = this.add.image(555, 400, "reset").setScale(0.2).setInteractive().on('pointerdown', () => this.scene.start("Level2"));
     this.player.setVisible(false);
     this.pause = true;
     this.dead = true;
+    this.player.setVelocity(0,0).setMaxVelocity(0,0);
 
     this.gameOverText = this.add.text(170, 120, "¡Nave", {
       fontSize: "70px",
@@ -489,6 +489,11 @@ export default class Level2 extends Phaser.Scene {
     this.mejoras = this.add.image(400, 420, "updates").setScale(0.25).setInteractive().on('pointerdown', () => this.updates());
     this.player.setVisible(false);
     this.pause = true;
+    this.player.setVelocity(0,0).setMaxVelocity(0,0);
+    this.scoreTotal += this.score2;
+    this.cantAsteroidesTotal += this.cantAsteroides2;
+    console.log("Total puntos: " + this.scoreTotal);
+    console.log("Total asteroides: " + this.cantAsteroidesTotal);
 
     this.winText1 = this.add.text(170, 120, "¡¡Camino", {
       fontSize: "55px",
@@ -597,8 +602,8 @@ export default class Level2 extends Phaser.Scene {
   update1() {
     this.shield = true
     console.log("shield: " + this.shield)
-    console.log("puntaje total: " + scoreTotal)
-    console.log("asteroide destruidos en total: " + cantAsteroidesTotal)  }
+    console.log("puntaje total: " + this.scoreTotal)
+    console.log("asteroide destruidos en total: " + this.cantAsteroidesTotal)  }
 
   update2() {
     this.velocityIZQ = this.velocityIZQ - 25;
@@ -609,15 +614,15 @@ export default class Level2 extends Phaser.Scene {
     console.log("velocityDER: " + this.velocityDER)
     console.log("velocityABA: " + this.velocityABA)
     console.log("velocityARI: " + this.velocityARI)
-    console.log("puntaje total: " + scoreTotal)
-    console.log("asteroide destruidos en total: " + cantAsteroidesTotal)
+    console.log("puntaje total: " + this.scoreTotal)
+    console.log("asteroide destruidos en total: " + this.cantAsteroidesTotal)
   }
 
   update3() {
     this.vidasMax = this.vidasMax + 1;
     console.log("vidas: " + this.vidasMax)
-    console.log("puntaje total: " + scoreTotal)
-    console.log("asteroide destruidos en total: " + cantAsteroidesTotal)  }
+    console.log("puntaje total: " + this.scoreTotal)
+    console.log("asteroide destruidos en total: " + this.cantAsteroidesTotal)  }
 
 
 

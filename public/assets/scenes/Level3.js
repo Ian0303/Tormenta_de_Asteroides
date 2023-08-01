@@ -134,8 +134,8 @@ export default class Level3 extends Phaser.Scene {
       .sprite(400, 300, "scope")
       .setScale(0.5)
       .setCircle(60, 12, 28)
-      .setDepth(3);
-    //.setColliderWorldBounds(true);
+      .setDepth(3)
+    .setCollideWorldBounds(true);
 
     this.playerGroup = this.physics.add.group({
       immovable: true,
@@ -199,7 +199,7 @@ export default class Level3 extends Phaser.Scene {
     });
 
     //timer
-    this.timer = 32;
+    this.timer = 47;
 
 
 
@@ -384,11 +384,10 @@ export default class Level3 extends Phaser.Scene {
       setTimeout(() => {
         asteroid.destroy();
       }, 100);
-      this.score3 = this.score3 + 35;
-      this.scoreTotal = this.scoreTotal + this.score3;
+      this.score3 += 35;
       this.scoreText.setText(this.score3);
       this.cantAsteroides3++;
-      this.cantAsteroidesTotal = this.cantAsteroides + this.cantAsteroides3;
+      console.log("Puntos: " + this.score3);
       console.log("Asteroides destruidos: " + this.cantAsteroides3)
       this.load = false
       setTimeout(() => {//coltdown
@@ -497,10 +496,11 @@ export default class Level3 extends Phaser.Scene {
   gameOver() {
     this.gameOverI = this.add.image(400, 300, "background3").setScale(0.5);
     this.botonInt = this.add.image(265, 400, "botonInt").setInteractive().on('pointerdown', () => this.scene.start("Menu"));
-    this.reset = this.add.image(555, 400, "reset").setScale(0.2).setInteractive().on('pointerdown', () => this.scene.start("Level1"));
+    this.reset = this.add.image(555, 400, "reset").setScale(0.2).setInteractive().on('pointerdown', () => this.scene.start("Level3"));
     this.player.setVisible(false);
     this.pause = true;
     this.dead = true;
+    this.player.setVelocity(0,0).setMaxVelocity(0,0);
 
     this.gameOverText = this.add.text(170, 120, "¡Nave", {
       fontSize: "70px",
@@ -524,6 +524,12 @@ export default class Level3 extends Phaser.Scene {
     this.mejoras = this.add.image(400, 420, "updates").setScale(0.25).setInteractive().on('pointerdown', () => this.updates());
     this.player.setVisible(false);
     this.pause = true;
+    this.player.setVelocity(0,0).setMaxVelocity(0,0);
+    this.scoreTotal += this.score3;
+    this.cantAsteroidesTotal += this.cantAsteroides3;
+    console.log("Total puntos: " + this.scoreTotal);
+    console.log("Total asteroides: " + this.cantAsteroidesTotal);
+
 
     this.winText1 = this.add.text(170, 120, "¡¡Camino", {
       fontSize: "55px",
