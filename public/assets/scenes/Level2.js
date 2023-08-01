@@ -121,7 +121,7 @@ export default class Level2 extends Phaser.Scene {
     this.asteroidGroup = this.physics.add.group();
 
     this.time.addEvent({
-      delay: 3000,
+      delay: 2500,
       callback: this.addShape,
       callbackScope: this,
       loop: true,

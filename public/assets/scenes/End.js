@@ -23,8 +23,8 @@ export default class Preload extends Phaser.Scene {
   create() {
     this.add.image(400, 300, "background");
 
-    this.add.image(400, 300, "background7").setScale(0.5);;
-    this.add.image(400, 450, "botonInt").setInteractive().on('pointerdown', () => this.scene.start("Menu"));;
+    this.add.image(400, 300, "background7").setScale(0.5);
+    this.add.image(400, 450, "botonInt").setInteractive().on('pointerdown', () => this.scene.start("Menu"));
 
     this.cantAsteroidesTotal += this.cantAsteroides5
     this.scoreTotal += this.score5
