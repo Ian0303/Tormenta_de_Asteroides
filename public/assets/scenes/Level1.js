@@ -97,7 +97,8 @@ export default class Level1 extends Phaser.Scene {
     this.playerGroup = this.physics.add.group({
       immovable: true,
       allowGravity: false,
-    });
+    })
+    .setCollideWorldBounds(true);
 
     /* this.misileGroup = this.physics.add.group({
       immovable: true,

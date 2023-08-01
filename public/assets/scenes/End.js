@@ -3,9 +3,10 @@ export default class Preload extends Phaser.Scene {
     super("End");
   }
 
-  init({ isMusicMuted, musicM, scoreTotal, cantAsteroidesTotal, }) {
-    this.scoreTotal = scoreTotal;
-    this.cantAsteroidesTotal = cantAsteroidesTotal;
+  init({ isMusicMuted, musicM, scoreTotal, cantAsteroidesTotal, cantAsteroides5, score5 }) {
+    this.scoreTotal = scoreTotal + score5;
+    this.cantAsteroidesTotal = cantAsteroidesTotal + cantAsteroides5;
+    
 
     this.gameOver = false;
     this.vida = 1;
