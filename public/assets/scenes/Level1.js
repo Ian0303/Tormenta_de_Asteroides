@@ -224,11 +224,11 @@ export default class Level1 extends Phaser.Scene {
       this.scoreText.setText(this.score1);
       this.cantAsteroides1++;
 
-      console.log("Puntos: " + this.score1)
-      console.log("Asteroides destruidos: " + this.cantAsteroides1):
-      this.load = false:
+      console.log("Puntos: " + this.score1);
+      console.log("Asteroides destruidos: " + this.cantAsteroides1);
+      this.load = false;
       setTimeout(() => {//coltdown
-        this.load = true:
+        this.load = true;
       }, 100);
       //this.direccion = Phaser.Math.sin(this.asteroidGroup.y/(Math.sqrt((400**2) + (this.asteroidGroup.y**2))))
       //console.log(this.direccion);
