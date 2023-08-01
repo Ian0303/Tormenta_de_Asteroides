@@ -45,8 +45,8 @@ export default class Level1 extends Phaser.Scene {
 
 
     //musica, aún no implementada
-    this.isMusicMuted = this.isMusicMuted;
-    this.musicM = this.musicM;
+    /* this.isMusicMuted = this.isMusicMuted;
+    this.musicM = this.musicM; */
 
     //varaiables booleanas de recargar los cañones, pausa, los escudos y muerte
     this.load = true;
@@ -97,8 +97,7 @@ export default class Level1 extends Phaser.Scene {
     this.playerGroup = this.physics.add.group({
       immovable: true,
       allowGravity: false,
-    })
-    .setCollideWorldBounds(true);
+    });
 
     /* this.misileGroup = this.physics.add.group({
       immovable: true,
