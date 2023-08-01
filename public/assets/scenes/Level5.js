@@ -214,83 +214,7 @@ export default class Level5 extends Phaser.Scene {
        this.musicM.stop();
        this.musicM.start();
        
-     } */
-
-
-    //CODIGO COPIADO POSIBLES FUNCIONES
-
-    //const map = this.make.tilemap({ key: "map" });
-
-    // Parameters are the name you gave the tileset in Tiled and then the key of the tileset image in
-    // Phaser's cache (i.e. the name you used in preload)
-    //const capaFondo = map.addTilesetImage("sky", "tilesFondo");
-    //const capaPlataformas = map.addTilesetImage("platform", "tilesPlataforma");
-
-    // Parameters: layer name (or index) from Tiled, tileset, x, y
-    /* const plataformaLayer = map.createLayer(
-      "plataformas",
-      capaPlataformas,
-      0,
-      0
-    );
-    const objectosLayer = map.getObjectLayer("objetos"); */
-
-    //plataformaLayer.setCollisionByProperty({ colision: true });
-
-    /* 
-    this.jugador = this.physics.add.sprite(spawnPoint.x, spawnPoint.y, "dude");
-
-    //  Player physics properties. Give the little guy a slight bounce.
-    this.jugador.setBounce(0.1);
-    this.jugador.setCollideWorldBounds(true);
-
-    // Input Events*/
-
-    /*
-    // Create empty group of starts
-    this.estrellas = this.physics.add.group();
-    spawnPoint = map.findObject("objetos", (obj) => obj.name === "salida");
-    console.log("spawn point exit ", spawnPoint);
-    this.salida = this.physics.add
-      .sprite(spawnPoint.x, spawnPoint.y, "exit")
-      .setScale(0.05);
-    this.salida.visible = false;
-    
-
-
-    // find object layer
-    // if type is "stars", add to stars group
-    objectosLayer.objects.forEach((objData) => {
-      //console.log(objData.name, objData.type, objData.x, objData.y);
-
-      const { x = 0, y = 0, name } = objData;
-      switch (name) {
-        case "estrella": {
-          // add star to scene
-          // console.log("estrella agregada: ", x, y);
-          const star = this.estrellas.create(x, y, "star");
-          break;
-        }
-      }
-    });
-
-
-  
-
-    //timer
-    this.timer = 30;
-    this.timerText = this.add.text(700, 20, this.timer, {
-      fontSize: "32px",
-      fontStyle: "bold",
-      fill: "#000",
-    });
-
-    this.time.addEvent({
-      delay: 1000,
-      callback: this.onSecond,
-      callbackScope: this,
-      loop: true,
-    });*/
+     }*/
   }
 
   update() {
@@ -320,15 +244,6 @@ export default class Level5 extends Phaser.Scene {
 
   }
 
-
-  //función de spawn de ateroides (descartada)
-  /* spawnAsteroid(randomNumber) {
-    let asteroid = this.add.image(randomNumber, 50, "asteroid");
-    this.physics.add.existing(asteroid);
-    asteroid.body.setCircle(25, 7, 7);
-    this.add(asteroid);
-     */
-
   addShape() {
     if (this.pause === false) {
 
@@ -344,34 +259,6 @@ export default class Level5 extends Phaser.Scene {
     }
   }
 
-  // codigo copiado, posibles funciones
-  /*
-  recolectarEstrella(jugador,estrella) {
-    estrella.disableBody(true, true);
-    //this.score = this.score + 10;
-    //console.log(this.score);
-      this.score++;
-      this.scoreText.setText(
-        "Score:" + this.score
-      );
-    if (this.estrellas.getTotalUsed() == 0) {
-      this.salida.visible = true;
-      this.score--
-    }
-  }
-  pasarNivel(salida) {
-    if (this.salida.visible === true) {
-      this.scene.start("Juego2",{score: this.score,});
-      
-    }
-  }
-  onSecond() {
-    this.timer--;
-    this.timerText.setText(this.timer);
-    if (this.timer <= 0) {
-      this.gameOver = true;
-    }
-  } */
 
   // destruye los asteroides que estan debajo de la mira(player) cunado se preciona la barra espaciadora,
   // suma puntos, la cantidad de asteroides destruidos y debe cambiar el sprite de "asteroide" por el de "explsion".(no funciona)
@@ -394,30 +281,7 @@ export default class Level5 extends Phaser.Scene {
     }
   }
 
-  //funcion inicial de gameOver(descartada)
-  /*  setGameOver(platform, asteroid) {
-     if (asteroid.texture.key == "asteroid") {
-       asteroid.destroy();
-     } else {
-       this.gameOver = true;
-     }
-   } */
 
-  //esta funcion debe usar la funcion "actualizarBarraVida()" para poducir un cambio en la barra de vida
-  /* impactoAsteroide(platform, asteroid) {
-    this.actualizarBarraVida(0.2)
-    asteroid.destroy();
-    console.log(this.vida)
-  }
-
-  actualizarBarraVida(porcentaje) {
-    //  el porcentaje debe estar dentro del rango válido (entre 0 y 1)
-    // el porcentaje se le asigna a la variable "scaleX" de la variable "vida" 
-    porcentaje = Phaser.Math.Clamp(porcentaje, 0, 1);
-
-    // actualiza la escala de la barra de vida según el porcentaje
-    this.vida.scaleX = porcentaje;
-  } */
   impactoAsteroide(platform, asteroid) {
     asteroid.destroy();
     this.crearExplosion(asteroid.x, asteroid.y)
@@ -482,13 +346,6 @@ export default class Level5 extends Phaser.Scene {
     }
   }
 
-  /*
- asteroid.setTexture("explosion").setScale(0.5);
-    setTimeout(() => {
-      asteroid.destroy();
-    },100);
-    this.explosion.play("Explosion");
-  */
 
   gameOver() {
     this.gameOverI = this.add.image(400, 300, "background3").setScale(0.5);

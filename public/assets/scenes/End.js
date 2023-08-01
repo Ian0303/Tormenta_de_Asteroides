@@ -9,6 +9,9 @@ export default class Preload extends Phaser.Scene {
     this.score5 = score5
     this.cantAsteroides5 = cantAsteroides5
 
+    this.cantAsteroidesTotal += this.cantAsteroides5
+    this.scoreTotal += this.score5
+    
     this.gameOver = false;
     this.vida = 1;
     this.cantMisil = 5;
@@ -26,8 +29,7 @@ export default class Preload extends Phaser.Scene {
     this.add.image(400, 300, "background7").setScale(0.5);
     this.add.image(400, 450, "botonInt").setInteractive().on('pointerdown', () => this.scene.start("Menu"));
 
-    this.cantAsteroidesTotal += this.cantAsteroides5
-    this.scoreTotal += this.score5
+    
 
     this.clasificText = this.add.text(200, 100, "Clasificación:", {
       fontSize: "45px",
