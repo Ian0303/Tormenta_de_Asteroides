@@ -62,7 +62,7 @@ export default class Preload extends Phaser.Scene {
       frontFamily: "Console",
       color: '#000000',
     })
-    this.scoreJuanNText = this.add.text(500, 290, "10000", {
+    this.scoreJuanNText = this.add.text(500, 290, "2765", {
       fontSize: "24px",
       fontStyle: "bold",
       frontFamily: "Console",
@@ -74,7 +74,7 @@ export default class Preload extends Phaser.Scene {
       frontFamily: "Console",
       color: '#000000',
     })
-    this.scorePabloNText = this.add.text(500, 320, "8000", {
+    this.scorePabloNText = this.add.text(500, 320, "2415", {
       fontSize: "24px",
       fontStyle: "bold",
       frontFamily: "Console",
@@ -86,7 +86,7 @@ export default class Preload extends Phaser.Scene {
       frontFamily: "Console",
       color: '#000000',
     })
-    this.scoreMariaNText = this.add.text(500, 350, "5000", {
+    this.scoreMariaNText = this.add.text(500, 350, "2240", {
       fontSize: "24px",
       fontStyle: "bold",
       frontFamily: "Console",
@@ -98,7 +98,7 @@ export default class Preload extends Phaser.Scene {
       frontFamily: "Console",
       color: '#000000',
     })
-    this.scoreLucasNText = this.add.text(500, 380, "3000", {
+    this.scoreLucasNText = this.add.text(500, 380, "2065", {
       fontSize: "24px",
       fontStyle: "bold",
       frontFamily: "Console",
