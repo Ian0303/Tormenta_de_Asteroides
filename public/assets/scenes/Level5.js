@@ -382,12 +382,9 @@ export default class Level5 extends Phaser.Scene {
         asteroid.destroy();
       }, 100);
       this.score5 += 35;
-      this.scoreTotal += this.score5;
       this.scoreText.setText(this.score5);
       this.cantAsteroides5++;
-      this.cantAsteroidesTotal = this.cantAsteroides + this.cantAsteroides5;
       console.log("Puntos: " + this.score5);
-      console.log("Total puntos: " + this.scoreTotal);
       console.log("Asteroides destruidos: " + this.cantAsteroides5)
       this.load = false
       setTimeout(() => {//coltdown
@@ -521,6 +518,11 @@ export default class Level5 extends Phaser.Scene {
 
   win() {
     this.winI = this.add.image(400, 300, "background4").setScale(0.5);
+    this.scoreTotal += this.score5;
+    this.cantAsteroidesTotal += this.cantAsteroides5;
+    console.log("Total puntos: " + this.scoreTotal);
+    console.log("Total asteroides: " + this.cantAsteroidesTotal);
+
     this.mejoras = this.add.image(400, 420, "updates").setScale(0.25).setInteractive().on('pointerdown', () => this.scene.start('End'), {
       scoreTotal: this.scoreTotal,
       score5: this.score5,
@@ -530,6 +532,7 @@ export default class Level5 extends Phaser.Scene {
     this.player.setVisible(false);
     this.pause = true;
     this.player.setVelocity(0,0).setMaxVelocity(0,0);
+    
 
 
     console.log("puntaje total: " + this.scoreTotal)

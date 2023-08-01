@@ -382,12 +382,9 @@ export default class Level4 extends Phaser.Scene {
         asteroid.destroy();
       }, 100);
       this.score4 += 35;
-      this.scoreTotal += this.score4;
       this.scoreText.setText(this.score4);
       this.cantAsteroides4++;
-      this.cantAsteroidesTotal = this.cantAsteroides + this.cantAsteroides4;
       console.log("Puntos: " + this.score4);
-      console.log("Total puntos: " + this.scoreTotal);
       console.log("Asteroides destruidos: " + this.cantAsteroides4)
       this.load = false
       setTimeout(() => {//coltdown
@@ -526,6 +523,11 @@ export default class Level4 extends Phaser.Scene {
     this.player.setVisible(false);
     this.pause = true;
     this.player.setVelocity(0,0).setMaxVelocity(0,0);
+    this.scoreTotal += this.score4;
+    this.cantAsteroidesTotal += this.cantAsteroides4;
+    console.log("Total puntos: " + this.scoreTotal);
+    console.log("Total asteroides: " + this.cantAsteroidesTotal);
+
 
     this.winText1 = this.add.text(170, 120, "¡¡Camino", {
       fontSize: "55px",
