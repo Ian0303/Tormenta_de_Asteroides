@@ -33,7 +33,7 @@ export default class Preload extends Phaser.Scene {
       strokeThickness: 4,
     });
 
-    this.playerScoreText = this.add.text(220, 260, "nombre: ", {
+    this.playerScoreText = this.add.text(220, 260, "Jugador: ", {
       fontSize: "24px",
       fontStyle: "bold",
       frontFamily: "Console",
