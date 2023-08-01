@@ -53,16 +53,6 @@ export default class Level1 extends Phaser.Scene {
     this.pause = false;
     this.shield = false;
     this.dead = false;
-    
-    let score1 = 0;
-    let scoreTotal = 0;
-    let cantAsteroides1 = 0;
-    let shield = false;
-    let vidasMax = 3;
-    let velocityABA = -250;
-    let velocityARI = 250;
-    let velocityDER = 250;
-    let velocityIZQ = -250;
 
     //velosidad player
     this.velocityIZQ = -250;
@@ -79,7 +69,7 @@ export default class Level1 extends Phaser.Scene {
       ;
     setTimeout(() => {
       ayuda.destroy()
-    }, 300);
+    }, 2000);
 
     //imagen inicial de vidas del jugador
     this.vidasImagen = this.add
@@ -215,11 +205,11 @@ export default class Level1 extends Phaser.Scene {
 
 
     // animaciones del cañon (solo al disparar)
-    this.anims.create({
+   /*  this.anims.create({
       key: "turn",
       frames: this.anims.generateFrameNumbers("spritesheetCanon", { frame: 4 }),
       frameRate: 20
-    });
+    }); */
 
  //console.log(Phaser.Input.Keyboard.KeyCode);
 
