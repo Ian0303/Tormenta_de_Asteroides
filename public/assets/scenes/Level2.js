@@ -358,7 +358,7 @@ export default class Level2 extends Phaser.Scene {
         asteroid.destroy();
       }, 100);
       this.score2 = this.score2 + 35;
-      this.scoreTotal = this.scoreTotal + this.score2;
+      this.scoreTotal += this.score2;
       this.scoreText.setText(this.score2);
       this.cantAsteroides2++;
       this.cantAsteroidesTotal = this.cantAsteroides + this.cantAsteroides2;
