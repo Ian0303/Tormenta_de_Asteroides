@@ -131,8 +131,8 @@ export default class Level5 extends Phaser.Scene {
       .sprite(400, 300, "scope")
       .setScale(0.5)
       .setCircle(60, 12, 28)
-      .setDepth(3);
-    //.setColliderWorldBounds(true);
+      .setDepth(3)
+      .setColliderWorldBounds(true);
 
     this.playerGroup = this.physics.add.group({
       immovable: true,
@@ -498,6 +498,7 @@ export default class Level5 extends Phaser.Scene {
     this.player.setVisible(false);
     this.pause = true;
     this.dead = true;
+    this.player.setVelocity(0,0).setMaxVelocity(0,0);
 
     this.gameOverText = this.add.text(170, 120, "¡Nave", {
       fontSize: "70px",
@@ -526,6 +527,8 @@ export default class Level5 extends Phaser.Scene {
     });
     this.player.setVisible(false);
     this.pause = true;
+    this.player.setVelocity(0,0).setMaxVelocity(0,0);
+
 
     console.log("puntaje total: " + this.scoreTotal)
     console.log("asteroide destruidos en total: " + this.cantAsteroidesTotal)

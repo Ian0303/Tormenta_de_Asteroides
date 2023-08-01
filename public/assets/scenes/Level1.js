@@ -377,6 +377,7 @@ export default class Level1 extends Phaser.Scene {
     this.player.setVisible(false);
     this.pause = true;
     this.dead = true;
+    this.player.setVelocity(0,0).setMaxVelocity(0,0);
 
     this.gameOverText = this.add.text(170, 120, "¡Nave", {
       fontSize: "70px",
@@ -400,7 +401,7 @@ export default class Level1 extends Phaser.Scene {
     this.mejoras = this.add.image(400, 420, "updates").setScale(0.25).setInteractive().on('pointerdown', () => this.updates());
     this.player.setVisible(false);
     this.pause = true;
-
+    this.player.setVelocity(0,0).setMaxVelocity(0,0);
 
     this.winText1 = this.add.text(170, 120, "¡¡Camino", {
       fontSize: "55px",
