@@ -132,7 +132,7 @@ export default class Level4 extends Phaser.Scene {
       .setScale(0.5)
       .setCircle(60, 12, 28)
       .setDepth(3)
-    .setColliderWorldBounds(true);
+    .setCollideWorldBounds(true);
 
     this.playerGroup = this.physics.add.group({
       immovable: true,
@@ -381,11 +381,13 @@ export default class Level4 extends Phaser.Scene {
       setTimeout(() => {
         asteroid.destroy();
       }, 100);
-      this.score4 = this.score4 + 35;
-      this.scoreTotal = this.scoreTotal + this.score4;
+      this.score4 += 35;
+      this.scoreTotal += this.score4;
       this.scoreText.setText(this.score4);
       this.cantAsteroides4++;
       this.cantAsteroidesTotal = this.cantAsteroides + this.cantAsteroides4;
+      console.log("Puntos: " + this.score4);
+      console.log("Total puntos: " + this.scoreTotal);
       console.log("Asteroides destruidos: " + this.cantAsteroides4)
       this.load = false
       setTimeout(() => {//coltdown

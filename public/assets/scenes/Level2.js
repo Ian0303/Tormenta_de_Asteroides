@@ -362,6 +362,8 @@ export default class Level2 extends Phaser.Scene {
       this.scoreText.setText(this.score2);
       this.cantAsteroides2++;
       this.cantAsteroidesTotal = this.cantAsteroides + this.cantAsteroides2;
+      console.log("Puntos: " + this.score2);
+      console.log("Total puntos: " + this.scoreTotal);
       console.log("Asteroides destruidos: " + this.cantAsteroides2)
       this.load = false
       setTimeout(() => {//coltdown
